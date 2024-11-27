@@ -1,9 +1,10 @@
+
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      
+    <div className='bg-accent-800 flex items-center p-8 text-paragraph-md'>
+      Admin Dashbord    
     </div>
   )
 }
