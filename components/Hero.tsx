@@ -11,18 +11,18 @@ export default function Hero() {
     >
       <div className="max-w-3xl px-4">
         {/* Heading */}
-        <h2 className="text-4xl font-semibold text-gray-800 mb-6">
+        <h2 className="text-heading-h1 text-black-200 mb-6">
           Farming Made Simple, Smart, and Profitable.
         </h2>
 
         {/* Subheading */}
-        <p className="text-lg text-gray-600 mb-8">
+        <p className="text-lg text-black-200 mb-8">
           Track your crops in real-time, get AI-powered recommendations, and
           connect with buyers—all in one platform.
         </p>
 
         {/* Call to Action */}
-        <button className="bg-green-600 text-white px-8 py-3 rounded-md font-medium hover:bg-green-700">
+        <button className="bg-green-600 text-white-50 px-8 py-3 rounded-md font-medium hover:bg-green-700">
           Create a Free Account
         </button>
       </div>
