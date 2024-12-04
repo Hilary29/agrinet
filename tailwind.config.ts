@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -166,16 +167,18 @@ const config: Config = {
 			}
 		},
 		fontFamily: {
-			sans: ['MyFont', 'sans-serif']
+			satoshi: ['Satoshi', 'sans-serif'],
+			inter: ['Inter', 'sans-serif'],
+			poppins: ['Poppins', 'sans-serif']
 		},
 		fontSize: {
-			'display-sm': ['44px', { lineHeight: '48px', letterSpacing: '-0.02em' }],
-			'heading-h1': ['40px', { lineHeight: '48px', letterSpacing: '-0.02em' }],
-			'heading-h2': ['36px', { lineHeight: '44px', letterSpacing: '-0.02em' }],
-			'heading-h3': ['32px', { lineHeight: '40px', letterSpacing: '-0.02em' }],
-			'heading-h4': ['28px', { lineHeight: '36px', letterSpacing: '-0.02em' }],
-			'heading-h5': ['24px', { lineHeight: '32px', letterSpacing: '-0.02em' }],
-			'heading-h6': ['20px', { lineHeight: '28px', letterSpacing: '-0.02em' }],
+			'display-desktop': ['44px', { lineHeight: '48px', letterSpacing: '-0.02em' }],
+			'heading-desktop-h1': ['40px', { lineHeight: '48px', letterSpacing: '-0.02em' }],
+			'heading-desktop-h2': ['36px', { lineHeight: '44px', letterSpacing: '-0.02em' }],
+			'heading-desktop-h3': ['32px', { lineHeight: '40px', letterSpacing: '-0.02em' }],
+			'heading-desktop-h4': ['28px', { lineHeight: '36px', letterSpacing: '-0.02em' }],
+			'heading-desktop-h5': ['24px', { lineHeight: '32px', letterSpacing: '-0.02em' }],
+			'heading-desktop-h6': ['20px', { lineHeight: '28px', letterSpacing: '-0.02em' }],
 			'mobile-h1': ['36px', { lineHeight: '44px', letterSpacing: '-0.02em' }],
 			'mobile-h2': ['32px', { lineHeight: '40px', letterSpacing: '-0.02em' }],
 			'mobile-h3': ['28px', { lineHeight: '36px', letterSpacing: '-0.02em' }],
@@ -193,6 +196,12 @@ const config: Config = {
 			'label-sm': ['12px', { lineHeight: '16px' }],
 			'label-xs': ['10px', { lineHeight: '14px' }]
 		},
+		fontWeight: {
+			regular:'400',
+			medium: '500',
+			semibold: '700',
+			bold: '900',
+		  },	
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
