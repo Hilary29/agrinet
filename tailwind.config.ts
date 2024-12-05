@@ -102,7 +102,7 @@ const config: Config = {
 				'900': '#041556'
 			},
 			white: {
-				'50': '#FAFAFA',
+				'50': '#FFFFFF',
 				'100': '#F4F4F4',
 				'200': '#E4E4E4',
 				'300': '#D4D4D4',
@@ -201,8 +201,16 @@ const config: Config = {
 			medium: '500',
 			semibold: '700',
 			bold: '900',
-		  },	
-  		borderRadius: {
+		},
+		boxShadow: {
+			'2dp': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px rgba(0, 0, 0, 0.03)',
+			'6dp': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px rgba(0, 0, 0, 0.03)',
+			'6dp-v2': '0px 1px 3px rgba(0, 0, 0, 0.1), 0px 6px 12px rgba(0, 0, 0, 0.08)',
+			'8dp': '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.03)',
+			'10dp': '0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.03)',
+			'12dp': '0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.03)',
+		},
+  		borderRadius: { 
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
