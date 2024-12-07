@@ -36,11 +36,15 @@
   @font-face {
     font-family: 'Inter';
     src: url('../public/fonts/Inter_24pt-Regular.ttf') format('ttf');
+    font-weight: 500; /* Medium */
+    font-style: normal;
   }
   
   @font-face {
     font-family: 'Inter';
-    src: url('../public/fonts/Inter_24pt-Regular.ttf') format('ttf');
+    src: url('../public/fonts/Inter_24pt-Bold.ttf') format('ttf');
+    font-weight: 700; /* Semibold */
+    font-style: normal;
   }
 
   @font-face {

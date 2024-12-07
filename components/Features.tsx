@@ -1,34 +1,64 @@
-import React from 'react'
+import React from "react";
+interface CardProps {
+  step: string;
+  title: string;
+  description: string;
+}
+
+const Cards: React.FC<CardProps> = ({ step, title, description }) => {
+  return (
+    <div className="flex flex-col items-center p-4 gap-4 w-[378px] h-[382px] bg-white shadow-lg rounded-lg">
+      {/* Placeholder for image */}
+      <div className="w-full h-[209px] bg-black-600 rounded-lg"></div>
+
+      {/* Text Content */}
+      <div className="flex flex-col items-start gap-2 w-full">
+        <p className="text-accent-500 text-sm font-bold">{step}</p>
+        <h3 className="text-lg font-bold text-black-500">{title}</h3>
+        <p className="text-sm text-black-400">{description}</p>
+      </div>
+    </div>
+  );
+};
 
 const Features = () => {
   return (
-    <section
-      id="features"
-      className=" gap-[10px] w-full flex flex-col    "
-    >
-      <div className="mx-[125px] gap-[60px] text-center ">
+    <section id="features" className=" gap-[10px] w-full flex flex-col    ">
+      <div className="mx-[125px] gap-[60px] text-center">
         <div className=" mb-[60px] ">
-          <div className="p-[10px] gap-[10px]  ">
-            <h2 className=" font-inter font-medium text-paragraph-md text-accent-500 ">
-              FEATURES
-            </h2>           
-          </div>
-          <div className="mb-8 gap-[11px] ">
-            <h2 className="mx-8 mb-[18px] text-heading-h1 text-black-200 ">
-              Farming Made Simple, Smart, and Profitable.
-            </h2>
-            <p className="mx-16 text-lg text-black-200 ">
-              Track your crops in real-
-            </p>            
+          <p className="p-[10px] gap-[10px] font-inter font-semibold text-paragraph-md text-accent-600 ">
+            FEATURES
+          </p>
+          <div className=" gap-[11px] ">
+            <p className="font-medium font-satoshi text-heading-desktop-h3 text-black-100 ">
+              Tools for Everyone Growing, Supporting, or Innovating in
+              Agriculture.
+            </p>
+            <p className=" mx-[318px] mt-[18px] justify-center text-paragraph-md font-regular text-black-400  ">
+              Monitor your fields, unlock valuable insights, and collaborate
+              with farmers, experts, and decision-makers to drive agricultural
+              success.
+            </p>
           </div>
         </div>
 
-        <div className="shadow-6dp h-[602px] rounded-elevation p-4 bg-white-50">
-          
+        <div className="mt-[60px] gap-[24px] ">
+          <div className="justify-between">
+            <div className="flex gap-6 mx-1 justify-center ">
+              <Cards step="One" title="Titre" description="Description" />
+              <Cards step="One" title="Titre" description="Description" />
+              <Cards step="One" title="Titre" description="Description" />
+            </div>
+            <div className="flex gap-6 mx-1 justify-center ">
+              <Cards step="One" title="Titre" description="Description" />
+              <Cards step="One" title="Titre" description="Description" />
+              
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Features
+export default Features;

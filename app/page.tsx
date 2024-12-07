@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import Testimonials from "@/components/Testimonials";
 /* import { ModeToggle } from "@/components/ModeToggle"; */ //Changement de theme Dark light
 import * as React from "react"
 
@@ -22,6 +23,7 @@ export default function Home() {
         <Features />
         <Benefits />
         <HowItWorks />
+        <Testimonials />
         <Faq />
         <Cta />
       </div>

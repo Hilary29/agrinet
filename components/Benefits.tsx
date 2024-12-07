@@ -4,6 +4,7 @@ import benefit1 from "../public/images/for-farmers-img.png";
 import benefit2 from "../public/images/cart-for-consumers.png";
 import benefit3 from "../public/images/for-institutions.png";
 
+
 const Benefits = () => {
   return (
     <section
@@ -13,7 +14,7 @@ const Benefits = () => {
       <div className="mx-[127px] my-[100px] gap-[60px]  ">
         <div className=" mb-[60px] text-center items-center ">
           <div className="p-[10px] gap-[10px]  ">
-            <h2 className=" font-inter font-medium text-paragraph-md text-accent-500 ">
+            <h2 className=" font-inter font-semibold text-paragraph-md text-accent-500 ">
               WHY CHOOSE US
             </h2>
           </div>
@@ -29,7 +30,7 @@ const Benefits = () => {
           </div>
         </div>
 
-        <div className="flex gap-6 ">
+        <div className="flex gap-6 justify-center ">
           <div className="flex flex-col items-start px-7 py-7 gap-9  h-full rounded-md bg-white-50 ">
             <div className="w-[115px] h-[115px]">
               <Image
