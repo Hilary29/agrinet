@@ -25,8 +25,8 @@ export default function Home() {
         <HowItWorks />
         <Testimonials />
         <Faq />
-        <Cta />
       </div>
+      <Cta />
       <Footer />
     </main>
   );

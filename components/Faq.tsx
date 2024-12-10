@@ -29,14 +29,14 @@ const Faq = () => {
   };
 
   return (
-    <section id="features" className="gap-[10px] w-full flex flex-col">
+    <section id="faq" className="gap-[10px] w-full flex flex-col">
       <div className="mx-[350px] gap-[60px] text-center">
         <div className="mb-[60px]">
           <p className="p-[10px] gap-[10px] font-inter font-semibold text-paragraph-md text-accent-600">
             SUPPORT
           </p>
           <div className="gap-[11px]">
-            <p className="font-medium font-satoshi text-heading-desktop-h3 text-black-100">
+            <p className="font-semibold font-satoshi text-heading-desktop-h3 text-black-100">
               Frequently Asked Questions
             </p>
             <p className="mt-[18px] justify-center text-paragraph-md font-regular text-black-400">
@@ -84,18 +84,18 @@ const Faq = () => {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-5">
-              <AccordionTrigger onClick={() => toggleAccordion('item-4')}>
+              <AccordionTrigger onClick={() => toggleAccordion('item-5')}>
                 Do I need IoT devices to use Agrinet?
-                <ToggleIcon isOpen={openItem === 'item-4'} />
+                <ToggleIcon isOpen={openItem === 'item-5'} />
               </AccordionTrigger>
               <AccordionContent>
                 Yes. It&apos;s animated by default, but you can disable it if you prefer.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-6">
-              <AccordionTrigger onClick={() => toggleAccordion('item-4')}>
+              <AccordionTrigger onClick={() => toggleAccordion('item-6')}>
                 Do I need IoT devices to use Agrinet?
-                <ToggleIcon isOpen={openItem === 'item-4'} />
+                <ToggleIcon isOpen={openItem === 'item-6'} />
               </AccordionTrigger>
               <AccordionContent>
                 Yes. It&apos;s animated by default, but you can disable it if you prefer.

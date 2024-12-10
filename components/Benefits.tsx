@@ -1,9 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import benefit1 from "../public/images/for-farmers-img.png";
 import benefit2 from "../public/images/cart-for-consumers.png";
 import benefit3 from "../public/images/for-institutions.png";
-
+import BenefitsCard from "./BenefitsCard";
 
 const Benefits = () => {
   return (
@@ -19,7 +18,7 @@ const Benefits = () => {
             </h2>
           </div>
           <div className="mb-8 gap-[11px] ">
-            <p className="mx-8 font-satoshi font-medium text-heading-desktop-h3 text-black-50 ">
+            <p className="mx-8 font-semibold font-satoshi text-heading-desktop-h3 text-black-50 ">
               Unlock the Full Potential of Your Farm and Business
             </p>
             <p className="mx:[134px] md:mx-[234px] font-inter font-medium text-paragraph-md text-black-400 ">
@@ -31,80 +30,27 @@ const Benefits = () => {
         </div>
 
         <div className="flex gap-6 justify-center ">
-          <div className="flex flex-col items-start px-7 py-7 gap-9  h-full rounded-md bg-white-50 ">
-            <div className="w-[115px] h-[115px]">
-              <Image
-                src={benefit1}
-                width={115}
-                height={115}
-                alt="benefit-card"
-              />
-            </div>
-            <div className="flex flex-col gap-6 items-start">
-              <p className="font-bold font-inter text-paragraph-lg text-black-100">
-                AgriNet For Farmers
-              </p>
-              <p className="font-inter font-regular text-paragraph-md text-black-300">
-                Boost efficiency, track crops, and sell directly to buyers—all
-                in one platform.
-              </p>
-              <div className="font-inter font-medium text-paragraph-md flex items-center gap-1">
-                <button className="flex items-center justify-center gap-1.5 text-[#06A5DB] ">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-start px-7 py-7 gap-9  h-full rounded-md bg-white-50 ">
-            <div className="w-[115px] h-[115px]">
-              <Image
-                src={benefit2}
-                width={115}
-                height={115}
-                alt="benefit-card"
-              />
-            </div>
-            <div className="flex flex-col gap-6 items-start">
-              <p className="font-bold font-inter text-paragraph-lg text-black-100">
-                AgriNet For Farmers
-              </p>
-              <p className="font-inter font-regular text-paragraph-md text-black-300">
-                Boost efficiency, track crops, and sell directly to buyers—all
-                in one platform.
-              </p>
-              <div className="font-inter font-medium text-paragraph-md flex items-center gap-1">
-                <button className="flex items-center justify-center gap-1.5 text-[#06A5DB] ">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-start px-7 py-7 gap-9  h-full rounded-md bg-white-50 ">
-            <div className="w-[115px] h-[115px]">
-              <Image
-                src={benefit3}
-                width={115}
-                height={115}
-                alt="benefit-card"
-              />
-            </div>
-            <div className="flex flex-col gap-6 items-start">
-              <p className="font-bold font-inter text-paragraph-lg text-black-100">
-                AgriNet For Farmers
-              </p>
-              <p className="font-inter font-regular text-paragraph-md text-black-300">
-                Boost efficiency, track crops, and sell directly to buyers—all
-                in one platform.
-              </p>
-              <div className="font-inter font-medium text-paragraph-md flex items-center gap-1">
-                <button className="flex items-center justify-center gap-1.5 text-[#06A5DB] ">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          </div>
+          <BenefitsCard
+            title={"Agrinet for Farmers"}
+            description={
+              "Boost efficiency, track crops, and sell directly to buyers—all in one platform."
+            }
+            imageSrc={benefit1}
+          />
+          <BenefitsCard
+            title={"Agrinet for Farmers"}
+            description={
+              "Boost efficiency, track crops, and sell directly to buyers—all in one platform."
+            }
+            imageSrc={benefit2}
+          />
+          <BenefitsCard
+            title={"Agrinet for Farmers"}
+            description={
+              "Boost efficiency, track crops, and sell directly to buyers—all in one platform."
+            }
+            imageSrc={benefit3}
+          />
         </div>
       </div>
     </section>

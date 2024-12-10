@@ -96,7 +96,7 @@ export function Header() {
               alt="Agrinet logo"
               className=" w-10 h-[36px]"
             /> 
-            <p className=" font-poppins text-[24px] leading-[36px] font-semibold text-left text-secondary-600 ">
+            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-600 ">
               AgriNet
             </p>                   
         </div>

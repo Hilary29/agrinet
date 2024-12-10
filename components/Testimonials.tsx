@@ -21,7 +21,7 @@ const Cards: React.FC<CardProps> = ({ step, title, description }) => {
 
 const Testimonials = () => {
   return (
-    <section id="features" className=" gap-[10px] w-full flex flex-col    ">
+    <section id="testimonials" className=" gap-[10px] w-full flex flex-col    ">
       <div className="mx-[125px] gap-[60px] text-center">
         <div className=" mb-[60px] ">
           <p className="p-[10px] gap-[10px] font-inter font-semibold text-paragraph-md text-accent-600 ">

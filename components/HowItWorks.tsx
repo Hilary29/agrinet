@@ -26,14 +26,14 @@ const Cards: React.FC<CardProps> = ({ step, title, description }) => {
 
 const HowItWorks = () => {
   return (
-    <section id="features" className=" gap-[10px] w-full flex flex-col    ">
+    <section id="how-it-works" className=" gap-[10px] w-full flex flex-col    ">
       <div className="mx-[125px] gap-[60px] text-center">
         <div className=" mb-[60px] ">
           <p className="p-[10px] gap-[10px] font-inter font-semibold text-paragraph-md text-accent-600 ">
             HOW IT WORKS
           </p>
           <div className=" gap-[11px] ">
-            <p className="font-medium font-satoshi text-heading-desktop-h3 text-black-100 ">
+            <p className="font-semibold font-satoshi text-heading-desktop-h3 text-black-100 ">
               Tools for Everyone Growing, Supporting, or Innovating in
               Agriculture.
             </p>

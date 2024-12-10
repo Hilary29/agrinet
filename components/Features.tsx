@@ -1,57 +1,39 @@
 import React from "react";
-interface CardProps {
-  step: string;
-  title: string;
-  description: string;
-}
+import FeaturesCard from "./FeaturesCard";
+import featureimg1 from '../public/images/feature-img1.png'
 
-const Cards: React.FC<CardProps> = ({ step, title, description }) => {
-  return (
-    <div className="flex flex-col items-center p-4 gap-4 w-[378px] h-[382px] bg-white shadow-lg rounded-lg">
-      {/* Placeholder for image */}
-      <div className="w-full h-[209px] bg-black-600 rounded-lg"></div>
 
-      {/* Text Content */}
-      <div className="flex flex-col items-start gap-2 w-full">
-        <p className="text-accent-500 text-sm font-bold">{step}</p>
-        <h3 className="text-lg font-bold text-black-500">{title}</h3>
-        <p className="text-sm text-black-400">{description}</p>
-      </div>
-    </div>
-  );
-};
 
 const Features = () => {
   return (
-    <section id="features" className=" gap-[10px] w-full flex flex-col    ">
-      <div className="mx-[125px] gap-[60px] text-center">
-        <div className=" mb-[60px] ">
-          <p className="p-[10px] gap-[10px] font-inter font-semibold text-paragraph-md text-accent-600 ">
+    <section id="features" className=" w-full     ">
+      <div className="flex flex-col mx-[125px] ">
+        <div className=" mb-[60px] text-center">
+          <p className="p-[10px] font-inter font-semibold text-paragraph-md text-accent-600 ">
             FEATURES
           </p>
-          <div className=" gap-[11px] ">
-            <p className="font-medium font-satoshi text-heading-desktop-h3 text-black-100 ">
+          <p className="font-semibold font-satoshi text-heading-desktop-h3 text-black-100 ">
               Tools for Everyone Growing, Supporting, or Innovating in
               Agriculture.
             </p>
-            <p className=" mx-[318px] mt-[18px] justify-center text-paragraph-md font-regular text-black-400  ">
+            <p className=" mx-[318px] mt-[18px] text-paragraph-md font-regular text-black-400  ">
               Monitor your fields, unlock valuable insights, and collaborate
               with farmers, experts, and decision-makers to drive agricultural
               success.
             </p>
-          </div>
         </div>
 
-        <div className="mt-[60px] gap-[24px] ">
-          <div className="justify-between">
-            <div className="flex gap-6 mx-1 justify-center ">
-              <Cards step="One" title="Titre" description="Description" />
-              <Cards step="One" title="Titre" description="Description" />
-              <Cards step="One" title="Titre" description="Description" />
+        <div className=" gap-[24px] ">
+          <div className="flex flex-col gap-6 justify-between">
+            <div className="flex gap-6 justify-center ">
+              <FeaturesCard title={"Step Up and Monitor"} description={"Sign up, connect your devices, and start tracking your farm in real time."} imageSrc={featureimg1}/>
+              <FeaturesCard title={"Step Up and Monitor"} description={"Sign up, connect your devices, and start tracking your farm in real time."} imageSrc={featureimg1}/>
+              <FeaturesCard title={"Step Up and Monitor"} description={"Sign up, connect your devices, and start tracking your farm in real time."} imageSrc={featureimg1}/>
+
             </div>
-            <div className="flex gap-6 mx-1 justify-center ">
-              <Cards step="One" title="Titre" description="Description" />
-              <Cards step="One" title="Titre" description="Description" />
+            <div className="flex gap-[10px]  justify-center ">
+            <FeaturesCard title={"Online Marketplace for Farmers and Buyers."} description={"Sign up, connect your devices, and start tracking your farm in real time."} imageSrc={featureimg1}/>
+              <FeaturesCard title={"Step Up and Monitor"} description={"Sign up, connect your devices, and start tracking your farm in real time."} imageSrc={featureimg1}/>
               
             </div>
           </div>
