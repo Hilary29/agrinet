@@ -157,9 +157,9 @@ export function Header() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <a href="#marketplace" className="text-black-100  hover:text-accent-500">
+          <Link href="/marketplace" className="text-black-100  hover:text-accent-500">
             Marketplace
-          </a>
+          </Link>
           <a href="#pricing" className="text-black-100  hover:text-accent-500">
             Pricing
           </a>

@@ -64,9 +64,9 @@ const FeaturesSection: React.FC = () => {
     <section className="flex flex-col justify-center items-center py-16 px-4 md:px-17 w-full max-w-[1440px] mx-auto">
       <div className="flex flex-col items-center gap-15 w-full max-w-[1186px]">
         <div className="flex flex-col items-center mb-14 text-center">
-          <span className=" text-accent-500 font-semibold text-paragraph-md p-2.5  rounded-full mb-2.5">
+          <p className=" text-accent-500 font-semibold text-paragraph-md p-2.5  rounded-full mb-2.5">
             FEATURES
-          </span>
+          </p>
           <h2 className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 ">
           Tools for Everyone Growing, Supporting, or Innovating in Agriculture.
           </h2>
