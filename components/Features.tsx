@@ -61,7 +61,7 @@ const FeaturesSection: React.FC = () => {
   ];
 
   return (
-    <section className="flex flex-col justify-center items-center py-16 px-4 md:px-17 w-full max-w-[1440px] mx-auto">
+    <section id='features' className="flex flex-col justify-center items-center py-16 px-4 md:px-17 w-full max-w-[1440px] mx-auto">
       <div className="flex flex-col items-center gap-15 w-full max-w-[1186px]">
         <div className="flex flex-col items-center mb-14 text-center">
           <p className=" text-accent-500 font-semibold text-paragraph-md p-2.5  rounded-full mb-2.5">

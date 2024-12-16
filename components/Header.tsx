@@ -101,15 +101,18 @@ export function Header() {
         </div>
 
         <nav className="hidden xl:flex gap-[24px] font-normal font-inter text-paragraph-md">
-          <a href="#login" className="text-black-100  hover:text-accent-500">
+        <Link href="/" className="text-black-100  hover:text-accent-500">
+            Home
+          </Link>
+          <Link href="#features" className="text-black-100  hover:text-accent-500">
             Features
-          </a>
+          </Link>
           <NavigationMenu className=" text-black-100 ">
             <NavigationMenuList className="gap-6">
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-black-100 ">Solutions</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
               {components.map((component) => (
                 <ListItem
                   key={component.title}
@@ -125,7 +128,7 @@ export function Header() {
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="text-black-100 ">Education</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
                     <li className="row-span-3">
                       <NavigationMenuLink asChild>
                         <a
@@ -160,12 +163,12 @@ export function Header() {
           <Link href="/marketplace" className="text-black-100  hover:text-accent-500">
             Marketplace
           </Link>
-          <a href="#pricing" className="text-black-100  hover:text-accent-500">
+          <Link href="/pricing" className="text-black-100  hover:text-accent-500">
             Pricing
-          </a>
-          <a href="#pricing" className="text-black-100  hover:text-accent-500">
+          </Link>
+          <Link href="#faq" className="text-black-100  hover:text-accent-500">
             FAQs
-          </a>
+          </Link>
         </nav>
 
         <div className="hidden lg:flex items-center gap-[18px] font-inter text-paragraph-md">
