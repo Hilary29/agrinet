@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main className=" "> 
       <Header />
-      <div className="space-y-[100px] bg-white-50"> 
+      <div className="space-y-[100px] bg-white-50 "> 
         <Hero />  
         <Features />
         <Benefits />
