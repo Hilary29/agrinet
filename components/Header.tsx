@@ -7,8 +7,6 @@ import logo from "../public/images/logo.png"
 
 import Image from "next/image"
 import Link from "next/link"
-import { GlobeAltIcon } from "@heroicons/react/24/outline"
-import { Button } from "./ui/button"
 import { cn } from "@/lib/utils"
 import {
   NavigationMenu,
@@ -18,6 +16,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
+import LanguageSwitcher from "./LanguageSwitcher"
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -96,12 +95,12 @@ export function Header() {
               alt="Agrinet logo"
               className=" w-10 h-[36px]"
             /> 
-            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-600 ">
+            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-700 ">
               AgriNet
             </p>                   
         </div>
 
-        <nav className="hidden xl:flex gap-[24px] font-inter text-paragraph-md">
+        <nav className="hidden xl:flex gap-[24px] font-normal font-inter text-paragraph-md">
           <a href="#login" className="text-black-100  hover:text-accent-500">
             Features
           </a>
@@ -180,12 +179,7 @@ export function Header() {
             href={"/signup"}>
             Sign up
           </Link>
-          <Button
-            className="flex items-center bg-outline border-2  px-3 py-2 rounded-md text-black-100 " 
-            >
-            <GlobeAltIcon className="text-[24px]"/>
-            EN
-          </Button>
+          <LanguageSwitcher/>
         </div>
       </div>
    </header>

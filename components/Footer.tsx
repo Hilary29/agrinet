@@ -1,19 +1,16 @@
-import React from 'react'
-import { Separator } from './ui/separator'
-import Image from "next/image"
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import logo from "../public/images/logo.png"
 
-
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col items-center justify-center px-[98px] py-[110px] gap-[10px] w-full bg-white">
-      <div className="flex flex-col items-center justify-between gap-[112px] w-[1184px]">
-        {/* Contact Section */}
-        <div className="flex justify-between items-start w-full">
-          <div className="flex flex-col items-start gap-[54px]">
-            {/* Logo and Name */}
-            <div className="flex flex-col gap-[24px]">
-            <div className="flex items-center gap-2">     
+    <footer className="bg-white py-28 px-6 sm:px-24 w-full">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row justify-between mb-28">
+          <div className="mb-14 lg:mb-0">
+            <div className="flex items-center mb-6">
             <Image 
               src={logo}
               width={164}
@@ -21,84 +18,73 @@ const Footer = () => {
               alt="Agrinet logo"
               className=" w-10 h-[36px]"
             /> 
-            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-600 ">
+            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-700 ">
               AgriNet
-            </p>                   
-        </div>
-              {/* Contact Information */}
-              <div className="flex flex-col gap-[16px]">
-                <p className="text-[16px] text-link leading-[24px]">
-                  contact@agrinet.com
-                </p>
-                <p className="text-[16px] text-link leading-[24px]">
-                  Yaoundé, Cameroon
-                </p>
-              </div>
+            </p>            </div>
+            <div className="text-[#626362] mb-14">
+              <p>contact@agrinet.com</p>
+              <p>Yaoundé, Cameroon</p>
             </div>
-            {/* Social Icons */}
-            <div className="flex gap-[23.98px]">
-              <div className="w-[19.18px] h-[19.18px] bg-link rounded-full"></div>
-              <div className="w-[19.18px] h-[19.18px] bg-link rounded-full"></div>
-              <div className="w-[19.18px] h-[19.18px] bg-link rounded-full"></div>
-              <div className="w-[19.18px] h-[19.18px] bg-link rounded-full"></div>
+            <div className="flex space-x-6">
+              <FaFacebook className="w-5 h-5 text-[#626362]" />
+              <FaTwitter className="w-5 h-5 text-[#626362]" />
+              <FaInstagram className="w-5 h-5 text-[#626362]" />
+              <FaLinkedin className="w-5 h-5 text-[#626362]" />
             </div>
           </div>
-
-          {/* Navigation Links */}
-          <div className="flex justify-between gap-16">
-            {/* Company Section */}
-            <div className="flex flex-col gap-[28.78px]">
-              <h4 className="text-[16px] font-medium text-secondary-700">Company</h4>
-              <ul className="flex flex-col gap-[23.98px] text-[16px] text-black-400 leading-[24px]">
-                <li>Home</li>
-                <li>About Us</li>
-                <li>Pricing</li>
-                <li>How it Works</li>
-                <li>Marketplace</li>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 lg:gap-32">
+            <div>
+              <h3 className="text-[#072B1C] font-medium mb-7">Company</h3>
+              <ul className="space-y-6">
+                <li><Link href="/" className="text-[#4B4B4B]">Home</Link></li>
+                <li><Link href="/about" className="text-[#4B4B4B]">About Us</Link></li>
+                <li><Link href="/pricing" className="text-[#4B4B4B]">Pricing</Link></li>
+                <li><Link href="/how-it-works" className="text-[#4B4B4B]">How it Works</Link></li>
+                <li><Link href="/marketplace" className="text-[#4B4B4B]">Marketplace</Link></li>
               </ul>
             </div>
-            {/* Resources Section */}
-            <div className="flex flex-col gap-[28.78px]">
-              <h4 className="text-[16px] font-medium text-secondary-700">Resources</h4>
-              <ul className="flex flex-col gap-[23.98px] text-[16px] text-black-400 leading-[24px]">
-                <li>Blog</li>
-                <li>Podcasts</li>
-                <li>Educational Hub</li>
-                <li>Case Studies</li>
+            <div>
+              <h3 className="text-[#072B1C] font-medium mb-7">Resources</h3>
+              <ul className="space-y-6">
+                <li><Link href="/blog" className="text-[#4B4B4B]">Blog</Link></li>
+                <li><Link href="/podcasts" className="text-[#4B4B4B]">Podcasts</Link></li>
+                <li><Link href="/educational-hub" className="text-[#4B4B4B]">Educational Hub</Link></li>
+                <li><Link href="/case-studies" className="text-[#4B4B4B]">Case Studies</Link></li>
               </ul>
             </div>
-           
-            {/* Support Section */}
-            <div className="flex flex-col gap-[28.78px]">
-              <h4 className="text-[16px] font-medium text-secondary-700">Support</h4>
-              <ul className="flex flex-col gap-[23.98px] text-[16px] text-black-400 leading-[24px]">
-                <li>Contact Us</li>
-                <li>FAQ</li>
-                <li>Help Center</li>
-                <li>User Guides</li>
+            <div>
+              <h3 className="text-[#072B1C] font-medium mb-7">Support</h3>
+              <ul className="space-y-6">
+                <li><Link href="/contact" className="text-[#4B4B4B]">Contact Us</Link></li>
+                <li><Link href="/faq" className="text-[#4B4B4B]">FAQ</Link></li>
+                <li><Link href="/help-center" className="text-[#4B4B4B]">Help Center</Link></li>
+                <li><Link href="/user-guides" className="text-[#4B4B4B]">User Guides</Link></li>
               </ul>
-
-              {/* Legal Section */}
-           
-            
-            
+            </div>
+            <div>
+              <h3 className="text-[#072B1C] font-medium mb-7">Legal</h3>
+              <ul className="space-y-6">
+                <li><Link href="/privacy-policy" className="text-[#4B4B4B]">Privacy Policy</Link></li>
+                <li><Link href="/terms-of-service" className="text-[#4B4B4B]">Terms of Service</Link></li>
+                <li><Link href="/cookie-policy" className="text-[#4B4B4B]">Cookie Policy</Link></li>
+              </ul>
+            </div>
           </div>
-          <div className="flex flex-col gap-[28.78px]">
-              <h4 className="text-[16px] font-medium text-secondary-700">Legal</h4>
-              <ul className="flex flex-col gap-[23.98px] text-[16px] text-black-400 leading-[24px]">
-                <li>Privacy Policy</li>
-                <li>Terms of Service</li>
-                <li>Cookie Policy</li>
-              </ul>
-              
-            </div>
-          
         </div>
-        </div><Separator className="my-4" />
-        
+        <div className="border-t border-[#E1E1E1] pt-10">
+          <div className="flex flex-col sm:flex-row justify-between items-center">
+            <p className="text-[#626362] mb-4 sm:mb-0">© 2024 AgriNet Inc. All Rights Reserved.</p>
+            <div className="flex items-center space-x-6">
+              <Link href="/terms" className="text-[#626362]">Terms & Conditions</Link>
+              <span className="text-[#626362]">•</span>
+              <Link href="/privacy" className="text-[#626362]">Privacy Policy</Link>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
+
