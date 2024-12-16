@@ -14,7 +14,7 @@ import * as React from "react";
 
 export default function Home() {
   return (
-    <main className=" ">
+    <main className="bg-white-50">
       <Header />
       <div className="space-y-[100px]">
         <section className="flex flex-col items-start w-full  bg-[url('/images/marketplace-font.png')] bg-cover bg-center bg-no-repeat bg-[#EBF9EE]  px-4 sm:px-6 md:px-8 lg:px-32 pt-16 sm:pt-20 md:pt-24 lg:pt-32">
