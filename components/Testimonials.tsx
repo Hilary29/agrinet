@@ -7,26 +7,26 @@ const testimonials = [
     quote: "Before AgriNet, I struggled to keep track of my crops and find buyers for my produce. Now, I can monitor my farm's health in real time and receive recommendations tailored to my needs. The marketplace feature has been a game-changer, letting me sell directly to buyers and earn better prices without relying on middlemen. Agrinet has truly simplified farming for me.",
     name: "Assamba Melono Medard",
     role: "Farmer from Cameroon",
-    image: "/images/farmer.jpg"
+    image: "/images/testimonial2.png"
   },
   {
     quote: "Agrinet's real-time data insights have revolutionized how we approach agricultural policy. The ability to analyze trends, monitor farming activities, and ensure sustainability has been invaluable in our efforts to support farmers and improve food security. The platform provides the tools we need to drive impactful change in agriculture.",
     name: "Ousmanou Oumarou Yaya",
     role: "Agricultural Researcher",
-    image: "/images/researcher.jpg"
+    image: "/images/testimonial1.png"
   },
   {
     quote: "Agrinet has completely changed how I buy food. I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices.",
     name: "Ngono Larissa Gaëlle",
     role: "Consumer",
-    image: "/images/consumer.jpg"
+    image: "/images/testimonial3.png"
   }
 ]
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section className=" py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1183px] mx-auto">
       <div className="text-center  mb-16">
         <p className=" text-accent-500 font-semibold text-paragraph-md p-2.5 mb-2.5">
           TESTIMONIALS

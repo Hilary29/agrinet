@@ -16,7 +16,7 @@ const LanguageSwitcher = () => {
     <div className="relative">
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center bg-transparent text-black-50 hover:bg-[#0000001b] border  p-2 rounded-md cursor-pointer"
+        className="flex items-center bg-transparent text-black-50 hover:bg-[#0000001b] border  p-2 rounded-md transition-colors duration-300"
       >
         <GlobeIcon className="h-6 w-5 mr-2" />
         {language.toUpperCase()}
