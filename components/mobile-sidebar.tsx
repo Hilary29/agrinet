@@ -95,7 +95,7 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
                     <Link
                       key={component.title}
                       href={component.href}
-                      className="hover:text-accent-500 transition-colors"
+                      className="hover:text-accent-500 transition-colors duration-300"
                       onClick={onClose}
                     >
                       {component.title}

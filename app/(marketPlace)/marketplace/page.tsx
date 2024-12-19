@@ -14,7 +14,7 @@ export default function Home() {
       <Header />
       <div className="space-y-[100px]">
         <section className=" bg-[url('/images/marketplace-font.png')] bg-cover bg-center bg-no-repeat  ">
-          <div className=" flex flex-col items-start bg-[#ebf9eed2] w-full px-4 sm:px-6 md:px-8 lg:px-32 py-16 sm:pt-20 md:pt-24 lg:pt-32">
+          <div className=" flex flex-col items-start bg-[#ebf9eed2] w-full px-4 sm:px-6 md:px-8 lg:px-32 py-24 sm:pt-20 md:pt-24 lg:pt-32">
             <div className="flex flex-col items-center w-full max-w-[1186px] mx-auto gap-8 ">
               <div className="flex flex-col items-center max-w-2xl lg:max-w-3xl text-center ">
                 <p className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 mx-12 ">

@@ -91,11 +91,11 @@ export function Header() {
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-br from-white-50 to-primary-50">
       <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 md:py-2">
         <div className="flex">
-          <div className="xl:hidden flex mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition-colors duration-300">
+          <div className="xl:hidden flex mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition duration-300">
             <Hamburger
               toggled={isSidebarOpen}
               toggle={setIsSidebarOpen}
-              size={20}
+              size={26}
             />
           </div>
           <Link className="flex items-center gap-2" href={"/"}>
