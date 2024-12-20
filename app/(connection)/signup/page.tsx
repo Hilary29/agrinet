@@ -29,11 +29,17 @@ const page = () => {
             <div className="grid gap-2">
               <Label
                 htmlFor="name"
-                className="font-regular text-paragraph-md font-inter bg-white-50 text-black-300 bg-"
+                className="font-regular text-paragraph-md font-inter  text-black-300 bg-"
               >
                 Name
               </Label>
-              <Input id="name" type="name" placeholder="John Doe" required />
+              <Input
+                id="name"
+                type="name"
+                placeholder="John Doe"
+                required
+                className="bg-white-50"
+              />
             </div>
             <div className="grid gap-2">
               <Label
@@ -47,6 +53,7 @@ const page = () => {
                 type="email"
                 placeholder="m@example.com"
                 required
+                className="bg-white-50"
               />
             </div>
             <div className="grid gap-2">
@@ -58,7 +65,11 @@ const page = () => {
                   Password
                 </Label>
               </div>
-              <Input id="password" type="password" required />
+              <Input 
+              id="password" 
+              type="password" 
+              required 
+              className="bg-white-50"/>
             </div>
             <div className="grid gap-2">
               <Button

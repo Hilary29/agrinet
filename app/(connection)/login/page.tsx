@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import Image from "next/image";
 
-
 const page = () => {
   return (
     <div>
@@ -39,13 +38,14 @@ const page = () => {
                 type="email"
                 placeholder="m@example.com"
                 required
+                className="bg-white-50"
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label
                   htmlFor="password"
-                  className="font-regular text-paragraph-md font-inter bg-white-50 text-black-300"
+                  className="font-regular text-paragraph-md font-inter text-black-300"
                 >
                   Password
                 </Label>
@@ -56,7 +56,12 @@ const page = () => {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" type="password" required />
+              <Input
+                id="password"
+                type="password"
+                required
+                className="bg-white-50"
+              />
             </div>
             <div className="grid gap-2">
               <Button
