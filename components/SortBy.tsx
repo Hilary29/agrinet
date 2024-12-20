@@ -53,7 +53,7 @@ export function SortBy({ options, defaultOption, onSortChange }: SortByProps) {
 
       {/* Menu déroulant */}
       {isDropdownOpen && (
-        <ul className="absolute right-0 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
+        <ul className="absolute right-0 mt-8 w-44 mx-auto rounded-md border border-gray-200 bg-white-50 shadow-lg">
           {options.map(option => (
             <li key={option.id}>
               <button

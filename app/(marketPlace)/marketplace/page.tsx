@@ -107,7 +107,7 @@ export default function Home() {
 
         <div className="flex w-full px-16  gap-6">
           {/* Filters Section */}
-          <aside className="min-w-48 sm:flex hidden">
+          <aside className="min-w-48 sm:flex hidden text-black-50">
             <Filters
               sections={filterSections}
               priceRange={[2000, 15000]}
@@ -117,7 +117,7 @@ export default function Home() {
 
           {/* Products Section */}
           <div className="flex-1">
-            <div className="flex justify-between items-center pb-4 border-b border-gray-200">
+            <div className="flex justify-between items-center pb-4 border-b border-gray-200 text-black-50">
               <p className="text-lg font-semibold">Products</p>
               <SortBy
                 options={sortOptions}
