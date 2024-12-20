@@ -17,34 +17,40 @@ const testimonials = [
     image: "/images/testimonial1.png"
   },
   {
-    quote: "Agrinet has completely changed how I buy food. I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices.",
+    quote: "Agrinet has completely changed how I buy food.I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices.",
     name: "Ngono Larissa Gaëlle",
     role: "Consumer",
     image: "/images/testimonial3.png"
   },
   {
-    quote: "Agrinet has completely changed how I buy food. I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices. ",
-    name: "Ngono Larissa Gaëlle",
-    role: "Consumer",
-    image: "/images/testimonial3.png"
+    quote: "AgriNet is a revolution for agricultural policymaking. Real-time data allows us to better understand farmer's needs and implement targeted initiatives to improve food security. It's an essential tool for developing more sustainable and resilient agriculture. ",
+    name: "Thomas Ndlovu",
+    role: "Agricultural Development Expert",
+    image: "/images/testimonial7.png"
   },
   {
     quote: "Agrinet has completely changed how I buy food. I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices.",
-    name: "Ngono Larissa Gaëlle",
-    role: "Consumer",
-    image: "/images/testimonial3.png"
+    name: "Fatoumata Keita",
+    role: "Farmer",
+    image: "/images/testimonial5.png"
   },
   {
-    quote: "Agrinet has completely changed how I buy food. I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices.",
-    name: "Ngono Larissa Gaëlle",
+    quote: "I feel so reassured knowing where my food comes from thanks to AgriNet. I can see exactly where each fruit or vegetable is sourced, and it makes me want to support local farmers directly. This is more than just a platform—it’s a new way to consume responsibly. I love the transparency AgriNet offers. Not only can I see the origin of my food, but I can also communicate directly with the producers. It feels amazing to contribute to sustainable farming practices while enjoying fresh, high-quality produce.",
+    name: "Olivier Mbianda",
     role: "Consumer",
-    image: "/images/testimonial3.png"
+    image: "/images/testimonial6.png"
   },
   {
-    quote: "Agrinet has completely changed how I buy food. I love knowing exactly where my produce comes from, thanks to the product traceability feature. It's reassuring to see the journey from farm to table. Plus, being able to support local farmers directly is a bonus—it feels good to know I'm contributing to sustainable farming practices.",
-    name: "Ngono Larissa Gaëlle",
-    role: "Consumer",
-    image: "/images/testimonial3.png"
+    quote: "AgriNet's digital solutions have transformed how we approach agricultural research. We can now track crop performance, analyze trends, and test modern techniques in collaboration with farmers. This connection between innovation and the field is incredible!",
+    name: "Pauline Akor",
+    role: "Agronomy Researcher",
+    image: "/images/testimonial4.png"
+  },
+  {
+    quote: "With AgriNet, our cooperative finally has a tool to help our members sell their produce at better prices. The real-time recommendations also help optimize agricultural yields, benefiting everyone. This platform is a true driver of transformation for local farmers.",
+    name: "Ahmed El-Badry",
+    role: "Agricultural Coordinator",
+    image: "/images/testimonial8.png"
   }
 ]
 

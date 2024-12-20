@@ -9,7 +9,7 @@ interface FeatureCardProps {
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, imageUrl, width }) => (
-  <div className={`flex flex-col items-center p-1.5 ${width} bg-white shadow-6dp-v2 rounded-lg`}>
+  <div className={`flex flex-col items-center p-1.5 ${width} bg-white-50 shadow-6dp-v2 rounded-lg`}>
     <div className="w-full aspect-[1.85/1] bg-gray-200 relative rounded-lg overflow-hidden">
       <Image
         src={imageUrl}

@@ -9,8 +9,8 @@ interface StepCardProps {
 }
 
 const StepCard: React.FC<StepCardProps> = ({ step, title, description, imageSrc }) => (
-  <div className="flex flex-col items-center p-2.5 gap-4 w-full  bg-white-50 shadow-6dp-v2 rounded-lg">
-    <div className="w-full h-52 bg-[#EBF9EE] rounded-lg overflow-hidden">
+  <div className="flex flex-col items-center p-2.5 gap-4 w-full  bg-primary-50 bg-opacity-5 shadow-6dp-v2 rounded-lg">
+    <div className="w-full h-52 bg-primary-50 rounded-lg overflow-hidden">
       <Image src={imageSrc} alt={title} width={358} height={209} className="w-full h-full object-cover" />
     </div>
     <div className="flex flex-col items-start gap-1 w-full">
@@ -55,7 +55,7 @@ const HowItWorks: React.FC = () => {
         From setup to growth, AgriNet makes farming smarter and easier in just a few steps.
         </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:mx-auto">
           {steps.map((step, index) => (
             <StepCard
               key={index}
