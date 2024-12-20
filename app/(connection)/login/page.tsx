@@ -30,7 +30,7 @@ const page = () => {
             <div className="grid gap-2">
               <Label
                 htmlFor="email"
-                className="font-regular text-paragraph-md font-inter text-black-300"
+                className="font-regular text-paragraph-md font-inter bg-white-50 text-black-300"
               >
                 Email
               </Label>
@@ -45,7 +45,7 @@ const page = () => {
               <div className="flex items-center">
                 <Label
                   htmlFor="password"
-                  className="font-regular text-paragraph-md font-inter text-black-300"
+                  className="font-regular text-paragraph-md font-inter bg-white-50 text-black-300"
                 >
                   Password
                 </Label>
@@ -68,7 +68,7 @@ const page = () => {
               <p className="text-center">or</p>
               <Button
                 variant="outline"
-                className="w-full font-semibold bg-transparent "
+                className="w-full font-semibold bg-white-50 text-black-300 hover:bg-white-100"
               >
                 <Image
                   src="/images/google-icon.png"
