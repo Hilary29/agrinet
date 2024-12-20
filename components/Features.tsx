@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from "next-intl";
 
 interface FeatureCardProps {
   title: string;
@@ -8,7 +9,8 @@ interface FeatureCardProps {
   width: string;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, imageUrl, width }) => (
+const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, imageUrl, width }
+) => (
   <div className={`flex flex-col items-center p-1.5 ${width} bg-white-50 shadow-6dp-v2 rounded-lg`}>
     <div className="w-full aspect-[1.85/1] bg-gray-200 relative rounded-lg overflow-hidden">
       <Image
@@ -27,6 +29,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, imageUrl,
 );
 
 const FeaturesSection: React.FC = () => {
+  const t = useTranslations("Features-section");
   const features = [
     {
       title: "Monitor Your Fields with Ease",
@@ -65,13 +68,13 @@ const FeaturesSection: React.FC = () => {
       <div className="flex flex-col items-center gap-15 w-full max-w-[1186px]">
         <div className="flex flex-col items-center mb-14 text-center">
           <p className=" text-accent-500 font-semibold text-paragraph-md p-2.5  rounded-full mb-2.5">
-            FEATURES
+            {t("Features")}
           </p>
-          <h2 className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 ">
-          Tools for Everyone Growing, Supporting, or Innovating in Agriculture.
-          </h2>
+          <p className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 ">
+          {t("Features-title")}
+          </p>
           <p className=" font-regular font-inter text-paragraph-md text-black-400 justify-center px-2.5  mb-6 sm:mb-8 md:mb-10 max-w-md sm:max-w-lg md:max-w-xl">
-          Monitor your fields, unlock valuable insights, and collaborate with farmers, experts, and decision-makers to drive agricultural success.
+            {t("Features-subtitle")}
           </p>
         </div>
         <div className="flex flex-col gap-6 w-full">

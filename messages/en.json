@@ -1,0 +1,24 @@
+{
+    "Header": {
+        "Home": "Home",
+        "Features": "Features",
+        "Solutions": "Solutions",
+        "Education": "Education",
+        "Marketplace": "Marketplace",
+        "Pricing": "Pricing",
+        "FAQs": "FAQs",
+        "Login": "Login",
+        "Signup": "Signup"
+    },
+    "Hero-section": {
+        "Hero-title": "Farming Made Simple, Smart, and Profitable.",
+        "Hero-subtitle": "Track your crops in real-time, get AI-powered recommendations, and connect with buyers—all in one platform.",
+        "Create-a-free-account": "Create a free account"
+    },
+    "Features-section" : 
+    {
+        "Features": "FEATURES",
+        "Features-title" : "Tools for Everyone Growing, Supporting, or Innovating in Agriculture.",
+        "Features-subtitle" : "Monitor your fields, unlock valuable insights, and collaborate with farmers, experts, and decision-makers to drive agricultural success."
+    }
+}

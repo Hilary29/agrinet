@@ -1,0 +1,26 @@
+{
+    "Header":
+    {
+        "Home": "Accueil",
+        "Features": "Fonctionnalités",
+        "Solutions": "Solutions",
+        "Education": "Education",
+        "Marketplace": "Marketplace",
+        "Pricing": "Pricing",
+        "FAQs": "FAQs",
+        "Login": "Connexion",
+        "Signup": "Inscription"
+      },
+      "Hero-section":
+      {
+        "Hero-title": "L'agriculture rendue simple, intelligente et profitable.",
+        "Hero-subtitle": "Suivez vos cultures en temps réel, obtenez des recommandations alimentées par l'IA et entrez en contact avec des acheteurs, le tout sur une seule et même plateforme." ,
+        "Create-a-free-account" : "Créer un compte gratuitement"   
+    },
+    "Features-section" :
+    {
+        "Features": "FONCTIONNALITES",
+        "Features-title" : "Des outils pour tous ceux qui cultivent, soutiennent ou innovent dans le domaine de l'agriculture.",
+        "Features-subtitle" : "Surveillez vos champs, obtenez des informations précieuses et collaborez avec des agriculteurs, des experts et des décideurs pour assurer la réussite de l'agriculture."
+    }
+}

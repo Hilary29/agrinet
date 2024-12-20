@@ -1,43 +1,50 @@
+"use client";
+
 import React, { useState, useRef } from "react";
+import { useLocale } from "next-intl";
 import { GlobeIcon } from "lucide-react";
+import Link from "next/link";
 
 const LanguageSwitcher = () => {
-  const [language, setLanguage] = useState("fr");
+  const locale = useLocale(); 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const handleLanguageChange = (lang: React.SetStateAction<string>) => {
-    setLanguage(lang);
+  const handleLanguageChange = (lang: string) => {
     setDropdownOpen(false);
-    console.log("Langue sélectionnée :", lang);
+    window.location.href = `/${lang}`; 
   };
 
   return (
     <div className="relative">
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center bg-transparent text-black-50 hover:bg-[#0000001b] border  p-2 rounded-md transition-colors duration-300"
+        className="flex items-center bg-transparent hover:bg-[#00000011] border p-2 rounded-md text-black-50 cursor-pointer transition duration-300"
       >
-        <GlobeIcon className="h-6 w-5 mr-2" />
-        {language.toUpperCase()}
+        <GlobeIcon className="h-6 w-5 mr-1" />
+        {locale.toUpperCase()} 
       </button>
 
       {dropdownOpen && (
         <ul
           ref={dropdownRef}
-          className="absolute top-full mt-2 left-0 text-black-50 bg-[#ffffff60] backdrop-blur-md border border-white rounded-md "
+          className="absolute top-full mt-2 left-0 bg-[#00000011]  backdrop-blur-md border border-black-500 rounded-md"
         >
           <li
             onClick={() => handleLanguageChange("fr")}
-            className="cursor-pointer px-5 py-1 hover:bg-[#0000004c]  transition"
+            className="cursor-pointer px-5 py-1 hover:bg-[#00000011] transition"
           >
-            FR
+            <Link href="/" locale="fr">
+              FR
+            </Link>
           </li>
           <li
             onClick={() => handleLanguageChange("en")}
-            className="cursor-pointer px-5 py-1  hover:bg-[#0000004c]  transition"
+            className="cursor-pointer px-5 py-1 hover:bg-[#00000011] transition"
           >
-            EN
+            <Link href="/" locale="en">
+              EN
+            </Link>
           </li>
         </ul>
       )}

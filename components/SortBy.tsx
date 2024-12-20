@@ -3,9 +3,9 @@
 import { useState } from 'react'
 
 interface SortByProps {
-  options: { id: string; label: string }[] // Liste des options de tri
-  defaultOption?: string // Option par défaut
-  onSortChange?: (selectedOption: string) => void // Callback lors du changement de tri
+  options: { id: string; label: string }[]
+  defaultOption?: string
+  onSortChange?: (selectedOption: string) => void 
 }
 
 export function SortBy({ options, defaultOption, onSortChange }: SortByProps) {
@@ -14,15 +14,12 @@ export function SortBy({ options, defaultOption, onSortChange }: SortByProps) {
     defaultOption || options[0]?.label
   )
 
-  // Gestion de l'ouverture/fermeture du dropdown
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen)
 
-  // Gestion de la sélection d'une option
   const handleOptionSelect = (option: string) => {
     setSelectedOption(option)
     setIsDropdownOpen(false)
 
-    // Appel du callback avec l'option sélectionnée
     if (onSortChange) {
       onSortChange(option)
     }
@@ -30,7 +27,6 @@ export function SortBy({ options, defaultOption, onSortChange }: SortByProps) {
 
   return (
     <div className="relative flex justify-end">
-      {/* Bouton principal */}
       <button
         onClick={toggleDropdown}
         className="flex items-center gap-1 text-sm"
@@ -51,11 +47,10 @@ export function SortBy({ options, defaultOption, onSortChange }: SortByProps) {
         </svg>
       </button>
 
-      {/* Menu déroulant */}
       {isDropdownOpen && (
-        <ul className="absolute right-0 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
+        <ul className="absolute right-0 mt-2 w-48 rounded-md border border-gray-200 bg-white-50 shadow-lg">
           {options.map(option => (
-            <li key={option.id}>
+            <li key={option.id} >
               <button
                 onClick={() => handleOptionSelect(option.label)}
                 className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${

@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { MobileSidebar } from "./mobile-sidebar"
 import LanguageSwitcher from "./LanguageSwitcher"
+import { useTranslations } from "next-intl"
 
 import logo from "../public/images/logo.png"
 
@@ -85,6 +86,7 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 
 export function Header() {
+  const t = useTranslations("Header") 
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
 
   return (
@@ -111,15 +113,15 @@ export function Header() {
 
         <nav className="flex gap-[24px] font-normal font-inter text-paragraph-md ">
         <Link href="/" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
-            Home
+            {t("Home")}
           </Link>
           <Link href="#features" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
-            Features
+            {t("Features")}
           </Link>
           <NavigationMenu className=" text-black-100 ">
             <NavigationMenuList className="gap-6">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">{t("Solutions")}</NavigationMenuTrigger>
                 <NavigationMenuContent>
                 <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
               {components.map((component) => (
@@ -135,7 +137,7 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">Education</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300"> {t("Education")} </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
                     <li className="row-span-3">
@@ -170,13 +172,13 @@ export function Header() {
             </NavigationMenuList>
           </NavigationMenu>
           <Link href="/marketplace" className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
-            Marketplace
+            {t("Marketplace")}
           </Link>
           <Link href="/pricing" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
-            Pricing
+            {t("Pricing")}
           </Link>
           <Link href="#faq" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
-            FAQs
+            {t("FAQs")}
           </Link>
         </nav>
 
@@ -184,12 +186,12 @@ export function Header() {
           <Link 
             className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300" 
             href={"/login"}>
-            Login
+            {t("Login")}
           </Link>
           <Link 
             className=" items-center bg-primary-600 text-white-50 px-3 py-2 rounded-md  hover:bg-green-700 transition-colors duration-300" 
             href={"/signup"}>
-            Sign up
+            {t("Signup")}
           </Link>
           <LanguageSwitcher/>
         </div>
