@@ -90,8 +90,8 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-br from-white-50 to-primary-50">
       <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 md:py-2">
-        <div className="flex">
-          <div className="xl:hidden flex mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition duration-300">
+        <div className="flex ">
+          <div className="xl:hidden flex mr-0 sm:mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition duration-300">
             <Hamburger
               toggled={isSidebarOpen}
               toggle={setIsSidebarOpen}
@@ -99,16 +99,12 @@ export function Header() {
             />
           </div>
           <Link className="flex items-center gap-2" href={"/"}>
-            <Image src={logo} alt="Agrinet logo" className="w-10 h-[36px]" />
-            <p className="font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-700">
+            <Image src={logo} alt="Agrinet logo" className="w-8 h-6 sm:w-10 sm:h-[36px]" />
+            <p className="font-poppins text-heading-desktop-h6 sm:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
               AgriNet
             </p>
           </Link>
         </div>
-
-
-
-
         <nav className="flex gap-[24px] font-normal font-inter text-paragraph-md ">
    
           <Link href="#features" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
@@ -178,14 +174,14 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-[18px] font-inter text-paragraph-md ">
+        <div className="flex items-center gap-2 lg:gap-[18px] font-inter text-paragraph-md ">
           <Link 
             className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300" 
             href={"/login"}>
             Login
           </Link>
           <Link 
-            className=" items-center bg-primary-600 text-white-50 px-3 py-2 rounded-md  hover:bg-green-700 transition-colors duration-300" 
+            className="hidden sm:flex items-center bg-primary-600 text-white-50 px-1.5 py-1 sm:px-3 sm:py-2 rounded-md  hover:bg-green-700 transition-colors duration-300" 
             href={"/signup"}>
             Sign up
           </Link>
