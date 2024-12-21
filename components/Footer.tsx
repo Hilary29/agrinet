@@ -11,16 +11,12 @@ const Footer: React.FC = () => {
         <div className="flex flex-col lg:flex-row justify-between mb-28">
           <div className="mb-14 lg:mb-0">
             <div className="flex items-center mb-6">
-            <Image 
-              src={logo}
-              width={164}
-              height={44}
-              alt="Agrinet logo"
-              className=" w-10 h-[36px]"
-            /> 
-            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-700 ">
+            <Link className="flex items-center gap-2" href={"/"}>
+            <Image src={logo} alt="Agrinet logo" className="w-10 h-[36px]" />
+            <p className="font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-700">
               AgriNet
-            </p>            </div>
+            </p>
+          </Link>           </div>
             <div className="text-[#626362] mb-14">
               <p>contact@agrinet.com</p>
               <p>Yaoundé, Cameroon</p>

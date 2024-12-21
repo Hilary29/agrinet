@@ -106,9 +106,6 @@ export function Header() {
           </Link>
         </div>
 
-
-
-
         <nav className="flex gap-[24px] font-normal font-inter text-paragraph-md ">
    
           <Link href="#features" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
