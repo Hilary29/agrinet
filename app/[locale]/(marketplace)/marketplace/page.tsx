@@ -1,15 +1,15 @@
 "use client";
 
-import Faq from "@/components/Faq";
-import Footer from "@/components/Footer";
-import { Header } from "@/components/Header";
+import Faq from "../../components/Faq";
+import Footer from "../../components/Footer";
+import { Header } from "../../components/Header";
 /* import { ModeToggle } from "@/components/ModeToggle"; */ // Changement de thème Dark/Light
 import * as React from "react";
 import Image from "next/image";
 import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Filters, FilterSection } from "@/components/Filters";
-import { SortBy } from "@/components/SortBy";
+import { Button } from "../../components/ui/button";
+import { Filters, FilterSection } from "../../components/Filters";
+import { SortBy } from "../../components/SortBy";
 import Link from "next/link";
 
 const filterSections: FilterSection[] = [

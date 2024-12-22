@@ -6,7 +6,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "./ui/accordion"
 import { MinusCircle, PlusCircle } from 'lucide-react'
 
 const ToggleIcon = ({ isOpen }: { isOpen: boolean }) => {

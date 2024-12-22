@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import logo from "../../public/images/logo2.png";
+import logo from "../../../public/images/logo2.png";
 
 export default function RootLayout({
   children,

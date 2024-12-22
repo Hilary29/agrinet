@@ -14,12 +14,12 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
+} from "./ui/navigation-menu"
 import { MobileSidebar } from "./mobile-sidebar"
 import LanguageSwitcher from "./LanguageSwitcher"
 import { useTranslations } from "next-intl"
 
-import logo from "../public/images/logo.png"
+import logo from "../../../public/images/logo.png"
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,

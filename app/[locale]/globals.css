@@ -11,46 +11,42 @@
 @layer base {
   @font-face {
     font-family: 'Satoshi';
-    src: url('../public/fonts/Satoshi-Regular.woff2') format('woff2'),
-         url('../public/fonts/Satoshi-Regular.woff') format('woff');
+    src: url('../../public/fonts/Satoshi-Regular.woff2') format('woff2'),
+         url('../../public/fonts/Satoshi-Regular.woff') format('woff');
     font-weight: 500; /* Medium */
     font-style: normal;
   }
   
   @font-face {
     font-family: 'Satoshi';
-    src: url('../public/fonts/Satoshi-Bold.woff2') format('woff2'),
-         url('../public/fonts/Satoshi-Bold.woff') format('woff');
+    src: url('../../public/fonts/Satoshi-Bold.woff2') format('woff2'),
+         url('../../public/fonts/Satoshi-Bold.woff') format('woff');
     font-weight: 700; /* Semibold */
     font-style: normal;
   }
   
   @font-face {
     font-family: 'Satoshi';
-    src: url('../public/fonts/Satoshi-Black.woff2') format('woff2'),
-         url('../public/fonts/Satoshi-Black.woff') format('woff');
+    src: url('../../public/fonts/Satoshi-Black.woff2') format('woff2'),
+         url('../../public/fonts/Satoshi-Black.woff') format('woff');
     font-weight: 900; /* Bold */
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Inter';
-    src: url('../public/fonts/Inter_24pt-Regular.ttf') format('ttf');
+    src: url('../../public/fonts/Inter_24pt-Regular.ttf') format('ttf');
     font-weight: 500; /* Medium */
     font-style: normal;
   }
   
   @font-face {
     font-family: 'Inter';
-    src: url('../public/fonts/Inter_24pt-Bold.ttf') format('ttf');
+    src: url('../../public/fonts/Inter_24pt-Bold.ttf') format('ttf');
     font-weight: 700; /* Semibold */
     font-style: normal;
   }
 
-  @font-face {
-    font-family: 'Poppins';
-    src: url('../public/fonts/Poppins-Bold.ttf') format('ttf');
-  }
 
 
   :root {
