@@ -12,32 +12,32 @@ const features1 = [
     title: "Monitor Your Fields with Ease",
     description:
       "Get real-time updates on soil, weather, and crop health with IoT-powered insights",
-    imageUrl: "/images/features.png",
+    imageUrl: "/images/feature-img1.jpg",
   },
   {
     title: "Personalized AI Recommendations.",
     description:
       "Smarter advice for irrigation, planting, and pest control tailored to your farm.",
-    imageUrl: "/placeholder.svg?height=199&width=367",
+    imageUrl: "/images/feature-img2.jpg",
   },
   {
     title: "Learn and Grow with Expert Resources",
     description:
       "Access tutorials, blogs, and podcasts to improve your farming practices.",
-    imageUrl: "/placeholder.svg?height=199&width=367",
+    imageUrl: "/images/feature-img3.jpg",
   },
 ];
 
 const features2 = [
   {
     
-    imageUrl: "/placeholder.svg?height=199&width=367",
+    imageUrl: "/images/feature-img4.png",
     title: "Online Marketplace for Farmers and Buyers.",
     description: "Connect with buyers, get fair prices, and streamline your sales process effortlessly.",
   },
   {
     
-    imageUrl: "/placeholder.svg?height=199&width=367",
+    imageUrl: "/images/feature-img5.jpg",
     title: "Real-time Product Traceability.",
     description: "Track your products from farm to table, ensuring quality and building trust with buyers.",
   },

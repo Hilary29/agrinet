@@ -26,17 +26,17 @@ const HowItWorks: React.FC = () => {
     {
       title: "Set Up and Monitor",
       description: "Sign up, connect your devices, and start tracking your farm in real time.",
-      imageSrc: "/images/setup-monitor.jpg",
+      imageSrc: "/images/howitwork-img1.jpg",
     },
     {
       title: "Analyze and Plan",
       description: "Use AI-powered insights to make data-driven decisions for your farm.",
-      imageSrc: "/images/analyze-plan.jpg",
+      imageSrc: "/images/howitwork-img2.jpg",
     },
     {
       title: "Optimize and Grow",
       description: "Implement recommendations to increase yield and sustainability.",
-      imageSrc: "/images/optimize-grow.jpg",
+      imageSrc: "/images/howitwork-img3.jpg",
     },
     
   ];

@@ -41,6 +41,9 @@ const PricingSwitch = ({ onSwitch }: PricingSwitchProps) => (
       <TabsTrigger value="1" className="text-base">
         Yearly
       </TabsTrigger>
+      <TabsTrigger value="2" className="text-base">
+        Yearly
+      </TabsTrigger>
     </TabsList>
   </Tabs>
 )
