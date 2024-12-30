@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-
 
 export const metadata: Metadata = {
   title: "AgriNet",
@@ -15,18 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning >
+      <html lang="en" suppressHydrationWarning>
         <head />
-        <body >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
+        <body>{children}</body>
       </html>
     </>
   );

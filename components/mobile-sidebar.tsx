@@ -1,7 +1,10 @@
 "use client"
 
-import Link from "next/link"
+
 import { X } from 'lucide-react'
+import Image from "next/image"
+import Link from "next/link"
+import logo from "../public/images/logo.png"
 
 import {
   Sheet,
@@ -17,6 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+
 
 interface MobileSidebarProps {
   isOpen: boolean
@@ -64,24 +68,29 @@ const components: { title: string; href: string; description: string }[] = [
 export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+      <SheetContent side="left" className="w-[300px] sm:w-[400px] text-paragraph-md font-inter font-regular bg-white-50">
         <SheetHeader>
-          <SheetTitle className="flex items-center justify-between">
-            <span>Menu</span>
+          <SheetTitle className="flex items-center justify-between text-paragraph-md font-inter font-regular">
+          <Link className="flex items-center gap-2" href={"/"}>
+          <Image src={logo} alt="Agrinet logo" className=" w-8 h-[24px] " />
+            <p className="font-poppins text-heading-desktop-h6  font-semibold text-left text-secondary-700">
+              AgriNet
+            </p>
+          </Link>
 
           </SheetTitle>
         </SheetHeader>
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="flex flex-col gap-4 mt-4 text-paragraph-md font-inter font-regular">
           <Link
             href="/"
-            className="text-lg hover:text-accent-500 transition-colors"
+            className=" hover:text-accent-500 transition-colors"
             onClick={onClose}
           >
             Home
           </Link>
           <Link
             href="#features"
-            className="text-lg hover:text-accent-500 transition-colors"
+            className=" hover:text-accent-500 transition-colors"
             onClick={onClose}
           >
             Features
@@ -90,7 +99,7 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
             <AccordionItem value="solutions">
               <AccordionTrigger>Solutions</AccordionTrigger>
               <AccordionContent>
-                <div className="flex flex-col gap-2 pl-4">
+                <div className="flex flex-col gap-2 pl-4 ">
                   {components.map((component) => (
                     <Link
                       key={component.title}
@@ -135,21 +144,21 @@ export function MobileSidebar({ isOpen, onClose }: MobileSidebarProps) {
           </Accordion>
           <Link
             href="/marketplace"
-            className="text-lg hover:text-accent-500 transition-colors"
+            className=" hover:text-accent-500 transition-colors"
             onClick={onClose}
           >
             Marketplace
           </Link>
           <Link
             href="/pricing"
-            className="text-lg hover:text-accent-500 transition-colors"
+            className=" hover:text-accent-500 transition-colors"
             onClick={onClose}
           >
             Pricing
           </Link>
           <Link
             href="#faq"
-            className="text-lg hover:text-accent-500 transition-colors"
+            className=" hover:text-accent-500 transition-colors"
             onClick={onClose}
           >
             FAQs
