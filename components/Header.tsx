@@ -106,9 +106,9 @@ export function Header() {
           </Link>
         </div>
 
-        <nav className="flex gap-[24px] font-normal font-inter text-paragraph-md ">
+        <nav className="flex gap-[24px] font-medium font-inter text-paragraph-md ">
    
-          <Link href="#features" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
+          <Link href="#features" className="hidden xl:flex text-black-100 hover:text-accent-500 transition-colors duration-300">
             Features
           </Link>
           <NavigationMenu className=" text-black-100 ">
@@ -130,7 +130,8 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">Education</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">
+                  Education</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
                     <li className="row-span-3">
