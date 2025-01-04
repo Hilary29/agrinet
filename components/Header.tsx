@@ -104,8 +104,8 @@ export function Header() {
             />
           </div>
           <Link className="flex items-center gap-2" href={"/"}>
-            <Image src={logo} alt="Agrinet logo" className="w-6 h-[20px] sm:w-8 sm:h-[24px] lg:w-10 lg:h-[36px]" />
-            <p className="font-poppins text-paragraph-md sm:text-heading-desktop-h6 lg:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
+            <Image src={logo} alt="Agrinet logo" className="w-8 h-[24px] lg:w-10 lg:h-[36px]" />
+            <p className="font-poppins text-paragraph-lg sm:text-heading-desktop-h6 lg:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
               AgriNet
             </p>
           </Link>

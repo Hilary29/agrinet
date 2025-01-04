@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Filters, FilterSection } from "@/components/Filters";
 import { SortBy } from "@/components/SortBy";
 import Link from "next/link";
+import { ProductCard } from "@/components/ProductCard";
+import { products } from "../../../public/data/products";
 
 const filterSections: FilterSection[] = [
   {
@@ -127,80 +129,10 @@ export default function Home() {
             </div>
 
             {/* Products Grid */}
-            <div className="mt-6 justify-center lg:mx-16 grid  md:grid-cols-2 xl:grid-cols-3  md:gap-8 gap-2">
-                <Link className="flex flex-col items-center justify-end p-2 gap-4 max-w-80  bg-white-50 shadow-6dp-v2 rounded-lg" 
-                href={""}>
-                  <div className="w-full max-h-44  overflow-hidden rounded-md">
-                    <Image src="/images/tomato-product.jpg" alt="tomatoes" width={358} height={209} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 w-full px-2">
-                    <h3 className="text-[#1E1E1E] font-semibold font-inter text-paragraph-lg">Tomatoes</h3>
-                    <p className="text-black-400 text-base">3 crates of tomatoes</p>
-                    <p className="text-accent-700 font-bold mt-2">6000 FCFA</p>
-                  </div>
-                </Link>
-                
-
-                <Link className="flex flex-col items-center justify-end p-2 gap-4 max-w-80  bg-white-50 shadow-6dp-v2 rounded-lg" 
-                href={""}>
-                  <div className="w-full max-h-44  overflow-hidden rounded-md">
-                    <Image src="/images/mixed-product.jpg" alt="tomatoes" width={358} height={209} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 w-full px-2">
-                    <h3 className="text-[#1E1E1E] font-semibold font-inter text-paragraph-lg">Mix of vegetables</h3>
-                    <p className="text-black-400 text-base">4 crates of tomatoe, potatoe, carrot and cucumber</p>
-                    <p className="text-accent-700 font-bold mt-2">10000 FCFA</p>
-                  </div>
-                </Link>
-
-                <Link className="flex flex-col items-center justify-end p-2 gap-4 max-w-80  bg-white-50 shadow-6dp-v2 rounded-lg" 
-                href={""}>
-                  <div className="w-full max-h-44  overflow-hidden rounded-md">
-                    <Image src="/images/carrot-product.jpg" alt="tomatoes" width={358} height={209} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col items-start  gap-1 w-full px-2">
-                    <h3 className="text-[#1E1E1E] font-semibold font-inter text-paragraph-lg">Carrots</h3>
-                    <p className="text-black-400 text-base">1 crate of carrots</p>
-                    <p className="text-accent-700 font-bold mt-2">2500 FCFA</p>
-                  </div>
-                </Link>
-
-                <Link className="flex flex-col items-center justify-end p-2 gap-4 max-w-80  bg-white-50 shadow-6dp-v2 rounded-lg" 
-                href={""}>
-                  <div className="w-full max-h-44  overflow-hidden rounded-md">
-                    <Image src="/images/plantain-product.jpg" alt="tomatoes" width={358} height={209} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 w-full px-2">
-                    <h3 className="text-[#1E1E1E] font-semibold font-inter text-paragraph-lg">Plantain</h3>
-                    <p className="text-black-400 text-base">5 plantain bunches</p>
-                    <p className="text-accent-700 font-bold mt-2">15000 FCFA</p>
-                  </div>
-                </Link>
-
-                <Link className="flex flex-col items-center justify-end p-2 gap-4 max-w-80  bg-white-50 shadow-6dp-v2 rounded-lg" 
-                href={""}>
-                  <div className="w-full max-h-44  overflow-hidden rounded-md">
-                    <Image src="/images/tomato-product.jpg" alt="tomatoes" width={358} height={209} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 w-full px-2">
-                    <h3 className="text-[#1E1E1E] font-semibold font-inter text-paragraph-lg">Tomatoes</h3>
-                    <p className="text-black-400 text-base">3 crates of tomatoes</p>
-                    <p className="text-accent-700 font-bold mt-2">15000 FCFA</p>
-                  </div>
-                </Link>
-
-                <Link className="flex flex-col items-center justify-end p-2 gap-4 max-w-80  bg-white-50 shadow-6dp-v2 rounded-lg" 
-                href={""}>
-                  <div className="w-full max-h-44  overflow-hidden rounded-md">
-                    <Image src="/images/tomato-product.jpg" alt="tomatoes" width={358} height={209} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col items-start gap-1 w-full px-2">
-                    <h3 className="text-[#1E1E1E] font-semibold font-inter text-paragraph-lg">Tomatoes</h3>
-                    <p className="text-black-400 text-base">3 crates of tomatoes</p>
-                    <p className="text-accent-700 font-bold mt-2">15000 FCFA</p>
-                  </div>
-                </Link>
-              {/* Ajoutez ici d'autres éléments */}
+            <div className="mt-6 justify-center lg:mx-16 grid md:grid-cols-2 xl:grid-cols-3 md:gap-8 gap-2">
+              {products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
             </div>
           </div>
         </div>
