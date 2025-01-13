@@ -118,21 +118,25 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col items-start w-full px-4 sm:px-6 md:px-8 lg:px-32 pt-28 md:pt-32">
+    <div>
+          <div className="flex flex-col items-start w-full px-4 sm:px-6 md:px-8 lg:px-32 pt-28 md:pt-32">
       <Header />
       <div className="flex flex-col items-center w-full max-w-[1186px] mx-auto gap-8 sm:gap-12 lg:gap-14">
         <div className="text-center max-w-2xl">
-          <h1 className="text-3xl lg:text-4xl font-semibold mb-6">Pricing Plans</h1>
+          <h1 className="text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-6">Pricing Plans</h1>
           <p className="text-black-400">Choose the plan that&apos;s right for you</p>
         </div>
         <PricingSwitch onSwitch={(value) => setIsYearly(parseInt(value) === 1)} />
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="flex flex-wrap justify-center gap-12">
           {plans.map((plan) => (
             <PricingCard key={plan.title} {...plan} isYearly={isYearly} />
           ))}
         </div>
       </div>
-      <Footer />
+      
     </div>
+    <Footer />
+    </div>
+
   );
 }

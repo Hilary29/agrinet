@@ -4,7 +4,7 @@ import React from "react";
 const Cta = () => {
   return (
     <section className="flex justify-center items-center py-[78px] px-4 bg-secondary-600 rounded-lg mx-auto mt-24 max-w-screen-lg">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-8 w-full px-6 md:px-10">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full px-6 md:px-10">
         <div className="flex flex-col items-start gap-4 max-w-lg text-center md:text-left">
           <h2 className="text-white-50 font-satoshi font-bold text-heading-desktop-h3">
             Ready to Transform Your Farm?
@@ -23,7 +23,7 @@ const Cta = () => {
           font-inter font-medium text-paragraph-md rounded-md 
           hover:bg-primary-700 "
         >
-          <p className="hover:scale- active:scale-100 transition-transform duration-300 ease-in-out">
+          <p className=" text-paragraph-lg">
             Create a free account
           </p>
         </Link>

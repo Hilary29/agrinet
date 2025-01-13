@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
-import { ArrowLeft, ShoppingCart, Heart, CreditCard, DollarSign, MapPin, Truck, Package, Clock } from 'lucide-react'
+import { ArrowLeft, ShoppingCart, Heart, HeartIcon, CreditCard, DollarSign, MapPin, Truck, Package, Clock } from 'lucide-react'
 import { Header } from "@/components/Header"
 import Footer from "@/components/Footer"
 import {
@@ -58,11 +58,11 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     </TabsList>
 
     <TabsContent value="product">
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-8 pt-4">
 
             {/* Image Section */}
             <div className="relative">
-              <div className="aspect-square rounded-lg overflow-hidden">
+              <div className="aspect-video  rounded-md overflow-hidden">
                 <Image
                   src={product.image}
                   alt={product.name}

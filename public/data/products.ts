@@ -8,7 +8,28 @@ export interface Product {
     seller: string
     image: string
     stock: "in-stock" | "out-of-stock"
+    composition?: string;  // Par exemple : 100% Bio
+    storageInstructions?: string;  // Par exemple : Conserver dans un endroit frais
+    origin?: string;  // L'origine du produit (ex. Ferme locale)
+    sizeOptions?: string[];  // Tailles disponibles, si applicable
+    colorOptions?: string[];  // Couleurs disponibles, si applicable
+    ratings?: number;  // Moyenne des évaluations (par exemple : 4.5/5)
+    reviewCount?: number;  // Nombre d'avis sur le produit
+    shippingDetails?: string;  // Détails de livraison (par exemple : retour gratuit)
+    tags?: string[];  // Mots-clés pour le produit (par exemple : bio, local, etc.)
+  
   }
+
+  export interface Product2 {
+    id: string
+    name: string
+    description: string
+    price: number
+    quantity?: string
+    category: string
+    seller: string  
+  }
+
   
   export const products: Product[] = [
     {
