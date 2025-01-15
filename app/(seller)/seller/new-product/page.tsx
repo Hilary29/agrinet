@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -314,7 +315,7 @@ export default function NewProductPage() {
                         </FormItem>
                         <div className="grid grid-cols-2 gap-2">
                           {images.map((image, index) => (
-                            <img key={index} src={image} alt={`Product ${index + 1}`} className="w-full h-auto object-cover rounded" />
+                            <Image key={index} src={image} alt={`Product ${index + 1}`} className="w-full h-auto object-cover rounded"/>
                           ))}
                         </div>
                       </div>
