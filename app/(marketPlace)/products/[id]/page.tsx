@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { FaHeart, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import { FaHeart, FaThumbsDown, FaThumbsUp, FaMapPin,FaTruck, FaMoneyBill, FaCreditCard } from "react-icons/fa";
 import {
   ArrowLeft,
   MessageSquare,
@@ -218,9 +218,68 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
                 {/* Product Info */}
                 <div className="flex flex-col gap-6">
+                <div className="flex items-start justify-between">
+                      <p className="text-3xl font-semibold font-satoshi text-secondary-800">
+                        {product.name}
+                      </p>
+                      <div className="flex gap-2">
+                        {/* Bouton Love */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Favorite
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaHeart className="h-5 w-5 text-red-700" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Like */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Like
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsUp className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Dislike */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Dislike
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsDown className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Comment */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Comment
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <MessageSquare className="h-5 w-5 text-blue-900" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                 <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
+                    <FaMoneyBill className='text-secondary-400'/>
                     Price Breakdown
                   </CardTitle>
                   <CardDescription>
@@ -266,6 +325,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             {/* Delivery Tab */}
             <TabsContent value="delivery">
             <div className="grid md:grid-cols-2 gap-8 pt-4  ">
+              
                 {/* Image Section */}
                 <div className="relative max-w-[500px] h-[300px]">
                   <div className="aspect-video rounded-md overflow-hidden">
@@ -289,10 +349,68 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
                 {/* Product Info */}
                 <div className="flex flex-col gap-6">
+                <div className="flex items-start justify-between">
+                      <p className="text-3xl font-semibold font-satoshi text-secondary-800">
+                        {product.name}
+                      </p>
+                      <div className="flex gap-2">
+                        {/* Bouton Love */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Favorite
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaHeart className="h-5 w-5 text-red-700" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Like */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Like
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsUp className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Dislike */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Dislike
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsDown className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Comment */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Comment
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <MessageSquare className="h-5 w-5 text-blue-900" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                 <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Truck className="h-5 w-5" />
+                    <FaTruck className="text-amber-900" />
                     Delivery Information
                   </CardTitle>
                   <CardDescription>
@@ -367,10 +485,68 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
                 {/* Product Info */}
                 <div className="flex flex-col gap-6">
+                <div className="flex items-start justify-between">
+                      <p className="text-3xl font-semibold font-satoshi text-secondary-800">
+                        {product.name}
+                      </p>
+                      <div className="flex gap-2">
+                        {/* Bouton Love */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Favorite
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaHeart className="h-5 w-5 text-red-700" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Like */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Like
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsUp className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Dislike */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Dislike
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsDown className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Comment */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Comment
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <MessageSquare className="h-5 w-5 text-blue-900" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                 <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5" />
+                    <FaMapPin className="text-accent-700" />
                     Point of Sale Location
                   </CardTitle>
                   <CardDescription>
@@ -438,9 +614,68 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
                 {/* Product Info */}
                 <div className="flex flex-col gap-6">
+                <div className="flex items-start justify-between">
+                      <p className="text-3xl font-semibold font-satoshi text-secondary-800">
+                        {product.name}
+                      </p>
+                      <div className="flex gap-2">
+                        {/* Bouton Love */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Favorite
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaHeart className="h-5 w-5 text-red-700" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Like */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Like
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsUp className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Dislike */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Dislike
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <FaThumbsDown className="h-5 w-5 text-black-200" />
+                          </Button>
+                        </div>
+
+                        {/* Bouton Comment */}
+                        <div className="relative group">
+                          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            Comment
+                          </div>
+                          <Button
+                            className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
+                            size="icon"
+                          >
+                            <MessageSquare className="h-5 w-5 text-blue-900" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                 <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
+                    <FaCreditCard className="text-yellow-600" />
                     Payment Options
                   </CardTitle>
                   <CardDescription>
