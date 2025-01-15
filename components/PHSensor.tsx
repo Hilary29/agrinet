@@ -59,7 +59,7 @@ const PHSensor = () => {
   return (
     <div>
       <div className="bg-white shadow-6dp rounded-lg p-4">
-        <h3 className="text-heading-desktop-h2 font-semibold mb-4">PH Sensor</h3>
+        <h3 className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 ">PH Sensor</h3>
         <Bar data={data} options={options} />
       </div>
     </div>
