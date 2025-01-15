@@ -68,10 +68,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             </TabsList>
 
             <TabsContent value="product">
-              <div className="grid md:grid-cols-2 gap-8 pt-4">
+              <div className="grid md:grid-cols-2 gap-8 pt-4 ">
                 {/* Image Section */}
-                <div className="relative">
-                  <div className="aspect-videorounded-md overflow-hidden">
+                <div className="relative max-w-[500px] h-[300px]">
+                  <div className="aspect-video rounded-md overflow-hidden">
                     <Image
                       src={product.image}
                       alt={product.name}
@@ -194,7 +194,31 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
             {/* Price Details Tab */}
             <TabsContent value="price-details">
-              <Card>
+            <div className="grid md:grid-cols-2 gap-8 pt-4  ">
+                {/* Image Section */}
+                <div className="relative max-w-[500px] h-[300px]">
+                  <div className="aspect-video rounded-md overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                  <Badge
+                    variant={
+                      product.stock === "in-stock" ? "default" : "secondary"
+                    }
+                    className="absolute top-4 right-4"
+                  >
+                    {product.stock === "in-stock" ? "In Stock" : "Out of Stock"}
+                  </Badge>
+                </div>
+
+                {/* Product Info */}
+                <div className="flex flex-col gap-6">
+                <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     Price Breakdown
@@ -234,11 +258,38 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   </div>
                 </CardContent>
               </Card>
+
+                </div>
+              </div>             
             </TabsContent>
 
             {/* Delivery Tab */}
             <TabsContent value="delivery">
-              <Card>
+            <div className="grid md:grid-cols-2 gap-8 pt-4  ">
+                {/* Image Section */}
+                <div className="relative max-w-[500px] h-[300px]">
+                  <div className="aspect-video rounded-md overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                  <Badge
+                    variant={
+                      product.stock === "in-stock" ? "default" : "secondary"
+                    }
+                    className="absolute top-4 right-4"
+                  >
+                    {product.stock === "in-stock" ? "In Stock" : "Out of Stock"}
+                  </Badge>
+                </div>
+
+                {/* Product Info */}
+                <div className="flex flex-col gap-6">
+                <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Truck className="h-5 w-5" />
@@ -286,10 +337,37 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   </div>
                 </CardContent>
               </Card>
+
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="point-of-sale">
-              <Card>
+            <div className="grid md:grid-cols-2 gap-8 pt-4  ">
+                {/* Image Section */}
+                <div className="relative max-w-[500px] h-[300px]">
+                  <div className="aspect-video rounded-md overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                  <Badge
+                    variant={
+                      product.stock === "in-stock" ? "default" : "secondary"
+                    }
+                    className="absolute top-4 right-4"
+                  >
+                    {product.stock === "in-stock" ? "In Stock" : "Out of Stock"}
+                  </Badge>
+                </div>
+
+                {/* Product Info */}
+                <div className="flex flex-col gap-6">
+                <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <MapPin className="h-5 w-5" />
@@ -331,10 +409,36 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   </div>
                 </CardContent>
               </Card>
+                </div>
+              </div>
             </TabsContent>
 
             <TabsContent value="payment">
-              <Card>
+            <div className="grid md:grid-cols-2 gap-8 pt-4  ">
+                {/* Image Section */}
+                <div className="relative max-w-[500px] h-[300px]">
+                  <div className="aspect-video rounded-md overflow-hidden">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                  <Badge
+                    variant={
+                      product.stock === "in-stock" ? "default" : "secondary"
+                    }
+                    className="absolute top-4 right-4"
+                  >
+                    {product.stock === "in-stock" ? "In Stock" : "Out of Stock"}
+                  </Badge>
+                </div>
+
+                {/* Product Info */}
+                <div className="flex flex-col gap-6">
+                <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     Payment Options
@@ -380,6 +484,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                   </div>
                 </CardContent>
               </Card>
+                </div>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
