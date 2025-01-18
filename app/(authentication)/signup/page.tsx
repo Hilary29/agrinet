@@ -25,7 +25,7 @@ const page = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-8 font-regular text-paragraph-md font-inter">
+          <div className="grid gap-4 font-regular text-paragraph-md font-inter">
             <div className="grid gap-2">
               <Label
                 htmlFor="name"
