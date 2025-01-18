@@ -15,5 +15,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/checkout', '/cart', '/dashboard'], // Pages nécessitant une authentification
+  matcher: [ '/auth'], // Pages nécessitant une authentification
 };
