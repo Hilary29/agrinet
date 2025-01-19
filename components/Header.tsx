@@ -354,21 +354,26 @@ export function Header() {
         <div className="flex items-center  gap-[16px] font-inter text-paragraph-sm md:text-paragraph-md ">
           {user && (
             <DropdownMenu>
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={user.photoURL || undefined}
-                  alt={user.displayName || "User avatar"}
-                />
-                <AvatarFallback>
-                  {user.displayName
-                    ? user.displayName.charAt(0).toUpperCase()
-                    : "U"}
-                </AvatarFallback>
-              </Avatar>
-              <DropdownMenuTrigger asChild>
-                    <p className="text-black-100 font-semibold text-paragraph-md font-inter hover:text-accent-500 transition-colors duration-300 cursor-pointer">
-                      My Account</p>
-              </DropdownMenuTrigger>
+              <div className="flex items-center gap-1">
+                <Avatar className="h-8 w-8 ">
+                  <AvatarImage
+                    className=""
+                    src={user.photoURL || undefined}
+                    alt={user.displayName || "User avatar"}
+                  />
+                  <AvatarFallback>
+                    {user.displayName
+                      ? user.displayName.charAt(0).toUpperCase()
+                      : "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <DropdownMenuTrigger asChild>
+                  <p className="text-secondary-700 font-semibold text-paragraph-md font-inter hover:text-accent-500 transition-colors duration-300 cursor-pointer">
+                    My Account
+                  </p>
+                </DropdownMenuTrigger>
+              </div>
+
               <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
