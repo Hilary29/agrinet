@@ -18,7 +18,7 @@ export function ProductCard({
   quantity,
   category,
   stock,
-  image,
+  images,
   onAddToCart,
 }: ProductCardProps) {
   const [isAdding, setIsAdding] = useState(false);
@@ -37,7 +37,7 @@ export function ProductCard({
     >
       <div className="relative w-full max-h-44 overflow-hidden rounded-md">
         <Image
-          src={image}
+          src={images[0]}
           alt={name}
           width={358}
           height={209}

@@ -6,7 +6,7 @@ export interface Product {
     quantity?: string
     category: string
     seller: string
-    image: string
+    images: string[]
     stock: "in-stock" | "out-of-stock"
     composition?: string;  // Par exemple : 100% Bio
     storageInstructions?: string;  // Par exemple : Conserver dans un endroit frais
@@ -40,18 +40,18 @@ export interface Product {
       quantity: "3 crates of tomatoes",
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
-      image: "/images/tomato-product.jpg",
-      stock: "out-of-stock"
+      images: ["/images/tomato-product.jpg","/images/tomato-product3.jpg"],
+      stock: "in-stock"
     },
     {
       id: "2",
-      name: "Mix of vegetables",
-      description: "A fresh selection of mixed vegetables including tomatoes, potatoes, carrots and cucumbers.",
-      price: 10000,
-      quantity: "4 crates of mixed vegetables",
+      name: "Tomatoes",
+      description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
+      price: 6000,
+      quantity: "3 crates of tomatoes",
       category: "Vegetables",
-      seller: "Green Valley Farms",
-      image: "/images/mixed-product.jpg",
+      seller: "Farm Fresh Cooperative",
+      images: ["/images/tomato-product3.jpg","/images/tomato-product2.jpg"],
       stock: "in-stock"
     },
     {
@@ -62,7 +62,7 @@ export interface Product {
       quantity: "1 crate of carrots",
       category: "Vegetables",
       seller: "Organic Roots",
-      image: "/images/carrot-product.jpg",
+      images: ["/images/carrot-product.jpg"],
       stock: "in-stock"
     },
     {
@@ -73,20 +73,20 @@ export interface Product {
       quantity: "5 plantain bunches",
       category: "Fruits",
       seller: "Tropical Harvest",
-      image: "/images/plantain-product.jpg",
+      images: ["/images/plantain-product.jpg"],
       stock: "in-stock"
     },
     {
-        id: "5",
-        name: "Plantain",
-        description: "Fresh plantains, perfect for cooking or grilling.",
-        price: 15000,
-        quantity: "5 plantain bunches",
-        category: "Fruits",
-        seller: "Tropical Harvest",
-        image: "/images/plantain-product.jpg",
-        stock: "in-stock"
-      },
+      id: "5",
+      name: "Tomatoes",
+      description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
+      price: 6000,
+      quantity: "3 crates of tomatoes",
+      category: "Vegetables",
+      seller: "Farm Fresh Cooperative",
+      images: ["/images/tomato-product.jpg"],
+      stock: "out-of-stock"
+    },
       {
         id: "6",
         name: "Plantain",
@@ -95,20 +95,31 @@ export interface Product {
         quantity: "5 plantain bunches",
         category: "Fruits",
         seller: "Tropical Harvest",
-        image: "/images/plantain-product.jpg",
+        images: ["/images/plantain-product.jpg"],
         stock: "in-stock"
       },
       {
         id: "7",
-        name: "Plantain",
-        description: "Fresh plantains, perfect for cooking or grilling.",
-        price: 15000,
-        quantity: "5 plantain bunches",
-        category: "",
-        seller: "Tropical Harvest",
-        image: "/images/plantain-product.jpg",
+        name: "Pepper",
+        description: "Differents varieties of pepper. Grown locally with sustainable farming practices.",
+        price: 9000,
+        quantity: "3 bags",
+        category: "Vegetables",
+        seller: "Farm Fresh Cooperative",
+        images: ["/images/pepper-product3.jpg","/images/pepper-product2.jpg"],
+        stock: "in-stock"
+      },
+      {
+        id: "8",
+        name: "Tomatoes",
+        description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
+        price: 6000,
+        quantity: "3 crates of tomatoes",
+        category: "Vegetables",
+        seller: "Farm Fresh Cooperative",
+        images: ["/images/tomato-product.jpg"],
         stock: "out-of-stock"
-      }
+      },
   ]
   
   

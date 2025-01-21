@@ -27,6 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ImageCarousel from "@/components/ImageCaroussel"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -70,16 +71,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <TabsContent value="product">
               <div className="grid md:grid-cols-2 gap-8 pt-4 ">
                 {/* Image Section */}
-                <div className="relative max-w-[500px] h-[300px]">
-                  <div className="aspect-video rounded-md overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
+                <div className="relative rounded-md max-w-[500px] h-[300px]">
+                <ImageCarousel images={product.images} alt={product.name} />
                   <Badge
                     variant={
                       product.stock === "in-stock" ? "default" : "secondary"
@@ -196,16 +189,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <TabsContent value="price-details">
             <div className="grid md:grid-cols-2 gap-8 pt-4  ">
                 {/* Image Section */}
-                <div className="relative max-w-[500px] h-[300px]">
-                  <div className="aspect-video rounded-md overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
+                <div className="relative rounded-md max-w-[500px] h-[300px]">
+                <ImageCarousel images={product.images} alt={product.name} />
                   <Badge
                     variant={
                       product.stock === "in-stock" ? "default" : "secondary"
@@ -327,16 +312,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <div className="grid md:grid-cols-2 gap-8 pt-4  ">
               
                 {/* Image Section */}
-                <div className="relative max-w-[500px] h-[300px]">
-                  <div className="aspect-video rounded-md overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
+                <div className="relative rounded-md max-w-[500px] h-[300px]">
+                <ImageCarousel images={product.images} alt={product.name} />
                   <Badge
                     variant={
                       product.stock === "in-stock" ? "default" : "secondary"
@@ -346,6 +323,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                     {product.stock === "in-stock" ? "In Stock" : "Out of Stock"}
                   </Badge>
                 </div>
+
 
                 {/* Product Info */}
                 <div className="flex flex-col gap-6">
@@ -463,16 +441,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <TabsContent value="point-of-sale">
             <div className="grid md:grid-cols-2 gap-8 pt-4  ">
                 {/* Image Section */}
-                <div className="relative max-w-[500px] h-[300px]">
-                  <div className="aspect-video rounded-md overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
+                <div className="relative rounded-md max-w-[500px] h-[300px]">
+                <ImageCarousel images={product.images} alt={product.name} />
                   <Badge
                     variant={
                       product.stock === "in-stock" ? "default" : "secondary"
@@ -592,16 +562,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             <TabsContent value="payment">
             <div className="grid md:grid-cols-2 gap-8 pt-4  ">
                 {/* Image Section */}
-                <div className="relative max-w-[500px] h-[300px]">
-                  <div className="aspect-video rounded-md overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
+                <div className="relative rounded-md max-w-[500px] h-[300px]">
+                <ImageCarousel images={product.images} alt={product.name} />
                   <Badge
                     variant={
                       product.stock === "in-stock" ? "default" : "secondary"
