@@ -1,125 +1,34 @@
-import React from "react";
-import Image from "next/image";
-import React from "react";
-import Image from "next/image";
+import React from 'react'
 
-interface FeatureCardProps {
-  title: string;
-  description: string;
-  imageUrl: string;
-}
-
-const FeatureCard: React.FC<FeatureCardProps> = ({
-  title,
-  description,
-  imageUrl,
-  width,
-}) => (
-  <div
-    className={`flex flex-col items-center p-1.5 ${width} bg-white shadow-6dp-v2 rounded-lg`}
-  >
-    <div className="w-full aspect-[1.85/1] bg-gray-200 relative rounded-lg overflow-hidden">
-      <Image
-        src={imageUrl}
-        alt={title}
-        layout="fill"
-        objectFit="cover"
-        className="shadow-lg"
-      />
-    </div>
-    <div className="flex flex-col items-start p-4 py-0.5 gap-1.5 w-full">
-      <h3 className="text-[#1E1E1E] font-semibold text-inter text-paragraph-lg ">
-        {title}
-      </h3>
-      <p className="text-[#4B4B4B] text-base leading-6">{description}</p>
-    </div>
-  </div>
-);
-
-const FeaturesSection: React.FC = () => {
-  const features = [
-    {
-      title: "Monitor Your Fields with Ease",
-      description:
-        "Get real-time updates on soil, weather, and crop health with IoT-powered insights",
-      imageUrl: "/images/feature-1.jpg",
-      width: "w-full md:w-[calc(33.33%-1rem)]",
-    },
-    {
-      title: "AI-Powered Recommendations",
-      description:
-        "Receive personalized advice based on your farm's unique conditions and crop types",
-      imageUrl: "/images/feature-2.jpg",
-      width: "w-full md:w-[calc(33.33%-1rem)]",
-    },
-    {
-      title: "Marketplace Integration",
-      description:
-        "Connect directly with buyers and sellers in the agricultural supply chain",
-      imageUrl: "/images/feature-3.jpg",
-      width: "w-full md:w-[calc(33.33%-1rem)]",
-    },
-    {
-      title: "Comprehensive Analytics Dashboard",
-      description:
-        "Visualize your farm's performance and make data-driven decisions",
-      imageUrl: "/images/feature-4.jpg",
-      width: "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(40%-0.75rem)]",
-    },
-    {
-      title: "Sustainable Farming Practices",
-      description:
-        "Learn and implement eco-friendly techniques to improve your farm's sustainability",
-      imageUrl: "/images/feature-5.jpg",
-      width: "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(60%-0.75rem)]",
-    },
-  ];
-
+const Features = () => {
   return (
     <section
       id="features"
-      className="flex flex-col justify-center items-center py-16 px-4 md:px-17 w-full max-w-[1440px] mx-auto"
+      className=" gap-[10px] w-full flex flex-col    "
     >
-      <div className="flex flex-col items-center gap-15 w-full max-w-[1186px]">
-        <div className="flex flex-col items-center mb-14 text-center">
-          <p className=" text-accent-500 font-semibold text-paragraph-md p-2.5  rounded-full mb-2.5">
-            FEATURES
-          </p>
-          <h2 className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 ">
-            Tools for Everyone Growing, Supporting, or Innovating in
-            Agriculture.
-          </h2>
-          <p className=" font-regular font-inter text-paragraph-md text-black-400 justify-center px-2.5  mb-6 sm:mb-8 md:mb-10 max-w-md sm:max-w-lg md:max-w-xl">
-            Monitor your fields, unlock valuable insights, and collaborate with
-            farmers, experts, and decision-makers to drive agricultural success.
-          </p>
-        </div>
-        <div className="flex flex-col gap-6">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features1.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              title={feature.title}
-              description={feature.description}
-              imageUrl={feature.imageUrl}
-            />
-          ))}
-        </div>
-        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6 mx-auto px-4 md:px-0">
-        {features2.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              title={feature.title}
-              description={feature.description}
-              imageUrl={feature.imageUrl}
-            />
-          ))}
-    </div>
+      <div className="mx-[125px] gap-[60px] text-center ">
+        <div className=" mb-[60px] ">
+          <div className="p-[10px] gap-[10px]  ">
+            <h2 className=" font-inter font-medium text-paragraph-md text-accent-500 ">
+              FEATURES
+            </h2>           
+          </div>
+          <div className="mb-8 gap-[11px] ">
+            <h2 className="mx-8 mb-[18px] text-heading-h1 text-black-200 ">
+              Farming Made Simple, Smart, and Profitable.
+            </h2>
+            <p className="mx-16 text-lg text-black-200 ">
+              Track your crops in real-
+            </p>            
+          </div>
         </div>
 
+        <div className="shadow-6dp h-[602px] rounded-elevation p-4 bg-white-50">
+          
+        </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default FeaturesSection;
+export default Features

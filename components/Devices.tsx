@@ -4,11 +4,16 @@
 import { useState } from "react";
 import Modal from "./ModalDevice"; // Adjust the import path if necessary
 
+interface Device {
+  name: string;
+  status: "Active" | "Inactive"; // Adjust as needed
+}
+
 export default function Devices() {
-  const [devices, setDevices] = useState([]);
+  const [devices, setDevices] = useState<Device[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleAddDevice = (device: any) => {
+  const handleAddDevice = (device: Device) => {
     setDevices((prevDevices) => [...prevDevices, device]);
   };
 
