@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import React from "react";
+import Image from "next/image";
 
 interface FeatureCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  width: string;
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({
@@ -93,18 +94,29 @@ const FeaturesSection: React.FC = () => {
             farmers, experts, and decision-makers to drive agricultural success.
           </p>
         </div>
-        <div className="flex flex-col gap-6 w-full">
-          <div className="flex flex-col md:flex-row gap-6 w-full">
-            {features.slice(0, 3).map((feature, index) => (
-              <FeatureCard key={index} {...feature} />
-            ))}
-          </div>
-          <div className="flex flex-col md:flex-row gap-6 w-full">
-            {features.slice(3).map((feature, index) => (
-              <FeatureCard key={index + 3} {...feature} />
-            ))}
-          </div>
+        <div className="flex flex-col gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {features1.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              title={feature.title}
+              description={feature.description}
+              imageUrl={feature.imageUrl}
+            />
+          ))}
         </div>
+        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-6 mx-auto px-4 md:px-0">
+        {features2.map((feature, index) => (
+            <FeatureCard
+              key={index}
+              title={feature.title}
+              description={feature.description}
+              imageUrl={feature.imageUrl}
+            />
+          ))}
+    </div>
+        </div>
+
       </div>
     </section>
   );

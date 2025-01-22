@@ -7,7 +7,6 @@ export default function RootLayout({
   }>) {
     return (
       <section
-      id="hero"
       className="px-32 pt-[162px] gap-[10px] w-full flex flex-col items-center justify-center text-center bg-gradient-to-br from-white-50 to-primary-50"
     >
       <div className="gap-[57px] text-center ">

@@ -17,7 +17,7 @@ import * as React from "react"
 export default function Home() {
   return (
     <main className="bg-white-50"> 
-      <Header />
+    <Header />
       <div className="space-y-[100px] "> 
         <Hero />  
         <Features />

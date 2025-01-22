@@ -8,6 +8,7 @@
   }
 }
 
+
 @layer base {
   @font-face {
     font-family: 'Satoshi';
@@ -39,6 +40,7 @@
     font-weight: 500; /* Medium */
     font-style: normal;
   }
+  
   
   @font-face {
     font-family: 'Inter';

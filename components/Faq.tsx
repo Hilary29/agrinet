@@ -70,17 +70,17 @@ const Faq = () => {
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full text-black-50">
+        <Accordion type="single" collapsible className="w-full text-black-50 ">
           {faqItems.map((item, index) => (
-            <AccordionItem key={`item-${index + 1}`} value={`item-${index + 1}`}>
+            <AccordionItem key={`item-${index + 1}`} value={`item-${index + 1}`} className=''>
               <AccordionTrigger 
                 onClick={() => toggleAccordion(`item-${index + 1}`)}
-                className="flex justify-between items-center text-left font-medium text-base sm:text-lg md:text-xl font-satoshi py-4 px-2"
+                className="flex justify-between items-center text-left font-medium text-base sm:text-lg md:text-xl font-satoshi py-4 px-2 "
               >
                 {item.question}
-                <ToggleIcon isOpen={openItem === `item-${index + 1}`} />
+                <ToggleIcon isOpen={openItem === `item-${index + 1}`}/>
               </AccordionTrigger>
-              <AccordionContent className="text-sm sm:text-base text-black-400 px-2 pb-4">
+              <AccordionContent className="text-sm sm:text-base text-black-400 px-2 pb-4 ">
                 {item.answer}
               </AccordionContent>
             </AccordionItem>

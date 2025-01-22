@@ -2,12 +2,11 @@
 "use client"
 
 import * as React from "react"
-
-import logo from "../public/images/logo.png"
-
-
 import Image from "next/image"
 import Link from "next/link"
+import Hamburger from "hamburger-react"
+
+
 import { cn } from "@/lib/utils"
 import {
   NavigationMenu,
@@ -17,7 +16,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
+import { MobileSidebar } from "./mobile-sidebar"
 import LanguageSwitcher from "./LanguageSwitcher"
+
+import logo from "../public/images/logo.png"
+
+
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -84,34 +88,39 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 
 export function Header() {
-  return (
-    <header className=" fixed top-0 left-0 w-full  z-50 bg-gradient-to-br from-white-50 to-primary-50">
-      <div className=" mx-auto flex justify-between items-center px-16 py-4">
-      
-        <Link className="flex items-center gap-2" href={"/"}>     
-            <Image 
-              src={logo}
-              width={164}
-              height={44}
-              alt="Agrinet logo"
-              className=" w-10 h-[36px]"
-            /> 
-            <p className=" font-poppins text-heading-desktop-h4 font-semibold text-left text-secondary-700 ">
-              AgriNet
-            </p>                   
-        </Link>
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
 
-        <nav className="hidden xl:flex gap-[24px] font-normal font-inter text-paragraph-md">
-        <Link href="/" className="text-black-100  hover:text-accent-500">
-            Home
+    // Simuler l'état de l'utilisateur (false = non authentifié, true = authentifié)
+    const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+
+  return (
+    <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-br from-white-50 to-primary-50">
+      <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 md:py-6 ">
+        <div className="flex">
+          <div className="xl:hidden flex mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition duration-300">
+            <Hamburger
+              toggled={isSidebarOpen}
+              toggle={setIsSidebarOpen}
+              size={26}
+            />
+          </div>
+          <Link className="flex items-center gap-2" href={"/"}>
+            <Image src={logo} alt="Agrinet logo" className="w-8 h-[24px] lg:w-10 lg:h-[36px]" />
+            <p className="font-poppins text-paragraph-lg sm:text-heading-desktop-h6 lg:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
+              AgriNet
+            </p>
           </Link>
-          <Link href="#features" className="text-black-100  hover:text-accent-500">
+        </div>
+
+        <nav className="flex gap-[24px] font-medium font-inter text-paragraph-md ">
+   
+          <Link href="#features" className="hidden xl:flex text-black-100 hover:text-accent-500 transition-colors duration-300">
             Features
           </Link>
           <NavigationMenu className=" text-black-100 ">
             <NavigationMenuList className="gap-6">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black-100 ">Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">Solutions</NavigationMenuTrigger>
                 <NavigationMenuContent>
                 <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
               {components.map((component) => (
@@ -127,7 +136,8 @@ export function Header() {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black-100 ">Education</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">
+                  Education</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
                     <li className="row-span-3">
@@ -161,31 +171,48 @@ export function Header() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <Link href="/marketplace" className="text-black-100  hover:text-accent-500">
+          <Link href="/marketplace" className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
             Marketplace
           </Link>
-          <Link href="/pricing" className="text-black-100  hover:text-accent-500">
+          <Link href="/pricing" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
             Pricing
           </Link>
-          <Link href="#faq" className="text-black-100  hover:text-accent-500">
+          <Link href="#faq" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
             FAQs
           </Link>
         </nav>
 
-        <div className="hidden lg:flex items-center gap-[18px] font-inter text-paragraph-md">
-          <Link 
-            className="text-black-100  hover:text-accent-500" 
-            href={"/login"}>
-            Login
-          </Link>
-          <Link 
-            className=" items-center bg-primary-600 text-white-50 px-3 py-2 rounded-md  hover:bg-green-700" 
-            href={"/signup"}>
-            Sign up
-          </Link>
-          <LanguageSwitcher/>
+        {/* Conditionnel : Afficher Login/Sign up si non authentifié */}
+        <div className="flex items-center  gap-[18px] font-inter text-paragraph-sm md:text-paragraph-md ">
+          {!isAuthenticated ? (
+            <>
+              <Link 
+                className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300" 
+                href={"/login"}>
+                Login
+              </Link>
+              <Link 
+                className="items-center bg-primary-600 text-white-50 px-1.5 py-1 md:px-3 md:py-2 rounded-md hover:bg-green-700 transition-colors duration-300" 
+                href={"/signup"}>
+                Sign up
+              </Link>
+            </>
+          ) : (
+            // Exemple de contenu affiché si authentifié
+            <Link
+              className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
+              href={"/dashboard"}>
+              Dashboard
+            </Link>
+          )}
+          <LanguageSwitcher />
         </div>
       </div>
+      <MobileSidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+
    </header>
 
   )
