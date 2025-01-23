@@ -1,137 +1,138 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
-import Image from "next/image";
-import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import { useState } from "react"
+import { EyeOff, Eye } from "lucide-react"
 
-const Page = () => {
-  const { signUpWithEmail, loginWithGoogle } = useAuth();
-  const router = useRouter();
-  
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+type Role = "farmer" | "not-farmer"
 
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      return;
-    }
-
-    try {
-      await signUpWithEmail(email, password, name);
-      router.push("/login");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const handleGoogleSignup = async () => {
-    try {
-      await loginWithGoogle();
-      router.push("/");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
+export default function Page() {
+  const [showPassword, setShowPassword] = useState(false)
+  const [role, setRole] = useState<Role>("farmer")
+  const [agreed, setAgreed] = useState(false)
 
   return (
-    <div>
-      <Card className="mx-auto w-[25%] min-w-[350px] bg-[#ffffff] border-none rounded-sm">
-        <CardHeader>
-          <CardTitle className="text-2xl text-secondary-500 mx-auto">Signup</CardTitle>
-          <CardDescription>
-            {error && <p className="text-red-500">{error}</p>}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSignup}>
-            <div className="grid gap-4 font-regular text-paragraph-md font-inter">
-              <div className="grid gap-2">
-                <Label htmlFor="name" className="font-regular text-paragraph-md font-inter text-black-300">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Hilary Aud"
-                  className="bg-white-50"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email" className="font-regular text-paragraph-md font-inter text-black-300">
+    <div className="flex justify-center  p-4">
+      <div className="flex w-full  max-w-[560px] flex-col items-center rounded-lg bg-white-50 p-6 md:p-10">
+        <div className="w-full max-w-[480px] space-y-8">
+          <h1 className="font-satoshi text-2xl font-semibold leading-9 text-black-50 md:text-heading-desktop-h4">
+            Create your Agrinet account
+          </h1>
+
+          <form className="space-y-6">
+            <div className="space-y-5">
+              <div className="space-y-2">
+                <label htmlFor="email" className="font-inter text-lg font-medium leading-7">
                   Email
-                </Label>
-                <Input
-                  id="email"
+                </label>
+                <input
                   type="email"
-                  placeholder="m@example.com"
-                  className="bg-white-50"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
+                  id="email"
+                  className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
                 />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password" className="font-regular text-paragraph-md font-inter text-black-300">
+
+              <div className="space-y-2">
+                <label htmlFor="fullName" className="font-inter text-lg font-medium leading-7">
+                  Full name
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="password" className="font-inter text-lg font-medium leading-7">
                   Password
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  className="bg-white-50"
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Button
-                  type="submit"
-                  className="w-full font-semibold text-white-50 font-inter hover:bg-primary-800 bg-primary-700"
-                >
-                  Signup
-                </Button>
-                <p className="text-center">or</p>
-                <Button
-                  onClick={handleGoogleSignup}
-                  type="button"
-                  variant="outline"
-                  className="w-full font-semibold bg-white-50 text-black-300 hover:bg-white-100"
-                >
-                  <Image src="/images/google-icon.png" alt="Google Logo" width={32} height={32} /> Signup with Google
-                </Button>
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    className="w-full rounded-lg border border-[#D6D6D6] p-3 pr-12 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#989898]"
+                  >
+                    {showPassword ? <Eye className="h-6 w-6" /> : <EyeOff className="h-6 w-6" />}
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="mt-4 text-center text-sm text-accent-600">
-              Already have an account?{" "}
-              <Link href="/login" className="underline">
-                Log in
-              </Link>
+
+            <div className="space-y-3">
+              <p className="font-inter text-base font-semibold leading-6">Select your role</p>
+              <div className="space-y-3">
+                <label className="flex gap-4">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="farmer"
+                    checked={role === "farmer"}
+                    onChange={(e) => setRole(e.target.value as Role)}
+                    className="mt-1 h-5 w-5 border-[#C3C3C3] text-[#2FB551] focus:ring-[#2FB551]"
+                  />
+                  <div>
+                    <p className="font-inter text-base font-medium text-[#1E1E1E]">Farmer</p>
+                    <p className="font-inter text-sm text-gray-600">
+                      Access tools to monitor your farm, sell produce, and receive AI recommendations.
+                    </p>
+                  </div>
+                </label>
+
+                <label className="flex gap-4">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="not-farmer"
+                    checked={role === "not-farmer"}
+                    onChange={(e) => setRole(e.target.value as Role)}
+                    className="mt-1 h-5 w-5 border-[#C3C3C3] text-[#2FB551] focus:ring-[#2FB551]"
+                  />
+                  <div>
+                    <p className="font-inter text-base font-medium text-[#1E1E1E]">Not a farmer</p>
+                    <p className="font-inter text-sm text-gray-600">
+                      Explore the marketplace, connect with sellers, and support sustainable farming.
+                    </p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div className="space-y-5">
+              <button
+                type="submit"
+                className="w-full rounded-md bg-[#2FB551] py-3 font-inter text-base font-medium text-white-50 hover:bg-[#2FB551]/90"
+              >
+                Sign up
+              </button>
+
+              <label className="flex items-start gap-2 px-2">
+                <input
+                  type="checkbox"
+                  checked={agreed}
+                  onChange={(e) => setAgreed(e.target.checked)}
+                  className="mt-1 h-5 w-5 rounded border-[#C3C3C3] text-[#2FB551] focus:ring-[#2FB551]"
+                />
+                <span className="font-inter text-base text-[#686868]">
+                  I agree to the Terms of Service and Privacy Policy
+                </span>
+              </label>
             </div>
           </form>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
 
-export default Page;
+          <p className="text-center font-inter text-base font-medium text-[#1E1E1E]">
+            Already have an account?{" "}
+            <a href="/signin" className="text-[#2FB551] hover:underline">
+              Sign in
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
