@@ -4,10 +4,9 @@ import React from "react";
 const page = () => {
   return (
     <div>
-      <IntroText
-        title="Marketplace"
-        description="Profile"
-      />
+      <IntroText 
+      title="Account" 
+      description="Your Account" />
     </div>
   );
 };

@@ -1,41 +1,59 @@
+"use client"
+
 import React from "react"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "./ui/breadcrumb"
-import { Separator } from "./ui/separator"
-import { SidebarTrigger } from "./ui/sidebar"
-import { Bell, Search, User, Globe, ChevronDown } from "lucide-react"
+import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Bell, Search, User, Globe, ChevronDown, Menu } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
 const Header2 = () => {
   return (
-    <header className="flex justify-between items-center px-6 py-6 w-full bg-white-50 border-b border-gray-300">
-    <div className="flex items-center gap-6">
+    <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-6 w-full bg-white-50 border-b border-gray-300">
+      <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto mb-4 sm:mb-0">
         <SidebarTrigger className="text-black-100" />
-        <div className="flex items-center px-4 py-2 w-[310px] h-10 bg-gray-200 rounded-lg">
+        <div className="relative flex-grow sm:flex-grow-0">
           <input
             type="text"
             placeholder="Search anything..."
-            className="bg-transparent w-full text-black-300 placeholder-black-300 focus:outline-none"
+            className="w-full sm:w-[310px] h-10 px-4 py-2 bg-gray-200 rounded-lg text-black-300 placeholder-black-300 focus:outline-none"
           />
-          <Search className="text-black-300 " />
+          <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black-300" />
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <Bell className="text-black-100"/>
-        <div className="flex items-center gap-1">
-          <User className="text-black-100" />
-          <span className="text-black-100 font-medium">Ahmed Musa</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Globe className="text-black-100" />
-          <span className="text-black-100 font-medium">English</span>
-          <ChevronDown className="text-black-400" />
-        </div>
+        <Button variant="ghost" size="icon" className="sm:hidden" aria-label="Menu">
+          <Menu className="h-5 w-5" />
+        </Button>
+        <Button variant="ghost" size="icon" aria-label="Notifications">
+          <Bell className="text-black-100 h-5 w-5" />
+        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="flex items-center gap-2">
+              <User className="text-black-100 h-5 w-5" />
+              <span className="text-black-100 font-medium hidden sm:inline">Ahmed Musa</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>Logout</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="flex items-center gap-2">
+              <Globe className="text-black-100 h-5 w-5" />
+              <span className="text-black-100 font-medium hidden sm:inline">English</span>
+              <ChevronDown className="text-black-400 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>English</DropdownMenuItem>
+            <DropdownMenuItem>Français</DropdownMenuItem>
+            <DropdownMenuItem>Español</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   )
