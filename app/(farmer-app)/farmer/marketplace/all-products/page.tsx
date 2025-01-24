@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <main className="container">
       <IntroText title="Marketplace" description="Buy farming supplies, sell your produce, and connect directly with buyers" />
-      <div className="flex flex-col  sm:flex-row justify-between items-center mb-[44px]  mt-20 md:mt-[44px] ">
-        <div className="relative flex-grow sm:flex-grow-0 md:w-[556px]">
+      <div className="flex flex-col gap-4 sm:flex-row justify-between items-center mb-[44px]  mt-20 md:mt-[44px] ">
+        <div className="relative flex-grow sm:flex-grow-0 md:w-[556px] ">
           <input
             type="text"
             placeholder="Search devices"
