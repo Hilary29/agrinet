@@ -29,7 +29,7 @@ export default function Home() {
         </Button>
       </div>
       <div className="flex justify-between mb-6 ">
-        <h2 className="text-2xl font-bold mb-4">All Products</h2>
+        <p className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">All Products</p>
         <div className="flex flex-row gap-4">
           <Select>
             <SelectTrigger className="w-full sm:w-[175px]">
