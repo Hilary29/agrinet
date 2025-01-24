@@ -9,11 +9,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import IntroText from "@/components/IntroText";
 
 export default function Home() {
   return (
-    <main className="container py-8 ">
-      <div className="flex flex-col  sm:flex-row justify-between items-center mb-6 gap-4">
+    <main className="container">
+      <IntroText title="Marketplace" description="Buy farming supplies, sell your produce, and connect directly with buyers" />
+      <div className="flex flex-col  sm:flex-row justify-between items-center mb-[44px]  mt-20 md:mt-[44px] ">
         <div className="relative flex-grow sm:flex-grow-0 md:w-[556px]">
           <input
             type="text"
@@ -23,12 +25,12 @@ export default function Home() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 " />
         </div>
         <Button className="bg-[#2FB551] hover:bg-[#2FB551]/90">
-          +  Create new listing
+          + Create new listing
         </Button>
       </div>
       <div className="flex justify-between mb-6 ">
         <h2 className="text-2xl font-bold mb-4">All Products</h2>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-row gap-4">
           <Select>
             <SelectTrigger className="w-full sm:w-[175px]">
               <SelectValue placeholder="Filter by" />
