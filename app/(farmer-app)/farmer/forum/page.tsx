@@ -5,9 +5,9 @@ const page = () => {
   return (
     <div>
       <IntroText 
-      title="Dashboard" 
-      description="View your farm&apos;s performance at a glance, including device stats and AI insights." />
-
+      title="Forum" 
+      description="Join discussions, share farming tips, and connect with the community." />
+      
     </div>
   )
 }
