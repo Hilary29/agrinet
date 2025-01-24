@@ -1,13 +1,11 @@
+"use client";
 
-"use client"
+import * as React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import Hamburger from "hamburger-react";
 
-import * as React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import Hamburger from "hamburger-react"
-
-
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,13 +13,23 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-import { MobileSidebar } from "./mobile-sidebar"
-import LanguageSwitcher from "./LanguageSwitcher"
+} from "@/components/ui/navigation-menu";
+import { MobileSidebar } from "./mobile-sidebar";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
-import logo from "../public/images/logo.png"
-
-
+import logo from "../public/images/logo.png";
+import { ChevronDown } from "lucide-react";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -45,9 +53,9 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -85,17 +93,155 @@ const components: { title: string; href: string; description: string }[] = [
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-]
+];
 
 export function Header() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
-    // Simuler l'état de l'utilisateur (false = non authentifié, true = authentifié)
-    const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+  const { user, logOut } = useAuth();
+
+  if (!user) {
+    return (
+      <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-br from-white-50 to-primary-50">
+        <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 md:py-4 ">
+          <div className="flex">
+            <div className="xl:hidden flex mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition duration-300">
+              <Hamburger
+                toggled={isSidebarOpen}
+                toggle={setIsSidebarOpen}
+                size={26}
+              />
+            </div>
+            <Link className="flex items-center gap-2" href={"/"}>
+              <Image
+                src={logo}
+                alt="Agrinet logo"
+                className="w-8 h-[24px] lg:w-10 lg:h-[36px]"
+              />
+              <p className="font-poppins text-paragraph-lg sm:text-heading-desktop-h6 lg:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
+                AgriNet
+              </p>
+            </Link>
+          </div>
+
+          <nav className="flex gap-[24px] font-medium font-inter text-paragraph-md ">
+            <Link
+              href="#features"
+              className="hidden xl:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
+            >
+              Features
+            </Link>
+            <NavigationMenu className=" text-black-100 ">
+              <NavigationMenuList className="gap-6">
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">
+                    Solutions
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
+                      {components.map((component) => (
+                        <ListItem
+                          key={component.title}
+                          title={component.title}
+                          href={component.href}
+                        >
+                          {component.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">
+                    Education
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
+                      <li className="row-span-3">
+                        <NavigationMenuLink asChild>
+                          <a
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                            href="/"
+                          >
+                            <div className="mb-2 mt-4 text-lg font-medium">
+                              shadcn/ui
+                            </div>
+                            <p className="text-sm leading-tight text-muted-foreground">
+                              Beautifully designed components that you can copy
+                              and paste into your apps. Accessible.
+                              Customizable. Open Source.
+                            </p>
+                          </a>
+                        </NavigationMenuLink>
+                      </li>
+                      <ListItem href="/docs" title="Introduction">
+                        Re-usable components built using Radix UI and Tailwind
+                        CSS.
+                      </ListItem>
+                      <ListItem href="/docs/installation" title="Installation">
+                        How to install dependencies and structure your app.
+                      </ListItem>
+                      <ListItem
+                        href="/docs/primitives/typography"
+                        title="Typography"
+                      >
+                        Styles for headings, paragraphs, lists...etc
+                      </ListItem>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <Link
+              href="/marketplace"
+              className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
+            >
+              Marketplace
+            </Link>
+            <Link
+              href="/pricing"
+              className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
+            >
+              Pricing
+            </Link>
+            <Link
+              href="#faq"
+              className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
+            >
+              FAQs
+            </Link>
+          </nav>
+
+          {/* Conditionnel : Afficher Login/Sign up si non authentifié */}
+          <div className="flex items-center  gap-[18px] font-inter text-paragraph-sm md:text-paragraph-md ">
+            <>
+              <Link
+                className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
+                href={"/login"}
+              >
+                Login
+              </Link>
+              <Link
+                className="items-center bg-primary-600 text-white-50 px-1.5 py-1 md:px-3 md:py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
+                href={"/signup"}
+              >
+                Sign up
+              </Link>
+            </>
+            <LanguageSwitcher />
+          </div>
+        </div>
+        <MobileSidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
+        />
+      </header>
+    );
+  }
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-br from-white-50 to-primary-50">
-      <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 md:py-6 ">
+      <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 md:py-4 ">
         <div className="flex">
           <div className="xl:hidden flex mr-4 text-black-300 hover:bg-primary-200 hover:text-secondary-200 hover:rounded-md transition duration-300">
             <Hamburger
@@ -105,7 +251,11 @@ export function Header() {
             />
           </div>
           <Link className="flex items-center gap-2" href={"/"}>
-            <Image src={logo} alt="Agrinet logo" className="w-8 h-[24px] lg:w-10 lg:h-[36px]" />
+            <Image
+              src={logo}
+              alt="Agrinet logo"
+              className="w-8 h-[24px] lg:w-10 lg:h-[36px]"
+            />
             <p className="font-poppins text-paragraph-lg sm:text-heading-desktop-h6 lg:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
               AgriNet
             </p>
@@ -113,31 +263,36 @@ export function Header() {
         </div>
 
         <nav className="flex gap-[24px] font-medium font-inter text-paragraph-md ">
-   
-          <Link href="#features" className="hidden xl:flex text-black-100 hover:text-accent-500 transition-colors duration-300">
+          <Link
+            href="#features"
+            className="hidden xl:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
+          >
             Features
           </Link>
           <NavigationMenu className=" text-black-100 ">
             <NavigationMenuList className="gap-6">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">Solutions</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">
+                  Solutions
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                >
-                  {component.description}
-                </ListItem>
-              ))}
-            </ul>
+                  <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
+                    {components.map((component) => (
+                      <ListItem
+                        key={component.title}
+                        title={component.title}
+                        href={component.href}
+                      >
+                        {component.description}
+                      </ListItem>
+                    ))}
+                  </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="hidden md:flex text-black-100 hover:text-accent-500 transition duration-300">
-                  Education</NavigationMenuTrigger>
+                  Education
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
                     <li className="row-span-3">
@@ -150,20 +305,24 @@ export function Header() {
                             shadcn/ui
                           </div>
                           <p className="text-sm leading-tight text-muted-foreground">
-                            Beautifully designed components that you can copy and
-                            paste into your apps. Accessible. Customizable. Open
-                            Source.
+                            Beautifully designed components that you can copy
+                            and paste into your apps. Accessible. Customizable.
+                            Open Source.
                           </p>
                         </a>
                       </NavigationMenuLink>
                     </li>
                     <ListItem href="/docs" title="Introduction">
-                      Re-usable components built using Radix UI and Tailwind CSS.
+                      Re-usable components built using Radix UI and Tailwind
+                      CSS.
                     </ListItem>
                     <ListItem href="/docs/installation" title="Installation">
                       How to install dependencies and structure your app.
                     </ListItem>
-                    <ListItem href="/docs/primitives/typography" title="Typography">
+                    <ListItem
+                      href="/docs/primitives/typography"
+                      title="Typography"
+                    >
                       Styles for headings, paragraphs, lists...etc
                     </ListItem>
                   </ul>
@@ -171,39 +330,72 @@ export function Header() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <Link href="/marketplace" className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
+          <Link
+            href="/marketplace"
+            className="hidden md:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
+          >
             Marketplace
           </Link>
-          <Link href="/pricing" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
+          <Link
+            href="/pricing"
+            className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
+          >
             Pricing
           </Link>
-          <Link href="#faq" className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300">
+          <Link
+            href="#faq"
+            className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
+          >
             FAQs
           </Link>
         </nav>
 
         {/* Conditionnel : Afficher Login/Sign up si non authentifié */}
-        <div className="flex items-center  gap-[18px] font-inter text-paragraph-sm md:text-paragraph-md ">
-          {!isAuthenticated ? (
-            <>
-              <Link 
-                className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300" 
-                href={"/login"}>
-                Login
-              </Link>
-              <Link 
-                className="items-center bg-primary-600 text-white-50 px-1.5 py-1 md:px-3 md:py-2 rounded-md hover:bg-green-700 transition-colors duration-300" 
-                href={"/signup"}>
-                Sign up
-              </Link>
-            </>
-          ) : (
-            // Exemple de contenu affiché si authentifié
-            <Link
-              className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
-              href={"/dashboard"}>
-              Dashboard
-            </Link>
+        <div className="flex items-center  gap-[16px] font-inter text-paragraph-sm md:text-paragraph-md ">
+          {user && (
+            <DropdownMenu>
+              <div className="flex items-center gap-1">
+                <Avatar className="h-8 w-8 ">
+                  <AvatarImage
+                    className=""
+                    src={user.photoURL || undefined}
+                    alt={user.displayName || "User avatar"}
+                  />
+                  <AvatarFallback>
+                    {user.displayName
+                      ? user.displayName.charAt(0).toUpperCase()
+                      : "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <DropdownMenuTrigger asChild>
+                  <p className="text-secondary-700 font-semibold text-paragraph-md font-inter hover:text-accent-500 transition-colors duration-300 cursor-pointer">
+                    My Account
+                  </p>
+                </DropdownMenuTrigger>
+              </div>
+
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {user.displayName}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <Link href="/settings">settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/dashboard">Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logOut}>Log out</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           )}
           <LanguageSwitcher />
         </div>
@@ -212,8 +404,6 @@ export function Header() {
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
       />
-
-   </header>
-
-  )
+    </header>
+  );
 }
