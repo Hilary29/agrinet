@@ -9,14 +9,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main className=" bg-secondary-500 bg-cover bg-center min-h-screen flex flex-col ">
-      <Link className="flex items-center gap-2 mx-auto pt-8 pb-8" href={"/"}>
-        <Image src={logo} alt="Agrinet logo" className="w-10 h-[36px]" />
-        <p className="font-poppins text-heading-desktop-h4 font-semibold text-left text-white-50">
+    <main className=" bg-secondary-500 bg-cover bg-center min-h-screen flex flex-col pt-12 lg:pt-[126px]">
+      <Link className="flex items-center gap-2 mx-auto pb-8 lg:pb-16 " href={"/"}>
+        <Image src={logo} alt="Agrinet logo" className="w-10 h-[32px] " />
+        <p className="font-poppins text-heading-desktop-h4 font-semibold  text-white-50">
           AgriNet
         </p>
       </Link>
-      <div>
+      <div className="">
         {children}
       </div>  
     </main>

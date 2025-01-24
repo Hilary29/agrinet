@@ -73,7 +73,7 @@ export interface Product {
       quantity: "5 plantain bunches",
       category: "Fruits",
       seller: "Tropical Harvest",
-      images: ["/images/plantain-product.jpg"],
+      images: ["/images/plantain-product.jpg","/images/plantain-product2.png"],
       stock: "in-stock"
     },
     {
@@ -95,7 +95,7 @@ export interface Product {
         quantity: "5 plantain bunches",
         category: "Fruits",
         seller: "Tropical Harvest",
-        images: ["/images/plantain-product.jpg"],
+        images: ["/images/plantain-product2.png","/images/plantain-product.jpg"],
         stock: "in-stock"
       },
       {
