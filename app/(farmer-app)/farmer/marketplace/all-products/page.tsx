@@ -26,7 +26,7 @@ export default function Home() {
           +  Create new listing
         </Button>
       </div>
-      <div className="mb-6">
+      <div className="flex justify-between mb-6 ">
         <h2 className="text-2xl font-bold mb-4">All Products</h2>
         <div className="flex flex-col sm:flex-row gap-4">
           <Select>
