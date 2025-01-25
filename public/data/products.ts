@@ -121,5 +121,3 @@ export interface Product {
         stock: "out-of-stock"
       },
   ]
-  
-  
