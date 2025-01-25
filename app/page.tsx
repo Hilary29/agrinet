@@ -9,10 +9,12 @@ import Footer from "@/components/Footer";
 import { Header } from "@/components/Header";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import Metrics from "@/components/Metrics";
 import Testimonials from "@/components/Testimonials";
 /* import { ModeToggle } from "@/components/ModeToggle"; */ //Changement de theme Dark light
 import * as React from "react"
-
+import dynamic from 'next/dynamic'
+ 
 
 export default function Home() {
   return (
@@ -27,6 +29,7 @@ export default function Home() {
         <Faq />
       </div>
       <Cta />
+      <Metrics/>
       <Footer />
     </main>
   );

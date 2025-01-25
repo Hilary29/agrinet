@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,8 +12,16 @@ import {
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
 import IntroText from "@/components/IntroText";
+import { useState } from "react";
+
 
 export default function Home() {
+  const [step, setStep] = useState(1);
+  const progress = (step / 3) * 100;
+
+
+
+
   return (
     <main className="container">
       <IntroText title="Marketplace" description="Buy farming supplies, sell your produce, and connect directly with buyers" />

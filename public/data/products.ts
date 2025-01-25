@@ -6,6 +6,7 @@ export interface Product {
   quantity?: string
   category: string
   seller: string
+  SalePoints: string[]
   images: string[]
   stock: "in-stock" | "out-of-stock"
   composition?: string;  // Par exemple : 100% Bio
@@ -40,6 +41,7 @@ export interface Product2 {
       quantity: "3 crates of tomatoes",
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
+      SalePoints: ["Yaounde,Marche Madagascar"],
       images: ["/images/tomato-product.jpg","/images/tomato-product3.jpg"],
       stock: "in-stock"
     },
@@ -51,6 +53,7 @@ export interface Product2 {
       quantity: "3 crates of tomatoes",
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
+      SalePoints: ["Yaounde, Marche Mokolo"],
       images: ["/images/tomato-product3.jpg","/images/tomato-product2.jpg"],
       stock: "in-stock"
     },
@@ -62,6 +65,7 @@ export interface Product2 {
       quantity: "1 crate of carrots",
       category: "Vegetables",
       seller: "Organic Roots",
+      SalePoints: ["Douala, Marche Deido"],
       images: ["/images/carrot-product.jpg"],
       stock: "in-stock"
     },
@@ -73,6 +77,7 @@ export interface Product2 {
       quantity: "5 plantain bunches",
       category: "Fruits",
       seller: "Tropical Harvest",
+      SalePoints: ["Douala, Marche Dakar"],
       images: ["/images/plantain-product.jpg","/images/plantain-product2.png"],
       stock: "in-stock"
     },
@@ -84,6 +89,7 @@ export interface Product2 {
       quantity: "3 crates of tomatoes",
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
+      SalePoints: ["Ebolowa, Quartier Haoussa"],
       images: ["/images/tomato-product.jpg"],
       stock: "out-of-stock"
     },
@@ -95,6 +101,7 @@ export interface Product2 {
         quantity: "5 plantain bunches",
         category: "Fruits",
         seller: "Tropical Harvest",
+        SalePoints: ["Bafoussam, Marche A, B"],
         images: ["/images/plantain-product2.png","/images/plantain-product.jpg"],
         stock: "in-stock"
       },
@@ -106,6 +113,7 @@ export interface Product2 {
         quantity: "3 bags",
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
+        SalePoints: ["Yaounde, Marche Madagascar"],
         images: ["/images/pepper-product3.jpg","/images/pepper-product2.jpg"],
         stock: "in-stock"
       },
@@ -117,6 +125,7 @@ export interface Product2 {
         quantity: "3 crates of tomatoes",
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
+        SalePoints: ["Yaounde,Marche Madagascar"],
         images: ["/images/tomato-product.jpg"],
         stock: "out-of-stock"
       },
