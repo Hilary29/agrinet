@@ -74,7 +74,7 @@ const navigation = [
     icon: ShoppingCart,
     subItems: [
       { name: "All Products", href: "/farmer/marketplace/all-products" },
-      { name: "Self & Manage", href: "/farmer/marketplace/self-and-manage" },
+      { name: "Sell & Manage", href: "/farmer/marketplace/sell-and-manage" },
       {
         name: "My Marketplace profile",
         href: "/farmer/marketplace/marketplace-profile",

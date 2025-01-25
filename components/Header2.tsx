@@ -2,7 +2,7 @@
 
 import React from "react"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Bell, Search, User, Globe, ChevronDown, Menu } from "lucide-react"
+import { Bell, Search, User, Globe, ChevronDown, Menu, ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
@@ -24,9 +24,22 @@ const Header2 = () => {
         <Button variant="ghost" size="icon" className="sm:hidden" aria-label="Menu">
           <Menu className="h-5 w-5" />
         </Button>
-        <Button variant="ghost" size="icon" aria-label="Notifications">
-          <Bell className="text-black-100 h-5 w-5" />
-        </Button>
+        <div className="relative">
+          <Button variant="ghost" size="icon" aria-label="Notifications">
+            <Bell className="text-black-400 h-7 w-7" />
+            <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
+              4
+            </span>
+          </Button>
+        </div>
+        <div className="relative">
+          <Button variant="ghost" size="icon" aria-label="Shopping Cart">
+            <ShoppingCart className="text-black-400 h-7 w-7" />
+            <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
+              4
+            </span>
+          </Button>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center gap-2">
