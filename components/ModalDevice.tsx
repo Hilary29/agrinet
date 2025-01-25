@@ -1,25 +1,60 @@
-// components/Modal.js
 "use client";
 
 import { useState } from "react";
 
-const ModalDevice = ({ isOpen, onClose, onAddDevice }) => {
-  const [deviceName, setDeviceName] = useState("");
-  const [status, setStatus] = useState("Active"); // Default status
+// Define the props interface
+interface ModalDeviceProps {
+  isOpen: boolean;                     // Type for isOpen
+  onClose: () => void;                 // Type for onClose function
+  onAddDevice: (device: Device) => void; // Type for onAddDevice function
+}
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+// Define the Device type
+interface Device {
+  name: string;
+  type: string;
+  support: string;
+  typeMCU: string;
+  description: string;
+  status: "Active" | "Inactive"; // Status field
+}
+
+const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice }) => {
+  const [deviceName, setDeviceName] = useState<string>("");
+  const [deviceType, setDeviceType] = useState<string>("");
+  const [support, setSupport] = useState<string>("");
+  const [typeMCU, setTypeMCU] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [status, setStatus] = useState<"Active" | "Inactive">("Active"); // Initialize with a default value
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onAddDevice({ name: deviceName, status });
-    setDeviceName("");
-    setStatus("Active");
+    onAddDevice({
+      name: deviceName,
+      type: deviceType,
+      support,
+      typeMCU,
+      description,
+      status, // Use the selected status
+    });
+    resetForm();
     onClose();
+  };
+
+  const resetForm = () => {
+    setDeviceName("");
+    setDeviceType("");
+    setSupport("");
+    setTypeMCU("");
+    setDescription("");
+    setStatus("Active"); // Reset to default status
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white">
-      <div className="bg-white rounded-lg p-6 shadow-lg">
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-0 ">
+      <div className="bg-white-50 rounded-lg p-6 shadow-lg max-w-lg w-full">
         <h3 className="text-lg font-semibold mb-4">Add New Device</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -33,15 +68,70 @@ const ModalDevice = ({ isOpen, onClose, onAddDevice }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-2">Status</label>
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+            <label className="block mb-2">Device Type</label>
+            <input
+              type="text"
+              value={deviceType}
+              onChange={(e) => setDeviceType(e.target.value)}
+              required
               className="border border-gray-300 rounded-lg p-2 w-full"
-            >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Support</label>
+            <input
+              type="text"
+              value={support}
+              onChange={(e) => setSupport(e.target.value)}
+              required
+              className="border border-gray-300 rounded-lg p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Type of MCU</label>
+            <input
+              type="text"
+              value={typeMCU}
+              onChange={(e) => setTypeMCU(e.target.value)}
+              required
+              className="border border-gray-300 rounded-lg p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              className="border border-gray-300 rounded-lg p-2 w-full"
+              rows={3} // Specify rows as a number
+              placeholder="Please provide a brief description of your device"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Status</label>
+            <div className="flex items-center">
+              <label className="mr-4">
+                <input
+                  type="radio"
+                  value="Active"
+                  checked={status === "Active"}
+                  onChange={() => setStatus("Active")}
+                  className="mr-1"
+                />
+                Active
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="Inactive"
+                  checked={status === "Inactive"}
+                  onChange={() => setStatus("Inactive")}
+                  className="mr-1"
+                />
+                Inactive
+              </label>
+            </div>
           </div>
           <div className="flex justify-between">
             <button
