@@ -20,7 +20,18 @@ import {
   ThumbsDown,
   MessageCircle,
   SquareArrowOutUpRight,
+  Users
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card"
+
+
+const communities = [
+  { name: "f/Sustainable farming", followers: "20k" },
+  { name: "Livestock farming", followers: "20k" },
+  { name: "f/Sustainable farming", followers: "20k" },
+  { name: "f/Sustainable farming", followers: "20k" },
+]
+
 
 const Page = () => {
   const tabs = [
@@ -94,7 +105,7 @@ const Page = () => {
             </Button>
           </div>
         </div>
-        <Carousel className="w-[300px] sm:w-[700px] md:w-[700px] xl:w-full max-w-[1186px] mx-auto  relative h-[40px]">
+        <Carousel className="w-[300px] sm:w-[700px] md:w-[700px] xl:w-full max-w-[1286px] mx-auto  relative h-[40px]">
           <CarouselContent className="flex items-center ">
             {tabs.map((tab) => (
               <CarouselItem key={tab} className="flex-none ">
@@ -120,14 +131,18 @@ const Page = () => {
               <ForumCard key={forum.title} forum={forum} />
             ))}
           </div>
-          <div className="bg-blue-50 w-full lg:w-1/3 h-64 lg:h-auto rounded-lg">
-            {/* Content for the blue section */}
+          <div className=" w-full lg:w-1/3 h-64 lg:h-auto rounded-lg">
+            <PopularCommunities/>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+
+
+export default Page;
 
 const ForumCard = ({ forum }: { forum: Forum }) => (
   <div className="flex flex-col sm:flex-row bg-white shadow-md rounded-lg w-full p-4 mb-4">
@@ -179,4 +194,23 @@ const ForumCard = ({ forum }: { forum: Forum }) => (
   </div>
 );
 
-export default Page;
+function PopularCommunities() {
+  return (
+    <div className="w-full max-w-4xl mx-auto p-4">
+      <h2 className="text-2xl font-semibold font-satoshi mb-4">Popular Communities</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+        {communities.map((community, index) => (
+          <Card key={index} className="hover:shadow-md transition-shadow">
+            <CardContent className="p-4">
+              <h3 className="font-semibold text-lg mb-2">{community.name}</h3>
+              <div className="flex items-center text-gray-600">
+                <Users size={16} className="mr-2" />
+                <span>{community.followers} followers</span>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
