@@ -20,18 +20,17 @@ import {
   ThumbsDown,
   MessageCircle,
   SquareArrowOutUpRight,
-  Users
+  Users,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card"
-
+import { Card, CardContent } from "@/components/ui/card";
+import image from "next/image";
 
 const communities = [
-  { name: "f/Sustainable farming", followers: "20k" },
-  { name: "Livestock farming", followers: "20k" },
-  { name: "f/Sustainable farming", followers: "20k" },
-  { name: "f/Sustainable farming", followers: "20k" },
-]
-
+  { name: "f/Sustainable farming", followers: "20k", image: '/images/communities-1.png' },
+  { name: "Livestock farming", followers: "20k", image: '/images/communities-1.png'  },
+  { name: "f/Sustainable farming", followers: "20k", image: '/images/communities-1.png'  },
+  { name: "f/Sustainable farming", followers: "20k", image: '/images/communities-1.png'  },
+];
 
 const Page = () => {
   const tabs = [
@@ -95,7 +94,7 @@ const Page = () => {
               className="w-full sm:w-[300px] lg:w-[496px]"
             />
             <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-black-400" />
-            </div>
+          </div>
           <div className="flex items-center justify-between gap-4">
             <Button variant="outline" className="w-full sm:w-auto">
               Create new post
@@ -132,15 +131,13 @@ const Page = () => {
             ))}
           </div>
           <div className=" w-full lg:w-1/3 h-64 lg:h-auto rounded-lg">
-            <PopularCommunities/>
+            <PopularCommunities />
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default Page;
 
@@ -196,21 +193,31 @@ const ForumCard = ({ forum }: { forum: Forum }) => (
 
 function PopularCommunities() {
   return (
-    <div className="w-full max-w-4xl mx-auto p-4">
-      <h2 className="text-2xl font-semibold font-satoshi mb-4">Popular Communities</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
+    <div className="w-full mx-auto p-4 bg-[#F0F0F080] rounded-lg">
+      <p className="text-2xl font-semibold font-satoshi mb-8">
+        Popular Communities
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-8">
         {communities.map((community, index) => (
-          <Card key={index} className="hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
-              <h3 className="font-semibold text-lg mb-2">{community.name}</h3>
+          <div key={index} className="flex flex-row bg-inherit border-none ">
+            <Image
+              key={index}
+              src={community.image || "/placeholder.svg"}
+              width={126}
+              height={126}
+              className=" mr-4 w-[64px] h-[64px]"
+              alt={`Image ${index + 1}`}
+            />
+            <div >
+              <p className="font-semibold text-lg mb-2">{community.name}</p>
               <div className="flex items-center text-gray-600">
                 <Users size={16} className="mr-2" />
                 <span>{community.followers} followers</span>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
