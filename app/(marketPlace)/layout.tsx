@@ -1,4 +1,4 @@
-import ChatbotButton from '@/components/ChatbotButton';
+
 import React from 'react'
 
 export default function RootLayout({
@@ -10,7 +10,6 @@ export default function RootLayout({
       <html lang="en">
         <body>
           {children}
-          <ChatbotButton />
         </body>
       </html>
     );

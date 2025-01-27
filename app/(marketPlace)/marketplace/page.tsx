@@ -13,6 +13,7 @@ import { SortBy } from "@/components/SortBy";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "../../../public/data/products";
+import ChatbotButton from "@/components/ChatbotButton";
 
 const filterSections: FilterSection[] = [
   {
@@ -72,6 +73,7 @@ export default function Home() {
 
   return (
     <main className="bg-white-50">
+      <ChatbotButton />
       <Header />
       <div className="space-y-[46px]">
         {/* Hero Section */}
@@ -131,9 +133,13 @@ export default function Home() {
             {/* Products Grid */}
             <div className="mt-6 justify-center lg:mx-16 grid md:grid-cols-2 xl:grid-cols-3 md:gap-8 gap-2">
               {products.map((product) => (
-                <ProductCard onAddToCart={function (productId: string): void {
-                  throw new Error("Function not implemented.");
-                } } key={product.id} {...product} />
+                <ProductCard
+                  onAddToCart={function (productId: string): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                  key={product.id}
+                  {...product}
+                />
               ))}
             </div>
           </div>
