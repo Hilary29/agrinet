@@ -58,7 +58,6 @@ function ProductTab({ product }: ProductDetailsProps) {
         <ImageSection product={product} />
         <ProductInfo product={product} />
       </div>
-      <ProductDetailsDevelopTab product={product} />
     </TabsContent>
   )
 }

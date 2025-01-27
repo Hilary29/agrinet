@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import ChatbotButton from "@/components/ChatbotButton";
 
 export const metadata: Metadata = {
   title: "AgriNet",
@@ -17,7 +18,9 @@ export default function RootLayout({
       <html lang="en">
         <head />
         <AuthProvider>
-        <body >{children}</body>
+        <body >{children}
+          <ChatbotButton />
+        </body>
         </AuthProvider>
       </html>
     </>
