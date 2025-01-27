@@ -32,7 +32,7 @@ const ChatbotButton = () => {
 
   return (
     <>
-      <div className="fixed bottom-8 right-[5%] z-50">
+      <div className="fixed bottom-8 right-[15%] md:right-[5%] z-50">
         {isOpen ? (
           <div className="bg-white-50 rounded-lg shadow-lg w-80 h-96 p-4">
             <button onClick={toggleChat} className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
@@ -55,7 +55,7 @@ const ChatbotButton = () => {
             ))}
             <button
               onClick={toggleChat}
-              className="bg-accent-500 hover:bg-accent-700 text-white-50 rounded-[16px] p-3 shadow-lg transition-colors duration-200 relative z-10"
+              className="bg-accent-500 hover:bg-accent-600 text-white-50 rounded-[10px] md:rounded-[16px] p-1.5 md:p-3  shadow-lg transition-colors duration-200 relative z-10"
             >
               <MessageSquare size={24} />
             </button>
