@@ -50,7 +50,7 @@ const Header2 = () => {
             Chat
           </div>
           <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-            <a href="/farmer/chat">
+            <a href="/chat">
               {" "}
               <MessageSquare className="text-black-400 h-7 w-7" />
             </a>
@@ -66,7 +66,7 @@ const Header2 = () => {
             notifications
           </div>
           <Button variant="ghost" size="icon" aria-label="Notifications">
-          <a href="/farmer/notifications">
+          <a href="/notifications">
           {" "}
             <Bell className="text-black-400 h-7 w-7" />
             </a>
@@ -81,7 +81,7 @@ const Header2 = () => {
             cart
           </div>
           <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-          <a href="/farmer/marketplace/cart">
+          <a href="/marketplace/cart">
           {" "}
             <ShoppingCart className="text-black-400 h-7 w-7" />
             </a>
