@@ -16,6 +16,9 @@ import {
   LayoutDashboard,
   Bell,
   UserRound,
+  MessageCircleMore,
+  MessageSquare,
+  Icon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -63,7 +66,9 @@ const navigationfooter = [
 ];
 
 const navigation = [
-  { name: "Dashboard", href: "/farmer/dashboard", icon: LayoutDashboard },
+  { name: "Dashboard", 
+    href: "/farmer/dashboard", 
+    icon: LayoutDashboard },
   {
     name: "Connected Devices",
     href: "/farmer/connected-devices",
@@ -90,7 +95,8 @@ const navigation = [
     href: "/farmer/ai-recommendations",
     icon: BrainCog,
   },
-  { name: "Forum", href: "/farmer/forum", icon: MessageCircle },
+  { name: "Forum", href: "/farmer/forum", icon: MessageCircleMore },
+  { name: "Chat", href: "/farmer/chat", icon: MessageSquare },
   { name: "Notifications", href: "/farmer/notifications", icon: Bell },
 ];
 
