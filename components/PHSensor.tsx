@@ -50,8 +50,11 @@ const PHSensor = () => {
           text: 'PH Level'
         },
         ticks: {
-          callback: (value) => value.toFixed(1), // Display one decimal place
-        }
+          callback: (value: string | number) => {
+            // Ensure value is a number before calling toFixed
+            return typeof value === "number" ? value.toFixed(1) : value;
+          },
+        },
       },
     },
   };
@@ -59,7 +62,7 @@ const PHSensor = () => {
   return (
     <div>
       <div className="bg-white shadow-6dp rounded-lg p-4">
-        <h3 className="text-3xl  md:text-3xl lg:text-4xl font-semibold font-satoshi text-heading-desktop-h2 text-black-100 mb-4 sm:mb-5 md:mb-6 ">PH Sensor</h3>
+        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">PH Sensor</h3>
         <Bar data={data} options={options} />
       </div>
     </div>

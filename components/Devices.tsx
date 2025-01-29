@@ -9,7 +9,7 @@ interface Device {
   type: string;
   support: string;
   typeMCU: string;
-  description: string;
+  unit: string; 
   status: "Active" | "Inactive";
 }
 
@@ -32,7 +32,7 @@ export default function Devices() {
 
   return (
     <main className="bg-white shadow-lg rounded-lg p-4 flex flex-col">
-      <header className="w-full flex items-center mb-4 justify-between flex-wrap"> {/* Added flex-wrap for responsiveness */}
+      <header className="w-full font-satoshi flex items-center mb-4 justify-between flex-wrap">
         <input
           type="text"
           placeholder="Search devices"
@@ -40,35 +40,36 @@ export default function Devices() {
         />
         <button
           onClick={() => setIsModalOpen(true)} // Open modal on click
-          className="ml-4 bg-primary-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary-600 transition flex items-center"
+          className="ml-4 bg-primary-600 text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:bg-primary-500 transition flex items-center"
         >
-          <FaPlus className="mr-2" /> {/* Margin right for spacing */}
+          <FaPlus className="mr-2" />
           Add New Device
         </button>
       </header>
 
       <table className="min-w-full border-collapse rounded-lg overflow-hidden">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2">#</th>
+          <tr className="bg-gray-100 text-gray-800">
+            <th className="p-2"></th>
             <th className="p-2">Device Name</th>
             <th className="p-2">Device Type</th>
             <th className="p-2">Support</th>
             <th className="p-2">Type of MCU</th>
             <th className="p-2">Status</th>
+            <th className="p-2">S.I. Unit</th>
             <th className="p-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {devices.length === 0 ? (
             <tr>
-              <td colSpan={7} className="text-center p-2">
+              <td colSpan={8} className="text-center p-2"> {/* Updated colSpan to 8 */}
                 No devices added.
               </td>
             </tr>
           ) : (
             devices.map((device, index) => (
-              <tr key={index} className="border-b border-gray-200">
+              <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
                 <td className="p-2 text-center">{index + 1}</td>
                 <td className="p-2">{device.name}</td>
                 <td className="p-2">{device.type}</td>
@@ -76,12 +77,14 @@ export default function Devices() {
                 <td className="p-2">{device.typeMCU}</td>
                 <td className="p-2 text-center">
                   <div
-                    className={`inline-flex items-center justify-center px-2 py-1 text-sm font-semibold rounded-full ${device.status === "Active" ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-600"
-                      }`}
+                    className={`inline-flex items-center justify-center px-2 py-1 text-sm font-semibold rounded-full ${
+                      device.status === "Active" ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-600"
+                    }`}
                   >
                     {device.status}
                   </div>
                 </td>
+                <td className="p-2">{device.unit}</td> {/* Displaying S.I. unit */}
                 <td className="p-2 text-center">
                   <div className="flex justify-center items-center">
                     <FaEdit

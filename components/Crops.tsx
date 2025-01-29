@@ -1,12 +1,11 @@
-// components/CropGraph.js
+// components/CropGraph.tsx
 import React from 'react';
-import { Line } from 'react-chartjs-2';
 
-const CropGraph = ({ data }) => {
+const CropGraph: React.FC = () => {
   return (
     <div className="border rounded-lg p-4 shadow">
       <h2 className="text-xl font-semibold">Crop Growth Over Time</h2>
-      <Line data={data} />
+      <p>This is a simple text message for testing purposes.</p>
     </div>
   );
 };

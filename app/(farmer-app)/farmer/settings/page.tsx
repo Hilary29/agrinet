@@ -5,8 +5,8 @@ const page = () => {
   return (
     <div>
       <IntroText
-        title="Marketplace"
-        description="Profile"
+        title="Settings"
+        description="Update parameters"
       />
     </div>
   );

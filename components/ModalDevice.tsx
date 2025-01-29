@@ -4,8 +4,8 @@ import { useState } from "react";
 
 // Define the props interface
 interface ModalDeviceProps {
-  isOpen: boolean;                     // Type for isOpen
-  onClose: () => void;                 // Type for onClose function
+  isOpen: boolean; // Type for isOpen
+  onClose: () => void; // Type for onClose function
   onAddDevice: (device: Device) => void; // Type for onAddDevice function
 }
 
@@ -16,7 +16,8 @@ interface Device {
   support: string;
   typeMCU: string;
   description: string;
-  status: "Active" | "Inactive"; // Status field
+  status: "Active" | "Inactive"; 
+  unit: string; 
 }
 
 const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice }) => {
@@ -26,6 +27,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
   const [typeMCU, setTypeMCU] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<"Active" | "Inactive">("Active"); // Initialize with a default value
+  const [unit, setUnit] = useState<string>(""); // State for S.I. unit
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
       typeMCU,
       description,
       status, // Use the selected status
+      unit, // Include S.I. unit
     });
     resetForm();
     onClose();
@@ -48,14 +51,15 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
     setTypeMCU("");
     setDescription("");
     setStatus("Active"); // Reset to default status
+    setUnit(""); // Reset S.I. unit
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-0 ">
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800">
       <div className="bg-white-50 rounded-lg p-6 shadow-lg max-w-lg w-full">
-        <h3 className="text-lg font-semibold mb-4">Add New Device</h3>
+        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">Add New Device</h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-2">Device Name</label>
@@ -106,6 +110,17 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
               className="border border-gray-300 rounded-lg p-2 w-full"
               rows={3} // Specify rows as a number
               placeholder="Please provide a brief description of your device"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">S.I. Unit</label>
+            <input
+              type="text"
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)}
+              required
+              className="border border-gray-300 rounded-lg p-2 w-full"
+              placeholder="Enter the S.I. unit"
             />
           </div>
           <div className="mb-4">

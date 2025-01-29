@@ -1,12 +1,11 @@
-// components/LivestockGraph.js
+// components/LivestockGraph.tsx
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
 
-const LivestockGraph = ({ data }) => {
+const LivestockGraph: React.FC = () => {
   return (
     <div className="border rounded-lg p-4 shadow">
       <h2 className="text-xl font-semibold">Livestock Count</h2>
-      <Bar data={data} />
+      <p>This is a simple text message for testing purposes.</p>
     </div>
   );
 };
