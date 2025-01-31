@@ -1,12 +1,10 @@
-"use client";
-
 import { useState } from "react";
 
 // Define the props interface
 interface ModalDeviceProps {
-  isOpen: boolean; // Type for isOpen
-  onClose: () => void; // Type for onClose function
-  onAddDevice: (device: Device) => void; // Type for onAddDevice function
+  isOpen: boolean; 
+  onClose: () => void; 
+  onAddDevice: (device: Device) => void; 
 }
 
 // Define the Device type
@@ -26,22 +24,45 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
   const [support, setSupport] = useState<string>("");
   const [typeMCU, setTypeMCU] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [status, setStatus] = useState<"Active" | "Inactive">("Active"); // Initialize with a default value
-  const [unit, setUnit] = useState<string>(""); // State for S.I. unit
+  const [status, setStatus] = useState<"Active" | "Inactive">("Active");
+  const [unit, setUnit] = useState<string>(""); 
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onAddDevice({
+
+    const newDevice: Device = {
       name: deviceName,
       type: deviceType,
       support,
       typeMCU,
       description,
-      status, // Use the selected status
-      unit, // Include S.I. unit
-    });
-    resetForm();
-    onClose();
+      status,
+      unit,
+    };
+
+    try {
+      // Make a POST request to the backend
+      const response = await fetch('https://your-backend-url.com/api/devices', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newDevice),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      // Optionally: handle the response data if needed
+      const result = await response.json();
+      onAddDevice(result); // Call onAddDevice with the result from the backend
+      resetForm();
+      onClose();
+    } catch (error) {
+      console.error('Error adding device:', error);
+      // Optionally: handle the error (e.g., show a message to the user)
+    }
   };
 
   const resetForm = () => {
@@ -50,8 +71,8 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
     setSupport("");
     setTypeMCU("");
     setDescription("");
-    setStatus("Active"); // Reset to default status
-    setUnit(""); // Reset S.I. unit
+    setStatus("Active");
+    setUnit("");
   };
 
   if (!isOpen) return null;
@@ -108,7 +129,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
               onChange={(e) => setDescription(e.target.value)}
               required
               className="border border-gray-300 rounded-lg p-2 w-full"
-              rows={3} // Specify rows as a number
+              rows={3}
               placeholder="Please provide a brief description of your device"
             />
           </div>

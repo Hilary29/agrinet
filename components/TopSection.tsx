@@ -2,7 +2,7 @@ import React from 'react';
 
 const StatBox: React.FC<{ title: string; value: string; change?: string; currency?: boolean }> = ({ title, value, change, currency }) => {
   return (
-    <div className="bg-white shadow-lg p-6 rounded-lg border border-gray-200">
+    <div className="bg-white shadow-lg p-6 font-semibold rounded-lg border border-gray-200">
       <h2 className="text-sm text-gray-500">{title}</h2>
       <p className="text-3xl font-semibold">
         {currency ? (title === "Total Revenue" ? 'Fcfa ' : '+') : ''}

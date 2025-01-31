@@ -17,7 +17,7 @@ const salesData: Sale[] = [
 const RecentSales: React.FC = () => {
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg border border-gray-200">
-      <h2 className="text-xl font-satoshi mb-4">Recent sales</h2>
+      <h2 className="text-xl font-semibold font-satoshi mb-4">Recent sales</h2>
       <ul className="mt-2">
         {salesData.map((sale, index) => (
           <li key={index} className="flex font-inter justify-between items-center mb-2">

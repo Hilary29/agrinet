@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { EyeOff, Eye } from "lucide-react"
 
-export default function Page() {
+export default function ForgotPasswordForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 

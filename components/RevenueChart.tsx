@@ -56,7 +56,7 @@ const RevenueChart: React.FC = () => {
   };
 
   return (
-    <div className="p-4 bg-white shadow-lg rounded-lg border border-gray-200 dark:bg-gray-800">
+    <div className="p-4 bg-white shadow-lg font-semibold rounded-lg border border-gray-200 dark:bg-gray-800">
       <h2 className="text-lg font-satoshi text-secondary-600 mb-4 text-center">Revenue Overview</h2>
       <div className="w-full h-80">
         <Bar data={data} options={options} />

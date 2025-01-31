@@ -1,27 +1,47 @@
-"use client";
+"use client"
 
-import React from "react";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import React, { useState } from 'react';
 import {
-  Bell,
-  Search,
-  User,
-  Globe,
-  ChevronDown,
-  Menu,
-  ShoppingCart,
-  MessageCircle,
-  MessageSquare,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./ui/breadcrumb"
+import { Separator } from "./ui/separator"
+import { SidebarTrigger } from "./ui/sidebar"
+import { Bell, Search, User, Globe, ChevronDown, ShoppingCart } from "lucide-react"
+import { notifications } from '@/public/data/notification';
+import { Button } from '@mui/material';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 
 const Header2 = () => {
+  
+  const tabs = ['All', 'unread'];
+    
+  const [activeTab, setActiveTab] = useState('All');
+  const [read, setRead] = useState(false);
+
+  const handleTabClick = (tab: string) => setActiveTab(tab);
+
+  const notificationList = [notifications[0],notifications[1]];
+  
+  const filteredNotifications = notificationList.filter((notification) => {
+    if (activeTab === 'All') return true;
+    return notification.status === activeTab;
+  }).filter((notification) => notification.title.toLowerCase());
+
+  const handleNotificationClick = (title: string) => {
+      setRead(true);
+      // Update the notification status to 'read'
+      notifications.forEach((notification) => {
+        if (notification.title === title) {
+          notification.status = 'read';
+        }
+      });
+    };
+
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-6 w-full bg-white-50 border-b border-gray-300">
       <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto mb-4 sm:mb-0">
@@ -36,44 +56,10 @@ const Header2 = () => {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="sm:hidden"
-          aria-label="Menu"
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
-        {/**Bouton messagerie */}
-        <div className="relative group">
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            Chat
-          </div>
-          <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-            <a href="/chat">
-              {" "}
-              <MessageSquare className="text-black-400 h-7 w-7" />
-            </a>
-
-            <span className="absolute -top-[4px] -right-2 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-7 h-5 flex items-center justify-center">
-              +99
-            </span>
-          </Button>
-        </div>
-        {/**Bouton notifications */}
-        <div className="relative group">
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            notifications
-          </div>
-          <Button variant="ghost" size="icon" aria-label="Notifications">
-          <a href="/notifications">
-          {" "}
-            <Bell className="text-black-400 h-7 w-7" />
-            </a>
-            <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
-              4
-            </span>
-          </Button>
+        <Bell className="text-black-100"/>
+        <div className="flex items-center gap-1">
+          <User className="text-black-100" />
+          <span className="text-black-100 font-medium">Ahmed Musa</span>
         </div>
         {/**Bouton panier des achats */}
         <div className="relative group">
