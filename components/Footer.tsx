@@ -139,8 +139,9 @@ const Footer: React.FC = () => {
         <div className="border-t border-[#E1E1E1] pt-10">
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <p className="text-[#626362] mb-4 sm:mb-0">
-              © 2024 AgriNet Inc. All Rights Reserved.
+              © {new Date().getFullYear()} AgriNet Inc. All Rights Reserved.
             </p>
+
             <div className="flex items-center space-x-6">
               <Link href="/terms" className="text-[#626362]">
                 Terms & Conditions

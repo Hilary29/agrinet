@@ -11,17 +11,17 @@ const page = () => {
   return (
     <div>
       <IntroText
-      title="Connected Devices" 
-      description="Add, manage, or remove IoT devices to track your farm in real time."
+        title="Connected Devices"
+        description="Add, manage, or remove IoT devices to track your farm in real time."
       />
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Devices />
-          <NPKSensor />
-          <PHSensor />
-          <TempSensor />
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Devices />
+        <NPKSensor />
+        <PHSensor />
+        <TempSensor />
       </section>
     </div>
   )
 }
 
-export default page
+export default page;

@@ -53,48 +53,38 @@ const data = {
 };
 
 const navigationfooter = [
-  { name: "Settings", href: "/farmer/settings", icon: Settings },
+  { name: "Settings", href: "/user/settings", icon: Settings },
   {
     name: "Account",
-    href: "/farmer/account",
+    href: "/user/account",
     icon: UserRound,
   },
-  { name: "Logout", href: "/farmer/logout", icon: LogOut },
+  { name: "Logout", href: "/user/logout", icon: LogOut },
 ];
 
 const navigation = [
-  { name: "Dashboard", href: "/farmer/dashboard", icon: LayoutDashboard },
-  {
-    name: "Connected Devices",
-    href: "/farmer/connected-devices",
-    icon: SmartphoneNfc,
-  },
+  { name: "Dashboard", href: "/user/dashboard", icon: LayoutDashboard },
   {
     name: "Marketplace",
     icon: ShoppingCart,
     subItems: [
-      { name: "All Products", href: "/farmer/marketplace/all-products" },
-      { name: "Sell & Manage", href: "/farmer/marketplace/sell-and-manage" },
+      { name: "All Products", href: "/user/marketplace/all-products" },
+      { name: "My Cart", href: "/user/marketplace/cart" },
       {
         name: "My Marketplace profile",
-        href: "/farmer/marketplace/marketplace-profile",
+        href: "/user/marketplace/marketplace-profile",
       },
       {
         name: "My Marketplace settings",
-        href: "/farmer/marketplace/marketplace-settings",
+        href: "/user/marketplace/marketplace-settings",
       },
     ],
   },
-  {
-    name: "AI Recommandations",
-    href: "/farmer/ai-recommendations",
-    icon: BrainCog,
-  },
-  { name: "Forum", href: "/farmer/forum", icon: MessageCircle },
-  { name: "Notifications", href: "/farmer/notifications", icon: Bell },
+  { name: "Forum", href: "/user/forum", icon: MessageCircle },
+  { name: "Notifications", href: "/user/notifications", icon: Bell },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar2({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
 

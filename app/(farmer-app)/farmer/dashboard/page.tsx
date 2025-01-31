@@ -2,49 +2,42 @@
 
 import React from 'react';
 import IntroText from '@/components/IntroText';
-import RevenueComparison from '@/components/RevenueComparison';
-import AlertTimeline from '@/components/Alerts';
-import TransactionHistory from '@/components/Transactions';
-import CropGraph from '@/components/Crops';
-import LivestockGraph from '@/components/Livestock';
-import IotSection from '@/components/Iotsection';
+import TopSection from '@/components/TopSection';
+import RevenueChart from '@/components/RevenueChart';
+import RecentSales from '@/components/RecentSales';
+import AIRecommendations from '@/components/AiRecommendations'; 
+import CropsAndLivestock from '@/components/CropAndLivestock';
 
-const Page = () => {
-
-
-
-
-
-
+const Page: React.FC = () => {
   return (
     <div className="p-4">
       <IntroText 
         title="Dashboard" 
-        description="View your farm's performance at a glance, including device stats and AI insights." 
+        description="" 
       />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="col-span-1">
-          <RevenueComparison />
+      <TopSection />
+
+      {/* Merged MidSection content here */}
+        <div className="flex flex-col lg:flex-row lg:space-x-6">
+          <div className="flex-1">
+            <RevenueChart />
+          </div>
+          <div className="flex-1">
+            <RecentSales />
+          </div>
         </div>
-        <div className="col-span-1">
-          <AlertTimeline />
-        </div>
-        <div className="col-span-1">
-          <TransactionHistory transactions={[]}  />
-        </div>
-        <div className="col-span-1 md:col-span-2 lg:col-span-3">
-          <CropGraph />
-        </div>
-        <div className="col-span-1 md:col-span-2 lg:col-span-3">
-          <LivestockGraph  />
-        </div>
-        <div className="col-span-1 md:col-span-2 lg:col-span-3">
-          <IotSection sensors={[]} />
-        </div>
+
+      {/* New Sections */}
+      <div className="mt-6">
+        <CropsAndLivestock />
+      </div>
+
+      <div className="mt-6">
+        <AIRecommendations />
       </div>
     </div>
   );
-}
+};
 
 export default Page;

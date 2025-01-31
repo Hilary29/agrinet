@@ -126,7 +126,7 @@ export default function Metrics() {
 
 
   return (
-    <div className="flex flex-row my-16 justify-center  gap-4">
+    <div className="md:flex flex-row  my-16 justify-center  gap-4">
           <Card className="flex flex-col border-none pt-16">
       <CardHeader className="items-center pb-0">
         <CardTitle></CardTitle>
