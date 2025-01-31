@@ -16,6 +16,9 @@ import {
   LayoutDashboard,
   Bell,
   UserRound,
+  MessageCircleMore,
+  MessageSquare,
+  Icon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -53,45 +56,48 @@ const data = {
 };
 
 const navigationfooter = [
-  { name: "Settings", href: "/farmer/settings", icon: Settings },
+  { name: "Settings", href: "/settings", icon: Settings },
   {
     name: "Account",
-    href: "/farmer/account",
+    href: "/account",
     icon: UserRound,
   },
-  { name: "Logout", href: "/farmer/logout", icon: LogOut },
+  { name: "Logout", href: "/logout", icon: LogOut },
 ];
 
 const navigation = [
-  { name: "Dashboard", href: "/farmer/dashboard", icon: LayoutDashboard },
+  { name: "Dashboard", 
+    href: "/dashboard", 
+    icon: LayoutDashboard },
   {
     name: "Connected Devices",
-    href: "/farmer/connected-devices",
+    href: "/connected-devices",
     icon: SmartphoneNfc,
   },
   {
     name: "Marketplace",
     icon: ShoppingCart,
     subItems: [
-      { name: "All Products", href: "/farmer/marketplace/all-products" },
-      { name: "Sell & Manage", href: "/farmer/marketplace/sell-and-manage" },
+      { name: "All Products", href: "/marketplace/all-products" },
+      { name: "Sell & Manage", href: "/marketplace/sell-and-manage" },
       {
         name: "My Marketplace profile",
-        href: "/farmer/marketplace/marketplace-profile",
+        href: "/marketplace/marketplace-profile",
       },
       {
         name: "My Marketplace settings",
-        href: "/farmer/marketplace/marketplace-settings",
+        href: "/marketplace/marketplace-settings",
       },
     ],
   },
   {
     name: "AI Recommandations",
-    href: "/farmer/ai-recommendations",
+    href: "/ai-recommendations",
     icon: BrainCog,
   },
-  { name: "Forum", href: "/farmer/forum", icon: MessageCircle },
-  { name: "Notifications", href: "/farmer/notifications", icon: Bell },
+  { name: "Forum", href: "/forum", icon: MessageCircleMore },
+  { name: "Chat", href: "/chat", icon: MessageSquare },
+  { name: "Notifications", href: "/notifications", icon: Bell },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

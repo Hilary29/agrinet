@@ -24,7 +24,7 @@ const NPKSensor = () => {
     ],
     datasets: [
       {
-        label: "PK Levels (mg/kg)",
+        label: "NPK Levels (mg/kg)",
         data: [10, 15, 20, 25, 30, 35, 40, 38, 32, 28, 22, 15], // Realistic data values
         borderColor: "hsl(var(--active-500))", // Using your Tailwind color
         backgroundColor: "rgba(67, 199, 89, 0.2)",
@@ -42,14 +42,14 @@ const NPKSensor = () => {
       },
       title: {
         display: true,
-        text: "PK Levels Over the Year",
+        text: "NPK Levels Over the Year",
       },
     },
     scales: {
       y: {
         title: {
           display: true,
-          text: 'PK Levels (mg/kg)',
+          text: 'NPK Levels (mg/kg)',
         },
         beginAtZero: true,
       },
@@ -59,7 +59,7 @@ const NPKSensor = () => {
   return (
     <div>
       <div className="bg-white shadow-6dp rounded-lg p-4">
-        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">PK Sensor</h3>
+        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">NPK Sensor</h3>
         <Line data={data} options={options} />
       </div>
     </div>
