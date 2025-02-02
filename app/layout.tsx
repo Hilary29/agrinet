@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthProvider } from "@/context/AuthContext";
+
 
 export const metadata: Metadata = {
   title: "AgriNet",
@@ -16,10 +16,8 @@ export default function RootLayout({
     <>
       <html lang="en">
         <head />
-        <AuthProvider>
         <body >{children}
         </body>
-        </AuthProvider>
       </html>
     </>
   );
