@@ -1,29 +1,61 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { signUp } from "../../actions/auth"
-import { EyeOff, Eye } from "lucide-react"
-
-
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { EyeOff, Eye } from "lucide-react";
+import { AuthRoutes } from "@/config/routes";
 
 export default function Page() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [agreed, setAgreed] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+  const [formData, setFormData] = useState({
+    id: "",
+    username: "",
+    email: "",
+    firstname: "",
+    lastname: "",
+    password: "",
+  });
+  const [errorMessage, setErrorMessage] = useState(""); // État pour stocker le message d'erreur
+  const router = useRouter();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const result = await signUp(formData)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    if (result.error) {
-      setError(result.error)
-    } else {
-      router.push("/signin") 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage(""); 
+
+    try {
+      const response = await fetch(AuthRoutes.REGISTER, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log(response.body);
+        router.push("/signin"); // Redirection vers la page d'accueil
+      } else {
+        // Lire le corps de la réponse pour obtenir le message d'erreur
+        const errorData = await response.json();
+        setErrorMessage(
+          errorData.message || "Erreur lors de la création de l’utilisateur"
+        ); // Utiliser le message d'erreur de la réponse
+        console.error(
+          "Erreur lors de la création de l'utilisateur:",
+          errorData.message
+        );
+      }
+    } catch (error) {
+      console.error("Erreur réseau:", error);
+      setErrorMessage("Network error during registration."); // Message d'erreur par défaut
     }
-  }
+  };
 
   return (
     <div className="flex justify-center  p-4">
@@ -32,39 +64,98 @@ export default function Page() {
           <p className="font-satoshi text-2xl font-semibold leading-9 text-black-50 md:text-heading-desktop-h4">
             Create your Agrinet account
           </p>
-
+          {errorMessage && (
+            <p className="text-red-500 text-sm my-2">{errorMessage}</p>
+          )}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-5">
               <div className="space-y-2">
-                <label htmlFor="email" className="font-inter text-lg font-medium leading-7">
+                <label
+                  htmlFor="username"
+                  className="font-inter text-paragraph-lg font-medium "
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="firstname"
+                  className="font-inter text-lg font-medium leading-7"
+                >
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="firstname"
+                  name="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="lastname"
+                  className="font-inter text-lg font-medium leading-7"
+                >
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label
+                  htmlFor="email"
+                  className="font-inter text-lg font-medium leading-7"
+                >
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                   className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="fullName" className="font-inter text-lg font-medium leading-7">
-                  Full name
-                </label>
-                <input
-                  type="text"
-                  id="fullName"
-                  className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="password" className="font-inter text-lg font-medium leading-7">
+                <label
+                  htmlFor="password"
+                  className="font-inter text-lg font-medium leading-7"
+                >
                   Password
                 </label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
                     className="w-full rounded-lg border border-[#D6D6D6] p-3 pr-12 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
                   />
                   <button
@@ -72,12 +163,15 @@ export default function Page() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-[#989898]"
                   >
-                    {showPassword ? <Eye className="h-6 w-6" /> : <EyeOff className="h-6 w-6" />}
+                    {showPassword ? (
+                      <Eye className="h-6 w-6" />
+                    ) : (
+                      <EyeOff className="h-6 w-6" />
+                    )}
                   </button>
                 </div>
               </div>
             </div>
-
 
             <div className="space-y-5">
               <button
@@ -92,7 +186,7 @@ export default function Page() {
                   type="checkbox"
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
-                  className="mt-1 h-5 w-5 rounded border-[#C3C3C3] text-[#2FB551] focus:ring-[#2FB551]"
+                  className="mt-1 h-5 w-5 rounded border-[#C3C3C3] text-primary-600 focus:ring-primary-700 "
                 />
                 <span className="font-inter text-base text-[#686868]">
                   I agree to the Terms of Service and Privacy Policy
@@ -103,13 +197,12 @@ export default function Page() {
 
           <p className="text-center font-inter text-base font-medium text-[#1E1E1E]">
             Already have an account?{" "}
-            <a href="/signin" className="text-[#2FB551] hover:underline">
+            <a href="/signin" className="text-primary-500 hover:underline">
               Sign in
             </a>
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

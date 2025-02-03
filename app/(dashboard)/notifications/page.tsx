@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import IntroText from '@/components/IntroText'
 
-import { Notification, notifications } from '@/public/data/notification'
+import { Notification, notifications } from '@/types/notification'
 import { NotificationCard } from '@/components/NotificationCard'
 
 const Page = () => {

@@ -1,56 +1,77 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { signIn } from "../../actions/auth"
-import { EyeOff, Eye } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { EyeOff, Eye } from "lucide-react";
+import { saveToken } from '../../services/auth/saveTokenService/saveTokenService';
+import { decodeToken, getAccessToken, login } from '../../services/auth/authService/authService';
 
 export default function Page() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const result = await signIn(formData)
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(""); // Réinitialiser l'erreur avant de tenter de se connecter
 
-    if (result.error) {
-      setError(result.error)
-    } else {
-      router.push("/dashboard") // Redirect to dashboard on successful sign-in
+    try {
+      const jwtToken = await login(username, password);
+      console.log("User authenticated:", jwtToken);
+
+      const accessToken = getAccessToken(jwtToken);
+      console.log("Access Token:", accessToken);
+
+      const decodedToken = decodeToken(accessToken);
+      console.log("Decoded Token:", decodedToken);
+
+      // Chiffrer et sauvegarder le token
+      await saveToken(accessToken);
+      router.push("/dashboard"); 
+    } catch (error) {
+      console.log(error);
+      // Vérification du type d'erreur
+      const errorMessage =
+        (error as Error).message || "Invalid credentials. Please try again.";
+      setError(errorMessage); // Afficher le message d'erreur réel
     }
-  }
+  };
 
   return (
     <div className="flex  justify-center  p-4">
-      <div  className="flex w-full max-w-[560px] flex-col items-center rounded-lg bg-white-50 p-6 md:p-10">
+      <div className="flex w-full max-w-[560px] flex-col items-center rounded-lg bg-white-50 p-6 md:p-10">
         <div className="w-full max-w-[480px] space-y-8">
           <p className="font-satoshi text-2xl font-semibold leading-9 text-black-50 md:text-heading-desktop-h4">
-          Sign in to your account
+            Sign in to your account
           </p>
-
-          <form onSubmit={handleSubmit}  className="space-y-6">
-          {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
+          {error && <p className="text-red-500 text-sm my-2">{error}</p>}
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-6">
               <div className="space-y-2">
-                <label htmlFor="email" className="font-inter text-lg font-medium leading-7">
-                  Email
+                <label
+                  htmlFor="username"
+                  className="font-inter text-paragraph-lg font-medium "
+                >
+                  UserName or Name
                 </label>
                 <input
-                  name="email"
-                  type="email"
-                  id="email"
-                  autoComplete="email"
-                  required
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+                required
                   className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="font-inter text-lg font-medium leading-7">
+                  <label
+                    htmlFor="password"
+                    className="font-inter text-lg font-medium leading-7"
+                  >
                     Password
                   </label>
                   <a
@@ -63,9 +84,10 @@ export default function Page() {
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
-                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    required
                     className="w-full rounded-lg border border-[#D6D6D6] p-3 pr-12 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
                   />
                   <button
@@ -73,22 +95,25 @@ export default function Page() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-[#989898]"
                   >
-                    {showPassword ? <Eye className="h-6 w-6" /> : <EyeOff className="h-6 w-6" />}
+                    {showPassword ? (
+                      <Eye className="h-6 w-6" />
+                    ) : (
+                      <EyeOff className="h-6 w-6" />
+                    )}
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="space-y-8">
-{/*               <label className="flex items-center gap-2 px-2">
+                            <label className="flex items-center gap-2 px-2">
                 <input
                   type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
+                  name="remember"
                   className="h-5 w-5 rounded border-[#C3C3C3] text-[#2FB551] focus:ring-[#2FB551]"
                 />
                 <span className="font-inter text-base text-[#1E1E1E]">Remember me</span>
-              </label> */}
+              </label> 
 
               <button
                 type="submit"
@@ -108,6 +133,5 @@ export default function Page() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
