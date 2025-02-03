@@ -5,6 +5,7 @@ import ModalDevice from "@/components/ModalDevice";
 import InfoModal from "@/components/InfoDevice"; 
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa"; 
 import Image from 'next/image'; 
+import { deviceList } from '@/public/data/datadevices'; // Adjust the path as necessary
 
 interface Device {
   name: string;
@@ -17,10 +18,11 @@ interface Device {
 }
 
 const Page = () => {
-  const [devices, setDevices] = useState<Device[]>([]);
+  const [devices, setDevices] = useState<Device[]>(deviceList);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [currentDeviceIndex, setCurrentDeviceIndex] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
   const handleAddDevice = (device: Device) => {
     if (currentDeviceIndex !== null) {
@@ -53,6 +55,16 @@ const Page = () => {
     setCurrentDeviceIndex(null);
   };
 
+  // Filter devices based on search query across multiple fields
+  const filteredDevices = devices.filter(device =>
+    device.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    device.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    device.support.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    device.typeMCU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    device.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    device.unit.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="p-4 md:p-6 bg-white-50">
       <IntroText
@@ -84,6 +96,8 @@ const Page = () => {
                 type="text"
                 placeholder="Search devices"
                 className="border border-gray-300 rounded-lg p-2 w-full md:w-2/3 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                value={searchQuery} // Set value to searchQuery state
+                onChange={(e) => setSearchQuery(e.target.value)} // Update searchQuery state
               />
               <button
                 onClick={() => setIsModalOpen(true)} 
@@ -109,7 +123,7 @@ const Page = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {devices.map((device, index) => (
+                  {filteredDevices.map((device, index) => (
                     <tr 
                       key={index} 
                       className="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
@@ -123,7 +137,7 @@ const Page = () => {
                       <td className="p-2 text-center">
                         <div
                           className={`inline-flex items-center justify-center px-2 py-1 text-sm font-semibold rounded-full ${
-                            device.status === "Active" ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-600"
+                            device.status === "Active" ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-500"
                           }`}
                         >
                           {device.status}

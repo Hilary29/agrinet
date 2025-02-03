@@ -3,10 +3,10 @@
 import React from 'react';
 import IntroText from '@/components/IntroText';
 import TopSection from '@/components/TopSection';
-import RevenueChart from '@/components/RevenueChart';
-import RecentSales from '@/components/RecentSales';
+import RevenueChart from '@/components/Dashboard/RevenueChart';
+import RecentSales from '@/components/Dashboard/RecentSales';
 import CropsAndLivestock from '@/components/CropAndLivestock'; 
-import AIRecommendations from '@/components/AiRecommendations'; 
+import AIRecommendations from '@/components/Dashboard/AiRecommendations'; 
 
 const Page: React.FC = () => {
   return (

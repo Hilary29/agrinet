@@ -94,13 +94,13 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-white-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-100 bg-white-200">
       <div className="bg-white-50 rounded-lg p-6 shadow-lg max-w-lg w-full">
         <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">
           {currentDevice ? "Edit Device" : "Add New Device"}
         </h3>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-4 font-inter">
             <label className="block mb-2">Device Name</label>
             <input
               type="text"

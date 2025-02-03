@@ -56,7 +56,7 @@ const data = {
 };
 
 const navigationfooter = [
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Settings", href: "/farmer/settings", icon: Settings },
   {
     name: "Account",
     href: "/account",
@@ -67,37 +67,40 @@ const navigationfooter = [
 
 const navigation = [
   { name: "Dashboard", 
-    href: "/dashboard", 
+    href: "/farmer/dashboard", 
     icon: LayoutDashboard },
   {
     name: "Connected Devices",
-    href: "/connected-devices",
+    href: "/farmer/connected-devices",
     icon: SmartphoneNfc,
   },
   {
     name: "Marketplace",
     icon: ShoppingCart,
     subItems: [
-      { name: "All Products", href: "/marketplace/all-products" },
-      { name: "Sell & Manage", href: "/marketplace/sell-and-manage" },
+      { name: "All Products", href: "/farmer/marketplace/all-products" },
+      { name: "Sell & Manage", href: "/farmer/marketplace/sell-and-manage" },
       {
         name: "My Marketplace profile",
-        href: "/marketplace/marketplace-profile",
+        href: "/farmer/marketplace/marketplace-profile",
       },
       {
         name: "My Marketplace settings",
-        href: "/marketplace/marketplace-settings",
+        href: "/farmer/marketplace/marketplace-settings",
       },
     ],
   },
   {
     name: "AI Recommandations",
-    href: "/ai-recommendations",
     icon: BrainCog,
+    subItems: [
+      { name: "All Products", href: "/farmer/ai-tips/recommendations" },
+      { name: "Sell & Manage", href: "/farmer/ai-tips/predictions" },
+    ],
   },
-  { name: "Forum", href: "/forum", icon: MessageCircleMore },
-  { name: "Chat", href: "/chat", icon: MessageSquare },
-  { name: "Notifications", href: "/notifications", icon: Bell },
+  { name: "Forum", href: "/farmer/forum", icon: MessageCircleMore },
+  { name: "Chat", href: "/farmer/chat", icon: MessageSquare },
+  { name: "Notifications", href: "/farmer/notifications", icon: Bell },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

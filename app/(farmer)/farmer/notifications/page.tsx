@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from 'react';
 import IntroText from '@/components/IntroText';
 import { notifications } from '@/public/data/notification';
@@ -10,7 +9,7 @@ const Page = () => {
   
   const [activeTab, setActiveTab] = useState('All');
 
-  const handleTabClick = (tab: string) => setActiveTab(tab);
+  const handleTabClick = (tab: React.SetStateAction<string>) => setActiveTab(tab);
 
   const filteredNotifications = notifications.filter((notification) => {
     if (activeTab === 'All') return true;
@@ -18,7 +17,6 @@ const Page = () => {
   });
 
   const handleNotificationClick = (title: string) => {
-    // Update the notification status to 'read'
     notifications.forEach((notification) => {
       if (notification.title === title) {
         notification.status = 'read';
@@ -47,7 +45,7 @@ const Page = () => {
           </button>
         ))}
       </div>
-      <div className='flex flex-col justify-start items-start'>
+      {/* <div className='flex flex-col justify-start items-start'>
         {filteredNotifications.map((notification) => (
           <NotificationCard 
             key={notification.title} 
@@ -55,7 +53,7 @@ const Page = () => {
             onClick={handleNotificationClick} 
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

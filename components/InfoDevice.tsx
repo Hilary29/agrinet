@@ -1,10 +1,10 @@
 // components/InfoModal.tsx
 import React from "react";
 import { FaTimes } from "react-icons/fa"; // Import the close icon
-import TempSensor from "./TempSensor"; 
-import PHSensor from "./PHSensor";
-import NPKSensor from "./NPKSensor";
-import HumiditySensor from "./HumiditySensor";
+import TempSensor from "./Sensors/TempSensor"; 
+import PHSensor from "./Sensors/PHSensor";
+import NPKSensor from "./Sensors/NPKSensor";
+import HumiditySensor from "./Sensors/HumiditySensor";
 
 interface Device {
   name: string;
@@ -43,7 +43,7 @@ const InfoDevice: React.FC<InfoModalProps> = ({ isOpen, onClose, device }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-white-50 bg-opacity-50">
-      <div className="bg-white-50 rounded-lg p-4 md:p-6 shadow-lg max-w-3xl w-full relative">
+      <div className="bg-white-50 rounded-lg p-4 md:p-6 shadow-lg max-w-5xl w-full relative">
         <FaTimes 
           className="absolute top-4 right-4 cursor-pointer text-gray-600 hover:text-gray-800" 
           onClick={onClose} 
