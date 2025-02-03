@@ -1,66 +1,44 @@
 // components/NPKSensor.js
 import React from "react";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-  Tooltip,
-  Legend,
-  CategoryScale
-} from "chart.js";
-
-// Register the necessary components
-ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale);
+import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from "recharts";
 
 const NPKSensor = () => {
-  // Sample data for the graph with realistic PK levels (in mg/kg)
-  const data = {
-    labels: [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ],
-    datasets: [
-      {
-        label: "NPK Levels (mg/kg)",
-        data: [10, 15, 20, 25, 30, 35, 40, 38, 32, 28, 22, 15], // Realistic data values
-        borderColor: "hsl(var(--active-500))", // Using your Tailwind color
-        backgroundColor: "rgba(67, 199, 89, 0.2)",
-        fill: true,
-        tension: 0.4,
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: "NPK Levels Over the Year",
-      },
-    },
-    scales: {
-      y: {
-        title: {
-          display: true,
-          text: 'NPK Levels (mg/kg)',
-        },
-        beginAtZero: true,
-      },
-    },
-  };
+  const data = [
+    { month: "Jan", npkLevel: 10 },
+    { month: "Feb", npkLevel: 15 },
+    { month: "Mar", npkLevel: 20 },
+    { month: "Apr", npkLevel: 25 },
+    { month: "May", npkLevel: 30 },
+    { month: "Jun", npkLevel: 35 },
+    { month: "Jul", npkLevel: 40 },
+    { month: "Aug", npkLevel: 38 },
+    { month: "Sep", npkLevel: 32 },
+    { month: "Oct", npkLevel: 28 },
+    { month: "Nov", npkLevel: 22 },
+    { month: "Dec", npkLevel: 15 },
+  ];
 
   return (
     <div>
       <div className="bg-white shadow-6dp rounded-lg p-4">
         <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">NPK Sensor</h3>
-        <Line data={data} options={options} />
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis domain={[0, 'dataMax + 5']} />
+            <Tooltip />
+            <Line
+              type="monotone"
+              dataKey="npkLevel"
+              stroke="#8B4513" // Brown color
+              fill="rgba(67, 199, 89, 0.2)"
+              strokeWidth={2}
+              dot={true}
+              activeDot={{ r: 6 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

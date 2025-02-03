@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// Define the Device interface here too
+// Define the Device interface
 interface Device {
   name: string;
   type: string;
@@ -70,6 +70,27 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
     onClose(); // Close the modal
   };
 
+  const handleDeviceTypeChange = (type: string) => {
+    setDeviceType(type);
+    // Set unit based on device type
+    switch (type) {
+      case "Temperature sensor":
+        setUnit("°C");
+        break;
+      case "Humidity sensor":
+        setUnit("%");
+        break;
+      case "PH sensor":
+        setUnit("pH");
+        break;
+      case "NPK sensor":
+        setUnit("mg/L");
+        break;
+      default:
+        setUnit("");
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -91,13 +112,18 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
           </div>
           <div className="mb-4">
             <label className="block mb-2">Device Type</label>
-            <input
-              type="text"
+            <select
               value={deviceType}
-              onChange={(e) => setDeviceType(e.target.value)}
+              onChange={(e) => handleDeviceTypeChange(e.target.value)}
               required
               className="border border-gray-300 rounded-lg p-2 w-full"
-            />
+            >
+              <option value="">Select Device Type</option>
+              <option value="Temperature sensor">Temperature sensor</option>
+              <option value="Humidity sensor">Humidity sensor</option>
+              <option value="PH sensor">PH sensor</option>
+              <option value="NPK sensor">NPK sensor</option>
+            </select>
           </div>
           <div className="mb-4">
             <label className="block mb-2">Support</label>
@@ -139,6 +165,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
               required
               className="border border-gray-300 rounded-lg p-2 w-full"
               placeholder="Enter the S.I. unit"
+              readOnly // Make it read-only since it's determined by the device type
             />
           </div>
           <div className="mb-4">
@@ -176,7 +203,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
             </button>
             <button
               type="submit"
-              className="bg-primary-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary-600 transition"
+              className="bg-primary-500 text-white-50 font-semibold py-2 px-4 rounded-lg hover:bg-primary-600 transition"
             >
               {currentDevice ? "Update Device" : "Add Device"}
             </button>
