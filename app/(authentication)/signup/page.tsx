@@ -26,7 +26,7 @@ export default function Page() {
     setFormData({ ...formData, [name]: value })
   }
 
-  console.log(formData);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -38,12 +38,13 @@ export default function Page() {
         headers: {
           "Content-Type": "application/json",
         },
+        
         body: JSON.stringify(formData),
       })
 
       if (response.ok) {
         console.log(response.body)
-        router.push("/signin") // Redirection vers la page d'accueil
+        router.push("/signin-verify-email") // Redirection vers la page d'accueil
       } else {
         // Lire le corps de la réponse pour obtenir le message d'erreur
         const errorData = await response.json()
@@ -54,6 +55,7 @@ export default function Page() {
       console.error("Erreur réseau:", error)
       setErrorMessage("Network error during registration.") // Message d'erreur par défaut
     }
+    console.log(formData);//a enlever
   }
 
   return (
