@@ -6,7 +6,10 @@ import { Badge } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { notification } from '@/public/data/notification'
 //{ items }: { items: OverviewItem[] }
+
+
 
 export const NotificationCard = ({ notification, onClick }) => ( 
     <div onClick={() => onClick(notification.title)}>
