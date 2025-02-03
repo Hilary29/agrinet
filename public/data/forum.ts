@@ -104,7 +104,7 @@ export const forums: Forum[] = [
         unlikes: 1,
         comments: 4,
         externalLinks: 2,
-        images: ['/images/iot-forum.jpeg'],
+        images: [''],
         category: 'Farming',
         date: '2021-02-15'
     }

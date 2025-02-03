@@ -1,24 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-// Define the props interface
-interface ModalDeviceProps {
-  isOpen: boolean; 
-  onClose: () => void; 
-  onAddDevice: (device: Device) => void; 
-}
-
-// Define the Device type
+// Define the Device interface here too
 interface Device {
   name: string;
   type: string;
   support: string;
   typeMCU: string;
   description: string;
-  status: "Active" | "Inactive"; 
   unit: string; 
+  status: "Active" | "Inactive";
 }
 
-const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice }) => {
+interface ModalDeviceProps {
+  isOpen: boolean; 
+  onClose: () => void; 
+  onAddDevice: (device: Device) => void; 
+  currentDevice?: Device; // Optional prop for editing
+}
+
+const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice, currentDevice }) => {
   const [deviceName, setDeviceName] = useState<string>("");
   const [deviceType, setDeviceType] = useState<string>("");
   const [support, setSupport] = useState<string>("");
@@ -27,7 +27,32 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
   const [status, setStatus] = useState<"Active" | "Inactive">("Active");
   const [unit, setUnit] = useState<string>(""); 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Populate form fields when editing
+  useEffect(() => {
+    if (currentDevice) {
+      setDeviceName(currentDevice.name);
+      setDeviceType(currentDevice.type);
+      setSupport(currentDevice.support);
+      setTypeMCU(currentDevice.typeMCU);
+      setDescription(currentDevice.description);
+      setStatus(currentDevice.status);
+      setUnit(currentDevice.unit);
+    } else {
+      resetForm();
+    }
+  }, [currentDevice, isOpen]);
+
+  const resetForm = () => {
+    setDeviceName("");
+    setDeviceType("");
+    setSupport("");
+    setTypeMCU("");
+    setDescription("");
+    setStatus("Active");
+    setUnit("");
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newDevice: Device = {
@@ -40,47 +65,19 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
       unit,
     };
 
-    try {
-      // Make a POST request to the backend
-      const response = await fetch('https://your-backend-url.com/api/devices', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newDevice),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      // Optionally: handle the response data if needed
-      const result = await response.json();
-      onAddDevice(result); // Call onAddDevice with the result from the backend
-      resetForm();
-      onClose();
-    } catch (error) {
-      console.error('Error adding device:', error);
-      // Optionally: handle the error (e.g., show a message to the user)
-    }
-  };
-
-  const resetForm = () => {
-    setDeviceName("");
-    setDeviceType("");
-    setSupport("");
-    setTypeMCU("");
-    setDescription("");
-    setStatus("Active");
-    setUnit("");
+    onAddDevice(newDevice);
+    resetForm();
+    onClose(); // Close the modal
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800">
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-white-50">
       <div className="bg-white-50 rounded-lg p-6 shadow-lg max-w-lg w-full">
-        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">Add New Device</h3>
+        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">
+          {currentDevice ? "Edit Device" : "Add New Device"}
+        </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-2">Device Name</label>
@@ -181,7 +178,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice 
               type="submit"
               className="bg-primary-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary-600 transition"
             >
-              Add Device
+              {currentDevice ? "Update Device" : "Add Device"}
             </button>
           </div>
         </form>
