@@ -1,13 +1,15 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { EyeOff, Eye } from "lucide-react";
-import { AuthRoutes } from "@/config/routes";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { EyeOff, Eye } from "lucide-react"
+import { AuthRoutes } from "@/config/routes"
+import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa"
+import Image from "next/image"
 
 export default function Page() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [agreed, setAgreed] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
+  const [agreed, setAgreed] = useState(false)
   const [formData, setFormData] = useState({
     id: "",
     username: "",
@@ -15,18 +17,20 @@ export default function Page() {
     firstname: "",
     lastname: "",
     password: "",
-  });
-  const [errorMessage, setErrorMessage] = useState(""); // État pour stocker le message d'erreur
-  const router = useRouter();
+  })
+  const [errorMessage, setErrorMessage] = useState("") // État pour stocker le message d'erreur
+  const router = useRouter()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
+
+  console.log(formData);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage(""); 
+    e.preventDefault()
+    setErrorMessage("")
 
     try {
       const response = await fetch(AuthRoutes.REGISTER, {
@@ -35,27 +39,22 @@ export default function Page() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      });
+      })
 
       if (response.ok) {
-        console.log(response.body);
-        router.push("/signin"); // Redirection vers la page d'accueil
+        console.log(response.body)
+        router.push("/signin") // Redirection vers la page d'accueil
       } else {
         // Lire le corps de la réponse pour obtenir le message d'erreur
-        const errorData = await response.json();
-        setErrorMessage(
-          errorData.message || "Erreur lors de la création de l’utilisateur"
-        ); // Utiliser le message d'erreur de la réponse
-        console.error(
-          "Erreur lors de la création de l'utilisateur:",
-          errorData.message
-        );
+        const errorData = await response.json()
+        setErrorMessage(errorData.message || "Erreur lors de la création de l’utilisateur") // Utiliser le message d'erreur de la réponse
+        console.error("Erreur lors de la création de l'utilisateur:", errorData.message)
       }
     } catch (error) {
-      console.error("Erreur réseau:", error);
-      setErrorMessage("Network error during registration."); // Message d'erreur par défaut
+      console.error("Erreur réseau:", error)
+      setErrorMessage("Network error during registration.") // Message d'erreur par défaut
     }
-  };
+  }
 
   return (
     <div className="flex justify-center  p-4">
@@ -64,16 +63,11 @@ export default function Page() {
           <p className="font-satoshi text-2xl font-semibold leading-9 text-black-50 md:text-heading-desktop-h4">
             Create your Agrinet account
           </p>
-          {errorMessage && (
-            <p className="text-red-500 text-sm my-2">{errorMessage}</p>
-          )}
+          {errorMessage && <p className="text-red-500 text-sm my-2">{errorMessage}</p>}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-5">
               <div className="space-y-2">
-                <label
-                  htmlFor="username"
-                  className="font-inter text-paragraph-lg font-medium "
-                >
+                <label htmlFor="username" className="font-inter text-paragraph-lg font-medium ">
                   Username
                 </label>
                 <input
@@ -88,10 +82,7 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <label
-                  htmlFor="firstname"
-                  className="font-inter text-lg font-medium leading-7"
-                >
+                <label htmlFor="firstname" className="font-inter text-lg font-medium leading-7">
                   First Name
                 </label>
                 <input
@@ -106,10 +97,7 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <label
-                  htmlFor="lastname"
-                  className="font-inter text-lg font-medium leading-7"
-                >
+                <label htmlFor="lastname" className="font-inter text-lg font-medium leading-7">
                   Last Name
                 </label>
                 <input
@@ -124,10 +112,7 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <label
-                  htmlFor="email"
-                  className="font-inter text-lg font-medium leading-7"
-                >
+                <label htmlFor="email" className="font-inter text-lg font-medium leading-7">
                   Email
                 </label>
                 <input
@@ -142,10 +127,7 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <label
-                  htmlFor="password"
-                  className="font-inter text-lg font-medium leading-7"
-                >
+                <label htmlFor="password" className="font-inter text-lg font-medium leading-7">
                   Password
                 </label>
                 <div className="relative">
@@ -163,11 +145,7 @@ export default function Page() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-[#989898]"
                   >
-                    {showPassword ? (
-                      <Eye className="h-6 w-6" />
-                    ) : (
-                      <EyeOff className="h-6 w-6" />
-                    )}
+                    {showPassword ? <Eye className="h-6 w-6" /> : <EyeOff className="h-6 w-6" />}
                   </button>
                 </div>
               </div>
@@ -193,6 +171,30 @@ export default function Page() {
                 </span>
               </label>
             </div>
+            <div className="space-y-4 mt-6">
+              <p className="text-center font-inter text-base text-[#686868]">Or sign up with</p>
+              <div className="flex justify-center  space-x-8">
+                <button
+                  type="button"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg  "
+                >
+                  < Image src='/images/google-icon.png' width={200} height={200} className="hover:bg-[#0000003d] bg-cover shadow-2dp rounded-lg "  alt='google icon'/>
+
+                </button>
+                <button
+                  type="button"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#4267B2] text-white-50 hover:bg-opacity-90"
+                >
+                  <FaFacebook className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#E1306C] text-white-50 hover:bg-opacity-90"
+                >
+                  Y
+                </button>
+              </div>
+            </div>
           </form>
 
           <p className="text-center font-inter text-base font-medium text-[#1E1E1E]">
@@ -204,5 +206,6 @@ export default function Page() {
         </div>
       </div>
     </div>
-  );
+  )
 }
+

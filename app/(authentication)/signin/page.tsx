@@ -3,8 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EyeOff, Eye } from "lucide-react";
-import { saveToken } from '../../services/auth/saveTokenService/saveTokenService';
-import { decodeToken, getAccessToken, login } from '../../services/auth/authService/authService';
+import { saveToken } from "../../services/auth/saveTokenService/saveTokenService";
+import {
+  decodeToken,
+  getAccessToken,
+  login,
+} from "../../services/auth/authService/authService";
+import { FaFacebook } from "react-icons/fa";
+import Image from "next/image";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +35,7 @@ export default function Page() {
 
       // Chiffrer et sauvegarder le token
       await saveToken(accessToken);
-      router.push("/dashboard"); 
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
       // Vérification du type d'erreur
@@ -57,11 +63,11 @@ export default function Page() {
                   UserName or Name
                 </label>
                 <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-                required
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  required
                   className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
                 />
               </div>
@@ -106,14 +112,16 @@ export default function Page() {
             </div>
 
             <div className="space-y-8">
-                            <label className="flex items-center gap-2 px-2">
+              <label className="flex items-center gap-2 px-2">
                 <input
                   type="checkbox"
                   name="remember"
                   className="h-5 w-5 rounded border-[#C3C3C3] text-[#2FB551] focus:ring-[#2FB551]"
                 />
-                <span className="font-inter text-base text-[#1E1E1E]">Remember me</span>
-              </label> 
+                <span className="font-inter text-base text-[#1E1E1E]">
+                  Remember me
+                </span>
+              </label>
 
               <button
                 type="submit"
@@ -121,6 +129,37 @@ export default function Page() {
               >
                 Sign in
               </button>
+            </div>
+            <div className="space-y-4 mt-6">
+              <p className="text-center font-inter text-base text-[#686868]">
+                Or sign up with
+              </p>
+              <div className="flex justify-center  space-x-8">
+                <button
+                  type="button"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg  "
+                >
+                  <Image
+                    src="/images/google-icon.png"
+                    width={200}
+                    height={200}
+                    className="hover:bg-[#0000003d] bg-cover shadow-2dp rounded-lg "
+                    alt="google icon"
+                  />
+                </button>
+                <button
+                  type="button"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#4267B2] text-white-50 hover:bg-opacity-90"
+                >
+                  <FaFacebook className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  className="flex items-center justify-center w-12 h-12 rounded-lg bg-[#E1306C] text-white-50 hover:bg-opacity-90"
+                >
+                  Y
+                </button>
+              </div>
             </div>
           </form>
 
