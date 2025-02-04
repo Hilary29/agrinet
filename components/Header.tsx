@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { MobileSidebar } from "./mobile-sidebar";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useAuth } from "@/context/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,

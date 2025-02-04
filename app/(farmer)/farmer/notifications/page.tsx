@@ -1,35 +1,40 @@
-"use client";
+"use client"
+
 import React, { useState } from 'react';
-import IntroText from '@/components/IntroText';
-import { notifications } from '@/public/data/notification';
-import { NotificationCard } from '@/components/NotificationCard';
+
+import IntroText from '@/components/IntroText'
+
+import { Notification, notifications } from '@/public/data/notification'
+import { NotificationCard } from '@/components/NotificationCard'
 
 const Page = () => {
-  const tabs = ['All', 'Unread'];
+
+  const tabs = ['All', 'unread'];
   
   const [activeTab, setActiveTab] = useState('All');
+  const [read, setRead] = useState(false);
 
-  const handleTabClick = (tab: React.SetStateAction<string>) => setActiveTab(tab);
-
+  const handleTabClick = (tab: string) => setActiveTab(tab);
+  
   const filteredNotifications = notifications.filter((notification) => {
     if (activeTab === 'All') return true;
-    return notification.status === 'unread';
-  });
+    return notification.status === activeTab;
+  }).filter((notification) => notification.title.toLowerCase());
 
   const handleNotificationClick = (title: string) => {
+    setRead(true);
+    // Update the notification status to 'read'
     notifications.forEach((notification) => {
       if (notification.title === title) {
         notification.status = 'read';
       }
     });
   };
-
   return (
     <div>
       <IntroText 
-        title="Notifications" 
-        description="Stay informed with real-time updates and alerts." 
-      />
+      title="Notifications" 
+      description="Stay informed with real-time updates and alerts." />
       <div className='py-5'>
         {tabs.map((tab, index) => (
           <button
@@ -45,17 +50,15 @@ const Page = () => {
           </button>
         ))}
       </div>
-      {/* <div className='flex flex-col justify-start items-start'>
-        {filteredNotifications.map((notification) => (
-          <NotificationCard 
-            key={notification.title} 
-            notification={notification} 
-            onClick={handleNotificationClick} 
-          />
-        ))}
-      </div> */}
+      <div className='flex justify-between w-full items-center mr-10'>
+        <div>
+          {filteredNotifications.map((notification) => (
+            <NotificationCard key={notification.title} notification={notification} onClick={handleNotificationClick} />
+          ))}
+        </div>
+      </div>
     </div>
-  );
+  )
 };
 
-export default Page;
+export default Page

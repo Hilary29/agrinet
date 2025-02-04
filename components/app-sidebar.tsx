@@ -91,13 +91,7 @@ const navigation = [
     ],
   },
   {
-    name: "AI Recommandations",
-    icon: BrainCog,
-    subItems: [
-      { name: "All Products", href: "/farmer/ai-tips/recommendations" },
-      { name: "Sell & Manage", href: "/farmer/ai-tips/predictions" },
-    ],
-  },
+    name: "AI Tips",  href: "/farmer/ai-tips", icon: BrainCog,},
   { name: "Forum", href: "/farmer/forum", icon: MessageCircleMore },
   { name: "Chat", href: "/farmer/chat", icon: MessageSquare },
   { name: "Notifications", href: "/farmer/notifications", icon: Bell },
