@@ -16,15 +16,15 @@ const Page = () => {
 
   const handleTabClick = (tab: string) => setActiveTab(tab);
   
-  const filteredNotifications = notifications.filter((notification) => {
+  const filteredNotifications = notifications.filter((notification: { status: string; }) => {
     if (activeTab === 'All') return true;
     return notification.status === activeTab;
-  }).filter((notification) => notification.title.toLowerCase());
+  }).filter((notification: { title: string; }) => notification.title.toLowerCase());
 
   const handleNotificationClick = (title: string) => {
     setRead(true);
     // Update the notification status to 'read'
-    notifications.forEach((notification) => {
+    notifications.forEach((notification: { title: string; status: string; }) => {
       if (notification.title === title) {
         notification.status = 'read';
       }
@@ -52,7 +52,7 @@ const Page = () => {
       </div>
       <div className='flex justify-between w-full items-center mr-10'>
         <div>
-          {filteredNotifications.map((notification) => (
+          {filteredNotifications.map((notification: unknown) => (
             <NotificationCard key={notification.title} notification={notification} onClick={handleNotificationClick} />
           ))}
         </div>

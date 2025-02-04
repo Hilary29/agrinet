@@ -16,16 +16,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { MobileSidebar } from "./mobile-sidebar";
 import LanguageSwitcher from "./LanguageSwitcher";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+
 
 import logo from "../public/images/logo.png";
 

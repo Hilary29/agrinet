@@ -18,7 +18,7 @@ import { Separator } from "./ui/separator"
 import { SidebarTrigger } from "./ui/sidebar"
 import { Button } from "./ui/button"
 import { Bell, Search, User, Globe, ChevronDown, Link, Menu, MessageSquare } from "lucide-react"
-import { Notification, notifications } from '@/public/data/notification'
+import { Notification, notifications } from '@/types/notification'
 import { NotificationCard } from "@/components/NotificationCard"
 import IntroText from '@/components/IntroText'
 
