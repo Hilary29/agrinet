@@ -44,10 +44,9 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="bg-white-50">
-      <Header />
-      <div className="max-w-6xl mx-auto px-4 py-8 pt-24 ">
+      <div className="max-w-6xl mx-auto  ">
         <Link
-          href="/marketplace"
+          href="/marketplace/all-products"
           className="inline-block mb-8 font-inter font-medium"
         >
           <Button variant="ghost" className="gap-2">
@@ -55,11 +54,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
             Back to MarketPlace
           </Button>
         </Link>
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 ">
       <ProductDetailsTab product={product} />
     </div>
       </div>
-      <Footer />
     </main>
   );
 }
