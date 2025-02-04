@@ -10,7 +10,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio"
 
 export const NotificationCard = ({ notification, onClick }) => ( 
     <div onClick={() => onClick(notification.title)}>
-        <div className="flex items-top p-2 mb-2 space-x-4 cursor-pointer">
+        <div className="flex items-top p-2 mb-2 space-x-4 cursor-pointer hover:bg-accent">
             {/* <Skeleton className="h-12 w-12 rounded-full animation-none" >
             {notification.images.map((image, index) => (
                 <Image key={index} src={image} alt={`Image ${index + 1}`} className="rounded-full object-cover w-full h-full" />

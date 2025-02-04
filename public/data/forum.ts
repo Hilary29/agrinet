@@ -1,7 +1,9 @@
+import { Community, communities } from "./community";
+
 export interface Forum{
     title: string;
     description: string;
-    members: number;
+    community : Community;
     likes: number;
     unlikes: number;
     comments: number;
@@ -15,7 +17,7 @@ export const forums: Forum[] = [
     {
         title: 'How to grow tomatoes',
         description: 'Tomatoes are a great source of vitamins and minerals. They are easy to grow and require little maintenance. Here are some tips on how to grow tomatoes in your garden.',
-        members: 20,
+        community : communities[0],
         likes: 10,
         unlikes: 2,
         comments: 5,
@@ -27,7 +29,7 @@ export const forums: Forum[] = [
     {
         title: 'Best practices for organic farming',
         description: 'Organic farming is a sustainable and environmentally friendly way to grow crops. Here are some best practices for organic farming that you can implement in your farm.',
-        members: 15,
+        community : communities[0],
         likes: 8,
         unlikes: 1,
         comments: 3,
@@ -39,7 +41,7 @@ export const forums: Forum[] = [
     {
         title: 'How to start a small farm',
         description: 'Starting a small farm can be a rewarding experience. Here are some tips on how to start a small farm and make it successful.',
-        members: 10,
+        community : communities[1],
         likes: 5,
         unlikes: 0,
         comments: 2,
@@ -51,7 +53,7 @@ export const forums: Forum[] = [
     {
         title: 'Benefits of using greenhouses',
         description: 'Greenhouses are a great way to extend the growing season and protect your crops from pests and diseases. Here are some benefits of using greenhouses in your farm.',
-        members: 12,
+        community : communities[1],
         likes: 6,
         unlikes: 1,
         comments: 4,
@@ -63,7 +65,7 @@ export const forums: Forum[] = [
     {
         title: 'How to protect your crops from pests',
         description: 'Pests can wreak havoc on your crops and reduce your harvest. Here are some tips on how to protect your crops from pests and keep them healthy.',
-        members: 14,
+        community : communities[2],
         likes: 7,
         unlikes: 1,
         comments: 4,
@@ -75,7 +77,7 @@ export const forums: Forum[] = [
     {
         title: 'How to start a community garden',
         description: 'Community gardens are a great way to bring people together and promote healthy eating. Here are some tips on how to start a community garden in your neighborhood.',
-        members: 10,
+        community : communities[2],
         likes: 5,
         unlikes: 0,
         comments: 2,
@@ -87,7 +89,7 @@ export const forums: Forum[] = [
     {
         title: 'How to grow microgreens',
         description: 'Microgreens are young vegetable greens that are harvested just after the first leaves have developed. They are packed with nutrients and can be easily grown at home. Here are some tips on how to grow microgreens.',
-        members: 12,
+        community : communities[3],
         likes: 6,
         unlikes: 1,
         comments: 4,
@@ -99,7 +101,7 @@ export const forums: Forum[] = [
     {
         title: 'Iot and Farms',
         description: 'Iot is the future of farming. Here are some tips on how to use Iot in your farm.',
-        members: 14,
+        community : communities[3],
         likes: 7,
         unlikes: 1,
         comments: 4,
