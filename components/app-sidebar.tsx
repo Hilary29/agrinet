@@ -1,31 +1,23 @@
-"use client";
+"use client"
 
-import type * as React from "react";
+import type * as React from "react"
 import {
-  Brain,
   LogOut,
   ChevronRight,
-  MessageCircle,
   BrainCog,
   SmartphoneNfc,
-  AudioWaveform,
   Settings,
-  Smartphone,
   ShoppingCart,
-  User,
   LayoutDashboard,
   Bell,
   UserRound,
   MessageCircleMore,
   MessageSquare,
-  Icon,
-} from "lucide-react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
+} from "lucide-react"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
+import Image from "next/image"
 
-import { NavUser } from "./nav-user";
-import { TeamSwitcher } from "./team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -37,23 +29,12 @@ import {
   SidebarRail,
   SidebarSeparator,
   useSidebar,
-} from "@/components/ui/sidebar";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+} from "@/components/ui/sidebar"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { useUserRole } from "@/contexts/UserRoleContext"
+import { useRoleBasedAccess } from "@/hooks/useRoleBasedAccess"
 
-import logo from "../public/images/logo.png";
-
-// This is sample data.
-const data = {
-  user: {
-    name: "Ahmed Musa",
-    email: "@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-};
+import logo from "../public/images/logo.png"
 
 const navigationfooter = [
   { name: "Settings", href: "/settings", icon: Settings },
@@ -63,30 +44,32 @@ const navigationfooter = [
     icon: UserRound,
   },
   { name: "Logout", href: "/logout", icon: LogOut },
-];
+]
 
 const navigation = [
-  { name: "Dashboard", 
-    href: "/dashboard", 
-    icon: LayoutDashboard },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["user", "farmer", "organization"] },
   {
     name: "Connected Devices",
     href: "/connected-devices",
     icon: SmartphoneNfc,
+    roles: ["farmer", "organization"],
   },
   {
     name: "Marketplace",
     icon: ShoppingCart,
+    roles: ["user", "farmer", "organization"],
     subItems: [
-      { name: "All Products", href: "/marketplace/all-products" },
-      { name: "Sell & Manage", href: "/marketplace/sell-and-manage" },
+      { name: "All Products", href: "/marketplace/all-products", roles: ["user", "farmer", "organization"] },
+      { name: "Sell & Manage", href: "/marketplace/sell-and-manage", roles: ["farmer", "organization"] },
       {
         name: "My Marketplace profile",
         href: "/marketplace/marketplace-profile",
+        roles: ["farmer", "organization"],
       },
       {
         name: "My Marketplace settings",
         href: "/marketplace/marketplace-settings",
+        roles: ["farmer", "organization"],
       },
     ],
   },
@@ -94,15 +77,19 @@ const navigation = [
     name: "AI Recommandations",
     href: "/ai-recommendations",
     icon: BrainCog,
+    roles: ["user", "farmer", "organization"],
   },
-  { name: "Forum", href: "/forum", icon: MessageCircleMore },
-  { name: "Chat", href: "/chat", icon: MessageSquare },
-  { name: "Notifications", href: "/notifications", icon: Bell },
-];
+  { name: "Forum", href: "/forum", icon: MessageCircleMore, roles: ["user", "farmer", "organization"] },
+  { name: "Chat", href: "/chat", icon: MessageSquare, roles: ["user", "farmer", "organization"] },
+  { name: "Notifications", href: "/notifications", icon: Bell, roles: ["user", "farmer", "organization"] },
+]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { state } = useSidebar();
-  const pathname = usePathname();
+  const { state } = useSidebar()
+  const pathname = usePathname()
+  const { userRole } = useUserRole()
+
+  const filteredNavigation = navigation.filter((item) => item.roles.includes(userRole))
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -110,20 +97,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <>
           {state === "collapsed" && (
             <Link className="flex items-center gap-2 py-5 mx-auto " href="/">
-              <Image
-                src={logo || "/placeholder.svg"}
-                alt="Agrinet logo"
-                className="w-8 h-[24px] lg:w-10 lg:h-[32px]"
-              />
+              <Image src={logo || "/placeholder.svg"} alt="Agrinet logo" className="w-8 h-[24px] lg:w-10 lg:h-[32px]" />
             </Link>
           )}
           {state === "expanded" && (
             <Link className="flex items-center gap-2 py-5" href="/">
-              <Image
-                src={logo || "/placeholder.svg"}
-                alt="Agrinet logo"
-                className="w-8 h-[24px] lg:w-10 lg:h-[32px]"
-              />
+              <Image src={logo || "/placeholder.svg"} alt="Agrinet logo" className="w-8 h-[24px] lg:w-10 lg:h-[32px]" />
               <p className="font-poppins text-paragraph-lg sm:text-heading-desktop-h6 lg:text-heading-desktop-h4 font-semibold text-left text-secondary-700">
                 AgriNet
               </p>
@@ -135,23 +114,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div>
           <SidebarContent>
             <SidebarMenu>
-              {state === "expanded" && (
-                <p className="text-paragraph-md text-[#606060] font-inter pl-2">
-                  Overview
-                </p>
-              )}
-              {navigation.map((item) => (
+              {state === "expanded" && <p className="text-paragraph-md text-[#606060] font-inter pl-2">Overview</p>}
+              {filteredNavigation.map((item) => (
                 <SidebarMenuItem key={item.name}>
                   {item.subItems ? (
                     <Collapsible>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="w-full py-5   hover:bg-primary-100">
+                        <SidebarMenuButton className="w-full py-5 hover:bg-primary-100">
                           <item.icon size={48} />
                           {state === "expanded" && (
                             <>
-                              <span className="flex-grow font-inter text-paragraph-lg text-left">
-                                {item.name}
-                              </span>
+                              <span className="flex-grow font-inter text-paragraph-lg text-left">{item.name}</span>
                               <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 " />
                             </>
                           )}
@@ -159,19 +132,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </CollapsibleTrigger>
                       {state === "expanded" && (
                         <CollapsibleContent>
-                          {item.subItems.map((subItem) => (
-                            <Link
-                              key={subItem.name}
-                              href={subItem.href}
-                              className={`flex items-center py-2 pl-10 pr-2 text-paragraph-md font-inter rounded-md hover:bg-primary-100 ${
-                                pathname === subItem.href
-                                  ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
-                                  : ""
-                              }`}
-                            >
-                              {subItem.name}
-                            </Link>
-                          ))}
+                          {item.subItems
+                            .filter((subItem) => subItem.roles.includes(userRole))
+                            .map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                href={subItem.href}
+                                className={`flex items-center py-2 pl-10 pr-2 text-paragraph-md font-inter rounded-md hover:bg-primary-100 ${
+                                  pathname === subItem.href
+                                    ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
+                                    : ""
+                                }`}
+                              >
+                                {subItem.name}
+                              </Link>
+                            ))}
                         </CollapsibleContent>
                       )}
                     </Collapsible>
@@ -192,9 +167,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       >
                         <item.icon size={24} />
                         {state === "expanded" && (
-                          <span className="flex-grow font-inter text-paragraph-lg text-left">
-                            {item.name}
-                          </span>
+                          <span className="flex-grow font-inter text-paragraph-lg text-left">{item.name}</span>
                         )}
                       </Link>
                     </SidebarMenuButton>
@@ -217,24 +190,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               href={item.href}
               key={item.name}
               className={`flex my-0 px-2 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-primary-100 ${
-                pathname === item.href
-                  ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
-                  : ""
+                pathname === item.href ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50" : ""
               }`}
             >
               <item.icon size={24} />
               {state === "expanded" && (
-                <span className="flex-grow font-inter text-paragraph-lg text-left">
-                  {item.name}
-                </span>
+                <span className="flex-grow font-inter text-paragraph-lg text-left">{item.name}</span>
               )}
             </Link>
           </SidebarMenuButton>
         ))}
 
-        {/*  <NavUser user={data.user} /> */}
+
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }
+

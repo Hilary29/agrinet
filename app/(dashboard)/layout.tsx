@@ -3,6 +3,7 @@ import ChatbotButton from "@/components/ChatbotButton";
 import Header2 from "@/components/Header2";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
+import { UserRoleProvider } from "@/contexts/UserRoleContext"
 
 export default function RootLayout({
   children,
@@ -12,7 +13,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SidebarProvider>
+      <UserRoleProvider>
+      <SidebarProvider>
           <AppSidebar />
           <SidebarInset>
             <Header2 />
@@ -22,6 +24,7 @@ export default function RootLayout({
             </div>
           </SidebarInset>
         </SidebarProvider>
+      </UserRoleProvider>
       </body>
     </html>
   );

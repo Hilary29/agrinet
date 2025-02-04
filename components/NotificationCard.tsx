@@ -6,12 +6,16 @@ import { Badge } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { notification } from '@/public/data/notification'
+import { Notification } from '@/types/notification'
+
 //{ items }: { items: OverviewItem[] }
 
+interface NotificationCardProps {
+    notification: Notification;
+    onClick: (title: string) => void;
+  }
 
-
-export const NotificationCard = ({ notification, onClick }) => ( 
+  export const NotificationCard: React.FC<NotificationCardProps> = ({ notification, onClick }) => (
     <div onClick={() => onClick(notification.title)}>
         <div className="flex items-top p-2 mb-2 space-x-4 cursor-pointer">
             {/* <Skeleton className="h-12 w-12 rounded-full animation-none" >
@@ -60,7 +64,7 @@ export const NotificationCard = ({ notification, onClick }) => (
                 </button>
                 <div className="flex justify-between items-start mb-1">
                     {notification.status === 'unread' ? (
-                        <Badge color="primary" variant="dot">
+                        <Badge color="primary" >
                             <h3 className="text-lg font-medium">{notification.title}</h3>
                         </Badge>
                     ) : (
