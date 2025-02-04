@@ -1,6 +1,6 @@
 // Fichier : config/routes.ts
 
-export const API_BASE_URL = "http://192.168.18.101:8081/api/v1";
+export const API_BASE_URL = "http://192.168.18.230:8081/api/v1";
 
 export const AuthRoutes = {
   REGISTER: `${API_BASE_URL}/users`, // Endpoint pour l'inscription
