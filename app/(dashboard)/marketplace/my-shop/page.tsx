@@ -101,7 +101,7 @@ const ProductCreationPage = () => {
   if (!showForm) {
     return (
       <div>
-        <IntroText title="Marketplace" description="Sell and Manage" />
+        <IntroText title="Marketplace" description="My Shop" />
 
         <div className="container mx-auto px-4 py-8">
           <div className="text-center my-8 md:my-16">
@@ -141,20 +141,6 @@ const ProductCreationPage = () => {
           {/* Left side - Form */}
           <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
             <form onSubmit={handleSubmit} className="bg-white border border-gray-300 rounded-lg p-4 md:p-6">
-              <div className="flex flex-col sm:flex-row items-center mb-6">
-                <Image
-                  src="/images/Ahmed.png"
-                  alt="User Avatar"
-                  width={64}
-                  height={64}
-                  className="rounded-full mb-4 sm:mb-0 sm:mr-4"
-                />
-                <div className="text-center sm:text-left">
-                  <h2 className="text-lg font-medium">Ahmed Musa</h2>
-                  <p className="text-gray-600">Listing to marketplace</p>
-                </div>
-              </div>
-
               <div className="mb-6">
                 <h3 className="text-lg font-medium mb-2">Add Photos · {photos.length}/5</h3>
                 <p className="text-gray-600 mb-2">You can add up to 5 photos</p>
@@ -206,6 +192,7 @@ const ProductCreationPage = () => {
                   onChange={handleInputChange}
                 />
                 <Select onValueChange={handleCategoryChange}>
+                  {/**Faire un fecht pour recuperer la categorie */}
                   <SelectTrigger>
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
@@ -215,6 +202,14 @@ const ProductCreationPage = () => {
                     <SelectItem value="grains">Grains</SelectItem>
                   </SelectContent>
                 </Select>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full sm:w-auto  border-2 hover:text-black-200 "                  
+                >
+                 + Add Category
+                </Button>
+
               </div>
 
               <div className="mb-6">
@@ -263,10 +258,10 @@ const ProductCreationPage = () => {
                   className="w-full sm:w-auto text-primary-600  border-primary-600 hover:text-primary-700 hover:border-primary-700 border-2"
                   onClick={handleGoBack}
                 >
-                  Cancel
+                  Preview
                 </Button>
                 <Button type="submit" className="w-full sm:w-auto text-white-50 bg-primary-600 hover:bg-primary-700">
-                  Create Listing
+                  Add Product
                 </Button>
               </div>
             </form>
