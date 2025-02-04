@@ -34,7 +34,7 @@ export default function Page() {
 
       // Chiffrer et sauvegarder le token
       await saveToken(accessToken);
-      router.push("/dashboard");
+      router.push("/marketplace/all-products");
     } catch (error) {
       console.log(error);
       // Vérification du type d'erreur

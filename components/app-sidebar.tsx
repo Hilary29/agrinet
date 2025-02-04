@@ -13,6 +13,7 @@ import {
   UserRound,
   MessageCircleMore,
   MessageSquare,
+  MoveUpIcon
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -122,6 +123,12 @@ const navigation = [
     name: "Notifications",
     href: "/notifications",
     icon: Bell,
+    roles: ["user", "farmer", "organization"],
+  },
+  {
+    name: "Upgrade",
+    href: "/upgrade",
+    icon: MoveUpIcon,
     roles: ["user", "farmer", "organization"],
   },
 ];
