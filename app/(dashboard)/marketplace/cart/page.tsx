@@ -116,7 +116,7 @@ export default function CartPage() {
                 Nombre d&apos;articles: {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
               </p>
             </div>
-            <Button size="lg" >
+            <Button size="lg" className="bg-primary-600 hover:bg-primary-700">
                 <Link href="/marketplace/checkout">Go to Payment</Link>
             </Button>
           </div>
