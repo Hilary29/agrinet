@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { MobileSidebar } from "./mobile-sidebar";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { useAuth } from "@/context/AuthContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -123,7 +122,7 @@ export function Header() {
 
         <nav className="flex gap-[24px] font-medium font-inter text-paragraph-md ">
           <Link
-            href="#features"
+            href="/features"
             className="hidden xl:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
           >
             Features

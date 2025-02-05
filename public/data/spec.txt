@@ -1,0 +1,21 @@
+------------------------------ RESSOURCE (PRODUCT) -------------------------------
+
+Intrinsec Properties
+	Identification
+	Creation Timestamp
+	Creator
+	BirthPlace
+
+Extrinsec Properties
+	Location
+	Owner
+	Timestamp
+
+
+----------------------------- COMMERCIAL OPERATION -------------------------------
+
+	Identification
+	Type
+	Status
+	Seller
+	Buyer
