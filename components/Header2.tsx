@@ -25,28 +25,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { RoleSelector } from './RoleSelector';
 "use client";
 
-import React from "react";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import {
-  Bell,
-  Search,
-  User,
-  Globe,
-  ChevronDown,
-  Menu,
-  ShoppingCart,
-  MessageCircle,
-  MessageSquare,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { RoleSelector } from "./RoleSelector";
-
 const Header2 = () => {
   
   const tabs = ['All', 'unread'];
