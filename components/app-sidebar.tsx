@@ -2,30 +2,23 @@
 
 import type * as React from "react";
 import {
-  Brain,
   LogOut,
   ChevronRight,
-  MessageCircle,
   BrainCog,
   SmartphoneNfc,
-  AudioWaveform,
   Settings,
-  Smartphone,
   ShoppingCart,
-  User,
   LayoutDashboard,
   Bell,
   UserRound,
   MessageCircleMore,
   MessageSquare,
-  Icon,
+  MoveUpIcon
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-import { NavUser } from "./nav-user";
-import { TeamSwitcher } from "./team-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -43,20 +36,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { useUserRole } from "@/contexts/UserRoleContext";
+import { useRoleBasedAccess } from "@/hooks/useRoleBasedAccess";
 
 import logo from "../public/images/logo.png";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "Ahmed Musa",
-    email: "@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-};
-
 const navigationfooter = [
-  { name: "Settings", href: "/farmer/settings", icon: Settings },
+  { name: "Settings", href: "/settings", icon: Settings },
   {
     name: "Account",
     href: "/account",
@@ -66,40 +52,95 @@ const navigationfooter = [
 ];
 
 const navigation = [
-  { name: "Dashboard", 
-    href: "/farmer/dashboard", 
-    icon: LayoutDashboard },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+    roles: ["user", "farmer", "organization"],
+  },
   {
     name: "Connected Devices",
     href: "/farmer/connected-devices",
     icon: SmartphoneNfc,
+    roles: ["farmer", "organization"],
   },
   {
     name: "Marketplace",
     icon: ShoppingCart,
+    roles: ["user", "farmer", "organization"],
     subItems: [
-      { name: "All Products", href: "/farmer/marketplace/all-products" },
-      { name: "Sell & Manage", href: "/farmer/marketplace/sell-and-manage" },
+      {
+        name: "All Products",
+        href: "/marketplace/all-products",
+        roles: ["user", "farmer", "organization"],
+      },
+      {
+        name: "Cart",
+        href: "/marketplace/cart",
+        roles: ["user", "farmer", "organization"],
+      },
+      {
+        name: "Wishlist",
+        href: "/marketplace/wishlist",
+        roles: ["user", "farmer", "organization"],
+      },
+      {
+        name: "Sell & Manage",
+        href: "/marketplace/sell-and-manage",
+        roles: ["farmer", "organization"],
+      },
       {
         name: "My Marketplace profile",
-        href: "/farmer/marketplace/marketplace-profile",
+        href: "/marketplace/marketplace-profile",
+        roles: ["farmer", "organization"],
       },
       {
         name: "My Marketplace settings",
-        href: "/farmer/marketplace/marketplace-settings",
+        href: "/marketplace/marketplace-settings",
+        roles: ["farmer", "organization"],
       },
     ],
   },
   {
-    name: "AI Tips",  href: "/farmer/ai-tips", icon: BrainCog,},
-  { name: "Forum", href: "/farmer/forum", icon: MessageCircleMore },
-  { name: "Chat", href: "/farmer/chat", icon: MessageSquare },
-  { name: "Notifications", href: "/farmer/notifications", icon: Bell },
+    name: "AI Recommandations",
+    href: "/ai-recommandations",
+    icon: BrainCog,
+    roles: ["farmer", "organization"],
+  },
+  {
+    name: "Forum",
+    href: "/forum",
+    icon: MessageCircleMore,
+    roles: ["user", "farmer", "organization"],
+  },
+  {
+    name: "Chat",
+    href: "/chat",
+    icon: MessageSquare,
+    roles: ["user", "farmer", "organization"],
+  },
+  {
+    name: "Notifications",
+    href: "/notifications",
+    icon: Bell,
+    roles: ["user", "farmer", "organization"],
+  },
+  {
+    name: "Upgrade",
+    href: "/upgrade",
+    icon: MoveUpIcon,
+    roles: ["user", "farmer", "organization"],
+  },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
+  const { userRole } = useUserRole();
+
+  const filteredNavigation = navigation.filter((item) =>
+    item.roles.includes(userRole)
+  );
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -128,7 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           )}
         </>
       </SidebarHeader>
-      <SidebarContent className="mx-auto">
+      <SidebarContent>
         <div>
           <SidebarContent>
             <SidebarMenu>
@@ -137,12 +178,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   Overview
                 </p>
               )}
-              {navigation.map((item) => (
+              {filteredNavigation.map((item) => (
                 <SidebarMenuItem key={item.name}>
                   {item.subItems ? (
                     <Collapsible>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="w-full py-5   hover:bg-primary-100">
+                        <SidebarMenuButton className="w-full mx-auto px-4 py-5 hover:bg-gray-200">
                           <item.icon size={48} />
                           {state === "expanded" && (
                             <>
@@ -156,19 +197,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </CollapsibleTrigger>
                       {state === "expanded" && (
                         <CollapsibleContent>
-                          {item.subItems.map((subItem) => (
-                            <Link
-                              key={subItem.name}
-                              href={subItem.href}
-                              className={`flex items-center py-2 pl-10 pr-2 text-paragraph-md font-inter rounded-md hover:bg-primary-100 ${
-                                pathname === subItem.href
-                                  ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
-                                  : ""
-                              }`}
-                            >
-                              {subItem.name}
-                            </Link>
-                          ))}
+                          {item.subItems
+                            .filter((subItem) =>
+                              subItem.roles.includes(userRole)
+                            )
+                            .map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                href={subItem.href}
+                                className={`flex items-center py-2 pl-10  text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
+                                  pathname === subItem.href
+                                    ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-black-50"
+                                    : ""
+                                }`}
+                              >
+                                {subItem.name}
+                              </Link>
+                            ))}
                         </CollapsibleContent>
                       )}
                     </Collapsible>
@@ -176,12 +221,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuButton
                       asChild
                       key={item.name}
-                      className="w-full text-paragraph-lg font-inter hover:bg-primary-100"
+                      className="w-full mx-auto text-paragraph-lg font-inter hover:bg-gray-200"
                     >
                       <Link
                         href={item.href}
                         key={item.name}
-                        className={`flex my-0 px-2 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-primary-100 ${
+                        className={`flex my-0 px-4 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
                           pathname === item.href
                             ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
                             : ""
@@ -213,7 +258,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <Link
               href={item.href}
               key={item.name}
-              className={`flex my-0 px-2 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-primary-100 ${
+              className={`flex my-0 px-2 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
                 pathname === item.href
                   ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
                   : ""
@@ -228,8 +273,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Link>
           </SidebarMenuButton>
         ))}
-
-        {/*  <NavUser user={data.user} /> */}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

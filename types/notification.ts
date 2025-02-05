@@ -1,7 +1,7 @@
 export interface Notification {
     images: string[]; // Tableau d'URLs d'images
     type: 'Alert' | 'Recommendation' | string; // Type de notification
-    status: 'unread' | 'read'; // Statut de la notification
+    status: 'All'|'unread' | 'read'; // Statut de la notification
     title: string; // Titre de la notification
     date: string; // Date de la notification
     content: string; // Contenu de la notification

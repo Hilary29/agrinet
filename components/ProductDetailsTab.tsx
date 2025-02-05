@@ -15,7 +15,7 @@ interface ProductDetailsProps {
     stock: 'in-stock' | 'out-of-stock'
     category: string
     price: number
-    quantity?: string
+    quantity?: number
     description: string
     seller: string
     SalePoints: string[]

@@ -10,14 +10,13 @@ import { Notification } from '@/types/notification'
 
 //{ items }: { items: OverviewItem[] }
 
-
-
 interface NotificationCardProps {
     notification: Notification;
     onClick: (title: string) => void;
   }
 
-  export const NotificationCard: React.FC<NotificationCardProps> = ({ notification, onClick }) => (
+
+export const NotificationCard = ({ notification, onClick }) => ( 
     <div onClick={() => onClick(notification.title)}>
         <div className="flex items-top p-2 mb-2 space-x-4 cursor-pointer">
             {/* <Skeleton className="h-12 w-12 rounded-full animation-none" >
@@ -66,8 +65,8 @@ interface NotificationCardProps {
                 </button>
                 <div className="flex justify-between items-start mb-1">
                     {notification.status === 'unread' ? (
-                        <Badge color="primary" >
-                            <p className="text-lg font-medium">{notification.title}</p>
+                        <Badge color="primary" variant="dot">
+                            <h3 className="text-lg font-medium">{notification.title}</h3>
                         </Badge>
                     ) : (
                         <p className="text-lg font-medium">{notification.title}</p>

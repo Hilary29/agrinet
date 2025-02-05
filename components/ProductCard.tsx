@@ -6,17 +6,13 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, FileSearch } from "lucide-react";
 import { useState } from "react";
 import TraceabilityDialog from "@/components/TraceabilityDialog";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 interface ProductCardProps extends Product {
   onAddToCart: (productId: string) => void;
+  href?: string; // Ajout d'une prop optionnelle pour le lien
 }
+
+
 
 const traceabilityData = {
   productId: "TMT-2025-001",
@@ -58,6 +54,7 @@ export function ProductCard({
   stock,
   images,
   onAddToCart,
+  href = `/products/${id}`, // Valeur par défaut si href n'est pas fourni
 }: ProductCardProps) {
   const [isAdding, setIsAdding] = useState(false);
   const [showTraceability, setShowTraceability] = useState(false);
@@ -92,7 +89,7 @@ export function ProductCard({
         </Badge>
       </div>
       <Link
-        href={`/products/${id}`}
+        href={href}
         className="flex flex-col items-start gap-1 w-full px-2"
       >
         <div className="flex items-start justify-between w-full ">

@@ -112,7 +112,7 @@ export default function Home() {
           <aside className="min-w-48 sm:flex hidden">
             <Filters
               sections={filterSections}
-              priceRange={[2000, 15000]}
+              priceRange={[200, 25000]}
               onFiltersChange={handleFiltersChange}
             />
           </aside>

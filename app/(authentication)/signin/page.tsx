@@ -3,13 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EyeOff, Eye } from "lucide-react";
-import { saveToken } from "../../services/auth/saveTokenService/saveTokenService";
+import { saveToken } from "../../../services/auth/saveTokenService";
 import {
   decodeToken,
   getAccessToken,
   login,
-} from "../../services/auth/authService/authService";
-import { FaFacebook } from "react-icons/fa";
+} from "../../../services/auth/authService";
 import Image from "next/image";
 
 export default function Page() {
@@ -19,29 +18,15 @@ export default function Page() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setError(""); // Réinitialiser l'erreur avant de tenter de se connecter
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const result = await signIn(formData)
 
-    try {
-      const jwtToken = await login(username, password);
-      console.log("User authenticated:", jwtToken);
-
-      const accessToken = getAccessToken(jwtToken);
-      console.log("Access Token:", accessToken);
-
-      const decodedToken = decodeToken(accessToken);
-      console.log("Decoded Token:", decodedToken);
-
-      // Chiffrer et sauvegarder le token
-      await saveToken(accessToken);
-      router.push("/dashboard");
-    } catch (error) {
-      console.log(error);
-      // Vérification du type d'erreur
-      const errorMessage =
-        (error as Error).message || "Invalid credentials. Please try again.";
-      setError(errorMessage); // Afficher le message d'erreur réel
+    if (result.error) {
+      setError(result.error)
+    } else {
+      router.push("/dashboard") // Redirect to dashboard on successful sign-in
     }
   };
 
@@ -215,3 +200,4 @@ export default function Page() {
     </div>
   );
 }
+

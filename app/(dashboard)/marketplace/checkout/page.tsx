@@ -4,9 +4,7 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      <IntroText 
-      title="AI Recommendations" 
-      description="Get tailored insights to optimize irrigation, planting, and pest control." />
+        <IntroText title="Checkout" description="Choose your Payment method"/>
       
     </div>
   )

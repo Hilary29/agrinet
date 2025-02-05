@@ -3,7 +3,7 @@ export interface Product {
     name: string
     description: string
     price: number
-    quantity?: string
+    quantity?: number
     category: string
     seller: string
     images: string[]
@@ -37,7 +37,7 @@ export interface Product {
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity: "3 crates of tomatoes",
+      quantity: 3,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       images: ["/images/tomato-product.jpg","/images/tomato-product3.jpg"],
@@ -48,7 +48,7 @@ export interface Product {
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity: "3 crates of tomatoes",
+      quantity: 5,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       images: ["/images/tomato-product3.jpg","/images/tomato-product2.jpg"],
@@ -59,7 +59,7 @@ export interface Product {
       name: "Carrots",
       description: "Fresh and crispy carrots, perfect for salads and cooking.",
       price: 2500,
-      quantity: "1 crate of carrots",
+      quantity: 10,
       category: "Vegetables",
       seller: "Organic Roots",
       images: ["/images/carrot-product.jpg"],
@@ -68,9 +68,9 @@ export interface Product {
     {
       id: "4",
       name: "Plantain",
-      description: "Fresh plantains, perfect for cooking or grilling.",
+      description: "Fresh plantains bunches, perfect for cooking or grilling.",
       price: 15000,
-      quantity: "5 plantain bunches",
+      quantity: 6,
       category: "Fruits",
       seller: "Tropical Harvest",
       images: ["/images/plantain-product.jpg"],
@@ -81,7 +81,7 @@ export interface Product {
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity: "3 crates of tomatoes",
+      quantity:2,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       images: ["/images/tomato-product.jpg"],
@@ -92,7 +92,7 @@ export interface Product {
         name: "Plantain",
         description: "Fresh plantains, perfect for cooking or grilling.",
         price: 15000,
-        quantity: "5 plantain bunches",
+        quantity:2,
         category: "Fruits",
         seller: "Tropical Harvest",
         images: ["/images/plantain-product.jpg"],
@@ -103,7 +103,7 @@ export interface Product {
         name: "Pepper",
         description: "Differents varieties of pepper. Grown locally with sustainable farming practices.",
         price: 9000,
-        quantity: "3 bags",
+        quantity: 3,
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
         images: ["/images/pepper-product3.jpg","/images/pepper-product2.jpg"],
@@ -114,7 +114,7 @@ export interface Product {
         name: "Tomatoes",
         description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
         price: 6000,
-        quantity: "3 crates of tomatoes",
+        quantity: 10,
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
         images: ["/images/tomato-product.jpg"],
