@@ -10,7 +10,7 @@ interface ImageCarouselProps {
   alt: string
 }
 
-export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
+export default function ImageCaroussel({ images, alt }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const goToPrevious = () => {
