@@ -66,16 +66,6 @@ const Header2 = () => {
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-1">
-          <User className="text-black-100" />
-          <span className="text-black-100 font-medium">Ahmed Musa</span>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="sm:hidden"
-            aria-label="Menu"
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
           {/**Bouton messagerie */}
           <div className="relative group">
             <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -136,7 +126,7 @@ const Header2 = () => {
                   </div>
                 </div>
                 <Button variant="outline" className='w-full'>
-                  <a href="/notifications">Show All</a>
+                  <a href="/notifications">{" "} Show All</a>
                 </Button>
               </HoverCardContent>
             </HoverCard>
