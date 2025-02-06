@@ -70,11 +70,6 @@ export default function ProductList() {
           quantity: 1,
           unitPrice: product.basePrice,
         },
-        {
-          headers: {
-            "User-Id": "9511e06c-c94b-48de-bbb0-d7ed39d3ca21", // Remplacez par l'ID utilisateur réel
-          },
-        },
       )
 
       if (response.status === 200) {

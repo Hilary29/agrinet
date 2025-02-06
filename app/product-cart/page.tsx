@@ -37,9 +37,7 @@ export default function CartPage() {
       try {
         // Utilisation de la route API Next.js au lieu de l'API externe directement
         const response = await fetch("/api/cart", {
-          headers: {
-            "User-Id": "9511e06c-c94b-48de-bbb0-d7ed39d3ca21", // Remplacer par l'ID utilisateur réel
-          },
+
         })
 
         if (!response.ok) {
