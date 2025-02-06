@@ -15,6 +15,7 @@ import IntroText from "@/components/IntroText";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/public/data/products";
 import { useState } from "react";
+import ProductList from "@/components/ProductList";
 
 
 export default function Home() {
@@ -67,7 +68,8 @@ export default function Home() {
             </Select>
           </div>
         </div>
-            <div className=" justify-center  grid md:grid-cols-2 xl:grid-cols-4 md:gap-8 gap-2">
+        <ProductList/>
+{/*             <div className=" justify-center  grid md:grid-cols-2 xl:grid-cols-4 md:gap-8 gap-2">
               {products.map((product) => (
                 <ProductCard
                 href={`/marketplace/products/${product.id}`}
@@ -78,7 +80,7 @@ export default function Home() {
                   {...product}
                 />
               ))}
-            </div>
+            </div> */}
       </div>
     </main>
   );
