@@ -2,14 +2,14 @@ import { NextResponse } from "next/server"
 import { headers } from "next/headers"
 import { NextRequest } from "next/server"
 
-
+    const userId= "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
 
 export async function GET() {
   try {
     const headersList = headers()
     //A modifier lorsque les services vont communiquer
 //    const userId = headersList.get("User-Id")
-    const userId= "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
+
 
     if (!userId) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 })
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       const headersList = headers()
     //A modifier lorsque les services vont communiquer
 //    const userId = headersList.get("User-Id")
-const userId= "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
+
   
       if (!userId) {
         return NextResponse.json({ error: "User ID is required" }, { status: 400 })
