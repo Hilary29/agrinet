@@ -66,6 +66,7 @@ export const login = async (username: string, password: string) => {
             body: JSON.stringify({ username, password }),
         });
 
+        console.log(response)
         if (!response.ok) {
             // Si la réponse n'est pas OK, extraire le message d'erreur
             const errorData = await response.json();

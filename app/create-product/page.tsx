@@ -4,7 +4,7 @@ import { useState, useEffect, type ChangeEvent } from "react"
 import axios from "axios"
 import { Circle, Plus, PlusCircle } from "lucide-react"
 
-
+import { ressourcesRoutes } from "@/config/routes";
 interface Category {
   id: string
   name: string
@@ -65,7 +65,7 @@ export default function ProductForm() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get<Category[]>("http://localhost:4000/api/v1/categorie")
+      const response = await axios.get<Category[]>(ressourcesRoutes.ressourcesCategorie)
       setCategories(response.data)
     } catch (error) {
       console.error("Error fetching categories:", error)
@@ -98,7 +98,8 @@ export default function ProductForm() {
 
   const handleNewCategorySubmit = async () => {
     try {
-      const response = await axios.post<Category>("http://localhost:4000/api/v1/categorie/create", newCategory, {
+      ressourcesRoutes
+      const response = await axios.post<Category>(ressourcesRoutes.ressourcesCategorieCreate, newCategory, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -130,7 +131,7 @@ export default function ProductForm() {
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/product_post/create", formData, {
+      const response = await axios.post(ressourcesRoutes.ressourcesProductPostCreate, formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -144,7 +145,7 @@ export default function ProductForm() {
           formData.append("file", file)
         })
 
-        await axios.post(`http://localhost:4000/api/v1/media/add/product/${productResponse.data.id}`, formData, {
+        await axios.post(`${ressourcesRoutes.ressourcesMediaAddProduct}/${productResponse.data.id}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -203,27 +204,27 @@ export default function ProductForm() {
           required
         />
         <div className="flex flex-row gap-2">
-        <select
-          name="categorieId"
-          value={formData.categorieId}
-          onChange={handleCategoryChange}
-          className="w-full p-2 border rounded"
-          required
-        >
-          <option value="">Catégorie</option>
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-        <button
-          type="button"
-          onClick={() => setShowCategoryForm(!showCategoryForm)}
-          className="w-8 bg-green-600 text-white py-2 rounded hover:bg-green-700"
-        >
-          <Plus className="h-6 w-6  text-white-50 text-center" />
-        </button>
+          <select
+            name="categorieId"
+            value={formData.categorieId}
+            onChange={handleCategoryChange}
+            className="w-full p-2 border rounded"
+            required
+          >
+            <option value="">Catégorie</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            onClick={() => setShowCategoryForm(!showCategoryForm)}
+            className="w-8 bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          >
+            <Plus className="h-6 w-6  text-white-50 text-center" />
+          </button>
         </div>
 
 
@@ -363,9 +364,8 @@ function MediaUpload({ productId }: MediaUploadProps) {
     files.forEach((file) => {
       formData.append("file", file)
     })
-
     try {
-      const response = await axios.post(`http://localhost:4000/api/v1/media/add/product/${productId}`, formData, {
+      const response = await axios.post(`${ressourcesRoutes.ressourcesMediaAddProduct}/${productId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
