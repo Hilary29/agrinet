@@ -2,6 +2,7 @@
 
 import { useState, useEffect, type ChangeEvent } from "react"
 import axios from "axios"
+import { Circle, Plus, PlusCircle } from "lucide-react"
 
 
 interface Category {
@@ -175,7 +176,6 @@ export default function ProductForm() {
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Créer un Produit</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -202,7 +202,7 @@ export default function ProductForm() {
           className="w-full p-2 border rounded"
           required
         />
-
+        <div className="flex flex-row gap-2">
         <select
           name="categorieId"
           value={formData.categorieId}
@@ -217,14 +217,18 @@ export default function ProductForm() {
             </option>
           ))}
         </select>
-
         <button
           type="button"
           onClick={() => setShowCategoryForm(!showCategoryForm)}
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          className="w-8 bg-green-600 text-white py-2 rounded hover:bg-green-700"
         >
-          Nouvelle Catégorie
+          <Plus className="h-6 w-6  text-white-50 text-center" />
         </button>
+        </div>
+
+
+
+
 
         {showCategoryForm && (
           <div className="space-y-4">
@@ -246,9 +250,9 @@ export default function ProductForm() {
             <button
               type="button"
               onClick={handleNewCategorySubmit}
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+              className="w-full bg-primary-600 text-white-50 py-2 rounded hover:bg-primary-700"
             >
-              Ajouter Catégorie
+              Add a new Category
             </button>
           </div>
         )}
@@ -256,7 +260,7 @@ export default function ProductForm() {
         <input
           type="number"
           name="basePrice"
-          placeholder="Prix de base"
+          placeholder="Base Unit Price"
           value={formData.basePrice}
           onChange={handleChange}
           className="w-full p-2 border rounded"
@@ -265,21 +269,21 @@ export default function ProductForm() {
         <input
           type="number"
           name="weight"
-          placeholder="Poids"
+          placeholder="Weight"
           value={formData.weight}
           onChange={handleChange}
           className="w-full p-2 border rounded"
         />
         <textarea
           name="longDescription"
-          placeholder="Description longue"
+          placeholder="Long Description"
           value={formData.longDescription}
           onChange={handleChange}
           className="w-full p-2 border rounded"
         />
         <textarea
           name="shortDescription"
-          placeholder="Description courte"
+          placeholder="Short Description"
           value={formData.shortDescription}
           onChange={handleChange}
           className="w-full p-2 border rounded"
@@ -288,7 +292,7 @@ export default function ProductForm() {
         <input
           type="number"
           name="lifespan"
-          placeholder="Durée de vie"
+          placeholder="Lifespan"
           value={formData.lifespan}
           onChange={handleChange}
           className="w-full p-2 border rounded"
@@ -297,7 +301,7 @@ export default function ProductForm() {
         <input
           type="number"
           name="quantity"
-          placeholder="Quantité"
+          placeholder="Quantity"
           value={formData.quantity}
           onChange={handleChange}
           className="w-full p-2 border rounded"
@@ -325,8 +329,8 @@ export default function ProductForm() {
             </div>
           )}
         </div>
-        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-          Créer
+        <button type="submit" className="w-full bg-primary-600 text-white-50 py-2 rounded hover:bg-primary-700">
+          Create
         </button>
         {createdProductId && <MediaUpload productId={createdProductId} />}
       </form>

@@ -29,7 +29,7 @@ interface Cart {
     items: CartItem[]
   }
 
-export default function CartPage() {
+export default function Cart() {
   const [cart, setCart] = useState<Cart | null>(null)
   const [productNames, setProductNames] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState(true)
@@ -39,7 +39,19 @@ export default function CartPage() {
   const router=useRouter()
 
   const handleCheckout=()=>{
-    router.push("/marketplace/checkout")
+
+    if (!cart) return;
+
+    const paymentData = {
+        transaction_amount: cart.totalAmount,
+        items: cart.items.map(item => ({
+            Productname: productNames[item.productId],
+            service_quantity: item.quantity
+        }))
+    };
+    sessionStorage.setItem("paymentData",JSON.stringify(paymentData.transaction_amount))
+
+    router.push(`/marketplace/checkout`)
   }
 
   useEffect(() => {

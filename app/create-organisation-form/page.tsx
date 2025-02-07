@@ -58,7 +58,7 @@ const BusinessActorForm = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Créer un Business Actor</h2>
+      <h2 className="text-xl font-bold mb-4">Create a Business Actor</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="userId" placeholder="User ID" className="w-full p-2 border rounded" onChange={handleChange} />
         <input type="text" name="phoneNumber" placeholder="Phone Number" className="w-full p-2 border rounded" onChange={handleChange} />

@@ -118,77 +118,78 @@ export default function ProductList() {
           const timeUntilExpiry = formatDistance(new Date(product.expiresAt), new Date(), {
             addSuffix: true,
             locale: enUS,
-          })
-
-          return (
-            <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="aspect-square relative">
-                {primaryImage ? (
-                  <img
-                    src={`http://localhost:4000/api/v1/media?targetId=${primaryImage.targetId}`}
-                    alt={product.name}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-muted flex items-center justify-center">
-                    <Package2 className="w-12 h-12 text-muted-foreground" />
-                  </div>
-                )}
-                <Badge
-                  variant={product.status === "AVAILABLE" ? "default" : "secondary"}
-                  className="absolute top-2 right-2"
-                >
-                  {product.status === "AVAILABLE" ? "Disponible" : "Non disponible"}
-                </Badge>
-              </div>
-              <div>
-                <CardContent className="p-4">
-                  <div className="flex flex-row justify-between items-center">
-                    <p className="font-semibold text-lg mb-2 line-clamp-1">{product.name}</p>
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => updateQuantity(product.id, -1)}
-                        disabled={quantities[product.id] === 0 || product.status !== "AVAILABLE"}
-                      >
-                        <Minus className="h-4 w-4" />
-                      </Button>
-                      <span>{quantities[product.id]}</span>
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        onClick={() => updateQuantity(product.id, 1)}
-                        disabled={quantities[product.id] === product.quantity || product.status !== "AVAILABLE"}
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
+          }) 
+          if (product.medias.length>0) {
+            return (
+              <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="aspect-square relative">
+                  {primaryImage ? (
+                    <img
+                      src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
+                      alt={product.name}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <Package2 className="w-12 h-12 text-muted-foreground" />
                     </div>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{product.shortDescription}</p>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      <span>Expire {timeUntilExpiry}</span>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter className="p-4 pt-0 flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-accent-700">
-                    <p>FCFA</p>
-                    <span className="font-semibold">{product.basePrice.toFixed(2)}</span>
-                  </div>
-                  <Button
-                    variant="default"
-                    onClick={() => addToCart(product)}
-                    disabled={quantities[product.id] === 0 || product.status !== "AVAILABLE"}
+                  )}
+                  <Badge
+                    variant={product.status === "AVAILABLE" ? "default" : "secondary"}
+                    className="absolute top-2 right-2"
                   >
-                    Ajouter au panier
-                  </Button>
-                </CardFooter>
-              </div>
-            </Card>
-          )
+                    {product.status === "AVAILABLE" ? "Disponible" : "Non disponible"}
+                  </Badge>
+                </div>
+                <div>
+                  <CardContent className="p-4">
+                    <div className="flex flex-row justify-between items-center">
+                      <p className="font-semibold text-lg mb-2 line-clamp-1">{product.name}</p>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() => updateQuantity(product.id, -1)}
+                          disabled={quantities[product.id] === 0 || product.status !== "AVAILABLE"}
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <span>{quantities[product.id]}</span>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() => updateQuantity(product.id, 1)}
+                          disabled={quantities[product.id] === product.quantity || product.status !== "AVAILABLE"}
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+  
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{product.shortDescription}</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        <span>Expire {timeUntilExpiry}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="p-4 pt-0 flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-accent-700">
+                      <p>FCFA</p>
+                      <span className="font-semibold">{product.basePrice.toFixed(2)}</span>
+                    </div>
+                    <Button
+                      variant="default"
+                      onClick={() => addToCart(product)}
+                      disabled={quantities[product.id] === 0 || product.status !== "AVAILABLE"}
+                    >
+                      Ajouter au panier
+                    </Button>
+                  </CardFooter>
+                </div>
+              </Card>
+            )
+          }
         })}
       </div>
     </div>
