@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { EyeOff, Eye } from "lucide-react";
-import { AuthRoutes } from "@/config/routes";
+import { AuthRoutes, notificationsRoutes } from "@/config/routes";
 import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
 import axios from 'axios';
@@ -18,6 +18,8 @@ export default function Page() {
     lastname: "",
     password: "",
   });
+
+
   const [errorMessage, setErrorMessage] = useState(""); // État pour stocker le message d'erreur
   const router = useRouter();
 
@@ -39,9 +41,12 @@ export default function Page() {
 
       });
 
+      console.log(response);
+
       // Vérifiez la réponse
-      if (response.status === 200) {
-        router.push("/signin-verify-email"); // Redirection vers la page d'accueil
+      if (response.status === 201) {
+        router.push("/signin-verify-email");
+
       }
     } catch (error) {
       // Gérer les erreurs
@@ -61,27 +66,61 @@ export default function Page() {
     }
     console.log(formData); // à enlever
   };
+
+  const handleButtonClick = async (platform: string) => {
+    console.log(`Button clicked for: ${platform}`);
+    try {
+      const response = await axios.get(AuthRoutes.REGISTER_ + `${platform}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+      });
+
+      console.log(response.data);
+      router.push(response.data);
+    }
+    catch (err) {
+      console.log(`une erreur de ${platform} `, err);
+    }
+    // Vous pouvez ajouter ici la logique pour gérer chaque plateforme
+  };
+
+  /*const googleSubmit() {
+    try {
+      const response = await axios.get(AuthRoutes.REGISTER_GOOGLE, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+      });
+      console.log(response); //
+    } catch (error) {
+      console.error("google auth error fonrt end ", error);
+    }
+  }
+}*/
   /*
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       setErrorMessage("");
-  
+   
       try {
         const response = await fetch(AuthRoutes.REGISTER, {
           mode: 'no-cors',
           //Access-Control-Allow-Origin: '*',
-  
+   
           // credentials: 'same-origin',
-  
+   
           method: "POST",
           headers: {
-  
+   
             "Content-Type": "application/json",
           },
-  
+   
           body: JSON.stringify(formData),
         });
-  
+   
         if (response.ok) {
           console.log(response.body);
           router.push("/signin-verify-email"); // Redirection vers la page d'accueil
@@ -243,13 +282,14 @@ export default function Page() {
               <p className="text-center font-inter text-base text-[#686868]">
                 Or sign up with
               </p>
-              <div className="grid grid-cols-3 gap-8 mx-16">
 
+              <div className="grid grid-cols-3 gap-8 mx-16">
                 <div className="relative group">
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     google
                   </div>
                   <button
+                    onClick={() => handleButtonClick('google')}
                     type="button"
                     className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D6D6D6] px-3 py-2.5 text-sm font-medium hover:bg-gray-50"
                   >

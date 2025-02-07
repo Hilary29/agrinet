@@ -2,13 +2,20 @@
 
 export const API_BASE_URL = "http://192.168.1.186:4010";
 
-export const USER_MANAGEMENT = `${API_BASE_URL}/api/v1`;
+export const USER_MANAGEMENT = `http://192.168.1.185:8080/api/v1`;
 export const AuthRoutes = {
-  REGISTER: `${USER_MANAGEMENT}/users`, // Endpoint pour l'inscription
+  REGISTER: `${USER_MANAGEMENT}/users`, // Endpoint pour l'inscription?
+  REGISTER_: `${USER_MANAGEMENT}/auth/`,
   LOGIN: `${USER_MANAGEMENT}/auth/login`, // Endpoint pour la connexion
-  LOGOUT: `${USER_MANAGEMENT}/auth/logout`, // Endpoint pour la déconnexion
+  LOGOUT: `${USER_MANAGEMENT} /auth/logout`, // Endpoint pour la déconnexion
 
 };
+
+export const NOTIFICATIONSERVER = `http://... `;
+export const notificationsRoutes = {
+  push_NOTIFY: `${NOTIFICATIONSERVER}/....`,
+};
+
 /*
 export const UserRoutes = {
   PROFILE: `${API_BASE_URL}/users/profile`, // Endpoint pour le profil utilisateur
