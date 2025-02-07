@@ -9,6 +9,8 @@ import {
     TokenResponse,
 } from "../../../services/auth/authService";
 
+import { AuthRoutes } from "@/config/routes";
+
 export default function GoogleCallback() {
     const router = useRouter();
 
@@ -20,7 +22,7 @@ export default function GoogleCallback() {
 
             if (code && state) {
                 try {
-                    const response = await axios.get(`http://192.168.1.167:8085/api/v1/auth/google/callback`, {
+                    const response = await axios.get(AuthRoutes.REGISTER_GOOGLE, {
                         params: { code, state },
                     });
 

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+import { businessActorRoutes } from "@/config/routes";
+
 const BusinessActorForm = () => {
   const [formData, setFormData] = useState({
     userId: "",
@@ -32,18 +34,18 @@ const BusinessActorForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-  
+
     setFormData({
       ...formData,
       [name]: type === "checkbox" && e.target instanceof HTMLInputElement ? e.target.checked : value,
     });
   };
-  
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4001/api/v1/business_actor/create", {
+      const response = await axios.post(businessActorRoutes.createBusinessActor, {
         ...formData,
         businessDomainIds: formData.businessDomainIds.split(","),
         qualificationIds: formData.qualificationIds.split(","),

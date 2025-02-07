@@ -2,10 +2,11 @@
 
 export const API_BASE_URL = "http://192.168.1.186:4010";
 
-export const USER_MANAGEMENT = `http://192.168.1.185:8080/api/v1`;
+export const USER_MANAGEMENT = `http://192.168.1.167:8085/api/v1`;
 export const AuthRoutes = {
   REGISTER: `${USER_MANAGEMENT}/users`, // Endpoint pour l'inscription?
   REGISTER_: `${USER_MANAGEMENT}/auth/`,
+  REGISTER_GOOGLE: `${USER_MANAGEMENT}/auth/google/callback`,
   LOGIN: `${USER_MANAGEMENT}/auth/login`, // Endpoint pour la connexion
   LOGOUT: `${USER_MANAGEMENT} /auth/logout`, // Endpoint pour la déconnexion
 
@@ -15,6 +16,21 @@ export const NOTIFICATIONSERVER = `http://... `;
 export const notificationsRoutes = {
   push_NOTIFY: `${NOTIFICATIONSERVER}/....`,
 };
+
+export const BUSINESS_ACTOR_SERVER = "http://localhost:4001/api/v1/business_actor";
+export const businessActorRoutes = {
+  createBusinessActor: `${BUSINESS_ACTOR_SERVER}/create`,
+}
+
+export const RESSOURCES_SERVER = "http://localhost:4000/api/v1";
+export const ressourcesRoutes = {
+  ressourcesCategorie: `${RESSOURCES_SERVER}/categorie`,
+  ressourcesCategorieCreate: `${RESSOURCES_SERVER}/categorie/create`,
+  ressourcesProductPostCreate: `${RESSOURCES_SERVER}/product_post/create`,
+  ressourcesMediaAddProduct: `${RESSOURCES_SERVER}/media/add/product`
+}
+
+
 
 /*
 export const UserRoutes = {
