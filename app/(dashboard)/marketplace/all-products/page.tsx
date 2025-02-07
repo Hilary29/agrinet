@@ -27,7 +27,7 @@ export default function Home() {
         title="Marketplace"
         description="Buy farming supplies, sell your produce, and connect directly with buyers"
       />
-      <div className="flex flex-col w-full py-6 sm:py-8 gap-6">
+      <div className="flex flex-col w-full py-6 sm:py-0 gap-6">
         <div className="flex flex-col gap-4 sm:flex-row justify-between items-center  md:mt-[44px] ">
           <div className="relative flex-grow sm:flex-grow-0 md:w-[556px] ">
             <input
@@ -37,9 +37,9 @@ export default function Home() {
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 " />
           </div>
-          <Button className="bg-[#2FB551] hover:bg-[#2FB551]/90">
+{/*           <Button className="bg-[#2FB551] hover:bg-[#2FB551]/90">
             + Create new listing
-          </Button>
+          </Button> */}
         </div>
         <div className="flex justify-between mb-6 ">
           <p className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">

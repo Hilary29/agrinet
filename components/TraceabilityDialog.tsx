@@ -1,52 +1,31 @@
-"use client"
+import { useState } from "react";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { ChevronDownCircle, FileSearch } from "lucide-react";
 
-import { useState } from "react"
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, ChevronDownCircle, FileSearch } from "lucide-react"
-
-type TraceabilityData = {
-  productId: string
-  name: string
-  category: string
-  origin: string
-  harvestDate: string
-  producer: {
-    name: string
-    location: string
-    farmingMethod: string
-    certification: string
-  }
-  processing: {
-    packagingCenter: string
-    packagingDate: string
-    storageTemperature: string
-  }
-  logistics: {
-    transporter: string
-    batchNumber: string
-    warehouse: string
-  }
-  sale: {
-    buyerId: string
-    purchaseDate: string
-    deliveryMode: string
-    customerReview: string
-  }
-}
+export type TraceData = {
+  identification: string;
+  creationTimestamp: number;
+  creator: string;
+  creationLocation: string;
+  location: string;
+  owner: string;
+  timestamp: number;
+  data: string;
+};
 
 type TraceabilityDialogProps = {
-  showTraceability: boolean
-  setShowTraceability: (open: boolean) => void
-  traceabilityData: TraceabilityData
-}
+  showTraceability: boolean;
+  setShowTraceability: (open: boolean) => void;
+  traceabilityData: TraceData[];
+};
 
 const TraceabilityDialog: React.FC<TraceabilityDialogProps> = ({
   showTraceability,
   setShowTraceability,
   traceabilityData,
 }) => {
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <Dialog open={showTraceability} onOpenChange={setShowTraceability}>
@@ -62,93 +41,40 @@ const TraceabilityDialog: React.FC<TraceabilityDialogProps> = ({
         </DialogHeader>
         <div className="mt-4 font-inter space-y-4">
           {/* Always visible sections */}
-          <div className="grid grid-cols-2 gap-16">
-            <div>
-              <p className="font-semibold">Product Information:</p>
-              <ul className="text-gray-700 space-y-1">
-                <li>
-                  <strong>ID:</strong> {traceabilityData.productId}
+          <div>
+            <ul className="text-gray-700 space-y-1">
+              {traceabilityData.map((item, index) => (
+                <li key={item.identification} className="border-b py-2">
+                  {index === 0 ? (
+                    <>
+                      <strong>Creator:</strong> {item.creator} <br />
+                      <strong>Creation Location:</strong> {item.creationLocation} <br />
+                      <strong>Timestamp:</strong> {new Date(item.timestamp * 1000).toLocaleString()}
+                    </>
+                  ) : (
+                    <>
+                      <strong>Location:</strong> {item.location} <br />
+                      <strong>Owner:</strong> {item.owner} <br />
+                      <strong>Timestamp:</strong> {new Date(item.timestamp * 1000).toLocaleString()}
+                    </>
+                  )}
                 </li>
-                <li>
-                  <strong>Name:</strong> {traceabilityData.name}
-                </li>
-                <li>
-                  <strong>Category:</strong> {traceabilityData.category}
-                </li>
-                <li>
-                  <strong>Origin:</strong> {traceabilityData.origin}
-                </li>
-                <li>
-                  <strong>Harvest Date:</strong> {traceabilityData.harvestDate}
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <p className="font-semibold">Producer Details:</p>
-              <ul className="text-gray-700 space-y-1">
-                <li>
-                  <strong>Name:</strong> {traceabilityData.producer.name}
-                </li>
-                <li>
-                  <strong>Location:</strong> {traceabilityData.producer.location}
-                </li>
-                <li>
-                  <strong>Farming Method:</strong> {traceabilityData.producer.farmingMethod}
-                </li>
-                <li>
-                  <strong>Certification:</strong> {traceabilityData.producer.certification}
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
           </div>
 
-          {/* Expandable sections */}
-          {showMore && (
-            <div className=" grid grid-cols-2 gap-16 animate-in slide-in-from-top duration-300">
-              <div>
-                <p className="font-semibold">Processing & Storage:</p>
-                <ul className="text-gray-700 space-y-1">
-                  <li>
-                    <strong>Packaging Center:</strong> {traceabilityData.processing.packagingCenter}
-                  </li>
-                  <li>
-                    <strong>Packaging Date:</strong> {traceabilityData.processing.packagingDate}
-                  </li>
-                  <li>
-                    <strong>Storage Temperature:</strong> {traceabilityData.processing.storageTemperature}
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-semibold">Logistics & Distribution:</p>
-                <ul className="text-gray-700 space-y-1">
-                  <li>
-                    <strong>Transporter:</strong> {traceabilityData.logistics.transporter}
-                  </li>
-                  <li>
-                    <strong>Batch Number:</strong> {traceabilityData.logistics.batchNumber}
-                  </li>
-                  <li>
-                    <strong>Warehouse:</strong> {traceabilityData.logistics.warehouse}
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-          )}
-
           {/* See More button */}
-          <button className="flex items-center mt-4 text-accent-600 bg-white-50 font-semibold hover:text-accent-700 transition duration-300" onClick={() => setShowMore(!showMore)}>
+          <button
+            className="flex items-center mt-4 text-accent-600 bg-white-50 font-semibold hover:text-accent-700 transition duration-300"
+            onClick={() => setShowMore(!showMore)}
+          >
             {showMore ? "See Less" : "See More"}
-            <ChevronDownCircle className={`ml-2 h-4 w-4 transition-transform ${showMore ? "rotate-180" : ""}`} /> 
+            <ChevronDownCircle className={`ml-2 h-4 w-4 transition-transform ${showMore ? "rotate-180" : ""}`} />
           </button>
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default TraceabilityDialog
-
+export default TraceabilityDialog;
