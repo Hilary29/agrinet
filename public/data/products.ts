@@ -1,4 +1,9 @@
+import { ReactNode } from "react"
+
 export interface Product {
+    stockPercentage: ReactNode
+    revenue: ReactNode
+    performanceMetrics: ReactNode
     id: string
     name: string
     description: string
@@ -40,8 +45,11 @@ export interface Product {
       quantity: 3,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
-      images: ["/images/tomato-product.jpg","/images/tomato-product3.jpg"],
-      stock: "in-stock"
+      images: ["/images/tomato-product.jpg", "/images/tomato-product3.jpg"],
+      stock: "in-stock",
+      stockPercentage: undefined,
+      revenue: undefined,
+      performanceMetrics: undefined
     },
     {
       id: "2",
@@ -51,8 +59,11 @@ export interface Product {
       quantity: 5,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
-      images: ["/images/tomato-product3.jpg","/images/tomato-product2.jpg"],
-      stock: "in-stock"
+      images: ["/images/tomato-product3.jpg", "/images/tomato-product2.jpg"],
+      stock: "in-stock",
+      stockPercentage: undefined,
+      revenue: undefined,
+      performanceMetrics: undefined
     },
     {
       id: "3",
@@ -63,7 +74,10 @@ export interface Product {
       category: "Vegetables",
       seller: "Organic Roots",
       images: ["/images/carrot-product.jpg"],
-      stock: "in-stock"
+      stock: "in-stock",
+      stockPercentage: undefined,
+      revenue: undefined,
+      performanceMetrics: undefined
     },
     {
       id: "4",
@@ -74,29 +88,38 @@ export interface Product {
       category: "Fruits",
       seller: "Tropical Harvest",
       images: ["/images/plantain-product.jpg"],
-      stock: "in-stock"
+      stock: "in-stock",
+      stockPercentage: undefined,
+      revenue: undefined,
+      performanceMetrics: undefined
     },
     {
       id: "5",
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity:2,
+      quantity: 2,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       images: ["/images/tomato-product.jpg"],
-      stock: "out-of-stock"
+      stock: "out-of-stock",
+      stockPercentage: undefined,
+      revenue: undefined,
+      performanceMetrics: undefined
     },
       {
         id: "6",
         name: "Plantain",
         description: "Fresh plantains, perfect for cooking or grilling.",
         price: 15000,
-        quantity:2,
+        quantity: 2,
         category: "Fruits",
         seller: "Tropical Harvest",
         images: ["/images/plantain-product.jpg"],
-        stock: "in-stock"
+        stock: "in-stock",
+        stockPercentage: undefined,
+        revenue: undefined,
+        performanceMetrics: undefined
       },
       {
         id: "7",
@@ -106,8 +129,11 @@ export interface Product {
         quantity: 3,
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
-        images: ["/images/pepper-product3.jpg","/images/pepper-product2.jpg"],
-        stock: "in-stock"
+        images: ["/images/pepper-product3.jpg", "/images/pepper-product2.jpg"],
+        stock: "in-stock",
+        stockPercentage: undefined,
+        revenue: undefined,
+        performanceMetrics: undefined
       },
       {
         id: "8",
@@ -118,6 +144,9 @@ export interface Product {
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
         images: ["/images/tomato-product.jpg"],
-        stock: "out-of-stock"
+        stock: "out-of-stock",
+        stockPercentage: undefined,
+        revenue: undefined,
+        performanceMetrics: undefined
       },
   ]

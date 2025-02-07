@@ -85,6 +85,11 @@ const navigation = [
         roles: ["user", "farmer", "organization"],
       },
       {
+        name: "Invoices",
+        href: "/marketplace/invoices",
+        roles: ["user", "farmer", "organization"],
+      },
+      {
         name: "My Shop",
         href: "/marketplace/my-shop",
         roles: ["farmer", "organization"],

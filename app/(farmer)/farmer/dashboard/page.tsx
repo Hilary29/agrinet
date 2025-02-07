@@ -2,10 +2,12 @@
 
 import React from 'react';
 import IntroText from '@/components/IntroText';
-import TopSection from '@/components/TopSection';
-import RecentSales from '@/components/Dashboard/RecentSales';
-import AIRecommendations from '@/components/Dashboard/AiRecommendations'; 
-import RevenueChart from '@/components/Dashboard/RevenueChart';
+// import Crop from '@/components/Dashboard/Crop';
+import IoT from '@/components/Dashboard/IoT';
+import Market from '@/components/Dashboard/Market';
+import Fora from '@/components/Dashboard/Fora';
+import Welcome from '@/components/Dashboard/Welcome';
+
 const Page: React.FC = () => {
   return (
     <div className="p-4">
@@ -13,20 +15,30 @@ const Page: React.FC = () => {
         title="Dashboard" 
         description="" 
       />
-      <TopSection />
       <div className="bg-white-50 p-4 rounded-lg">
-        <div className="flex flex-col lg:flex-row lg:space-x-6">
-          <div className="flex-1">
-            <RevenueChart />
-          </div>
-          <div className="flex-1">
-            <RecentSales />
-          </div>
+        {/* Welcome Section */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold">Crop</h2>
+          <Welcome />
         </div>
-      </div>
 
-      <div className="mt-6">
-        <AIRecommendations />
+        {/* IoT Section */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold">IoT</h2>
+          <IoT />
+        </div>
+
+        {/* Marketplace Section */}
+        <div className="mb-6">
+          {/* <h2 className="text-xl font-semibold">Marketplace</h2> */}
+          <Market />
+        </div>
+
+        {/* Fora Section */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold">Fora</h2>
+          <Fora />
+        </div>
       </div>
     </div>
   );

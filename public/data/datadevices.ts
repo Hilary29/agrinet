@@ -1,5 +1,7 @@
 // datadevices.ts
 
+import { Device } from "./device";
+
 export const deviceList: Device[] = [
   {
     name: "Field Temperature Sensor 1",

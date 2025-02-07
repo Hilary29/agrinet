@@ -7,14 +7,14 @@ interface Device {
   support: string;
   typeMCU: string;
   description: string;
-  unit: string; 
+  unit: string;
   status: "Active" | "Inactive";
 }
 
 interface ModalDeviceProps {
-  isOpen: boolean; 
-  onClose: () => void; 
-  onAddDevice: (device: Device) => void; 
+  isOpen: boolean;
+  onClose: () => void;
+  onAddDevice: (device: Device) => void;
   currentDevice?: Device; // Optional prop for editing
 }
 
@@ -25,7 +25,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
   const [typeMCU, setTypeMCU] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<"Active" | "Inactive">("Active");
-  const [unit, setUnit] = useState<string>(""); 
+  const [unit, setUnit] = useState<string>("");
 
   // Populate form fields when editing
   useEffect(() => {
@@ -94,110 +94,112 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-opacity-100 bg-white-200">
-      <div className="bg-white-50 rounded-lg p-6 shadow-lg max-w-lg w-full">
-        <h3 className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-100">
+      <div className="bg-white-50 rounded-lg p-6 shadow-lg w-full max-w-3xl landscape-modal">
+        <h3 className="font-satoshi font-semibold text-2xl mb-4">
           {currentDevice ? "Edit Device" : "Add New Device"}
         </h3>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 font-inter">
-            <label className="block mb-2">Device Name</label>
-            <input
-              type="text"
-              value={deviceName}
-              onChange={(e) => setDeviceName(e.target.value)}
-              required
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Device Type</label>
-            <select
-              value={deviceType}
-              onChange={(e) => handleDeviceTypeChange(e.target.value)}
-              required
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            >
-              <option value="">Select Device Type</option>
-              <option value="Temperature sensor">Temperature sensor</option>
-              <option value="Humidity sensor">Humidity sensor</option>
-              <option value="PH sensor">PH sensor</option>
-              <option value="NPK sensor">NPK sensor</option>
-            </select>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Support</label>
-            <input
-              type="text"
-              value={support}
-              onChange={(e) => setSupport(e.target.value)}
-              required
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Type of MCU</label>
-            <input
-              type="text"
-              value={typeMCU}
-              onChange={(e) => setTypeMCU(e.target.value)}
-              required
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Description</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              className="border border-gray-300 rounded-lg p-2 w-full"
-              rows={3}
-              placeholder="Please provide a brief description of your device"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">S.I. Unit</label>
-            <input
-              type="text"
-              value={unit}
-              onChange={(e) => setUnit(e.target.value)}
-              required
-              className="border border-gray-300 rounded-lg p-2 w-full"
-              placeholder="Enter the S.I. unit"
-              readOnly // Make it read-only since it's determined by the device type
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Status</label>
-            <div className="flex items-center">
-              <label className="mr-4">
-                <input
-                  type="radio"
-                  value="Active"
-                  checked={status === "Active"}
-                  onChange={() => setStatus("Active")}
-                  className="mr-1"
-                />
-                Active
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="Inactive"
-                  checked={status === "Inactive"}
-                  onChange={() => setStatus("Inactive")}
-                  className="mr-1"
-                />
-                Inactive
-              </label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mb-4">
+              <label className="block mb-2">Device Name</label>
+              <input
+                type="text"
+                value={deviceName}
+                onChange={(e) => setDeviceName(e.target.value)}
+                required
+                className="border border-gray-300 rounded-lg p-2 w-full"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2">Device Type</label>
+              <select
+                value={deviceType}
+                onChange={(e) => handleDeviceTypeChange(e.target.value)}
+                required
+                className="border border-gray-300 rounded-lg p-2 w-full"
+              >
+                <option value="">Select Device Type</option>
+                <option value="Temperature sensor">Temperature sensor</option>
+                <option value="Humidity sensor">Humidity sensor</option>
+                <option value="PH sensor">PH sensor</option>
+                <option value="NPK sensor">NPK sensor</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2">Support</label>
+              <input
+                type="text"
+                value={support}
+                onChange={(e) => setSupport(e.target.value)}
+                required
+                className="border border-gray-300 rounded-lg p-2 w-full"
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block mb-2">Type of MCU</label>
+              <input
+                type="text"
+                value={typeMCU}
+                onChange={(e) => setTypeMCU(e.target.value)}
+                required
+                className="border border-gray-300 rounded-lg p-2 w-full"
+              />
+            </div>
+            <div className="mb-4 col-span-2">
+              <label className="block mb-2">Description</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                className="border border-gray-300 rounded-lg p-2 w-full"
+                rows={3}
+                placeholder="Please provide a brief description of your device"
+              />
+            </div>
+            <div className="mb-4 col-span-2">
+              <label className="block mb-2">S.I. Unit</label>
+              <input
+                type="text"
+                value={unit}
+                onChange={(e) => setUnit(e.target.value)}
+                required
+                className="border border-gray-300 rounded-lg p-2 w-full"
+                placeholder="Enter the S.I. unit"
+                readOnly // Make it read-only since it's determined by the device type
+              />
+            </div>
+            <div className="mb-4 col-span-2">
+              <label className="block mb-2">Status</label>
+              <div className="flex items-center">
+                <label className="mr-4">
+                  <input
+                    type="radio"
+                    value="Active"
+                    checked={status === "Active"}
+                    onChange={() => setStatus("Active")}
+                    className="mr-1"
+                  />
+                  Active
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="Inactive"
+                    checked={status === "Inactive"}
+                    onChange={() => setStatus("Inactive")}
+                    className="mr-1"
+                  />
+                  Inactive
+                </label>
+              </div>
             </div>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-end mt-4">
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-300 text-black font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 transition"
+              className="bg-white-50 text-black-50 border-2 border-gray-500 font-inter font-semibold py-2 px-4 rounded-lg hover:bg-gray-400 transition mr-2"
             >
               Cancel
             </button>

@@ -15,11 +15,9 @@ const StatBox: React.FC<{ title: string; value: string; change?: string; currenc
 
 const TopSection: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 font-satoshi md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div className="grid grid-rows-1 font-satoshi md:grid-rows-2 lg:grid-rows-4 gap-6 mb-6">
       <StatBox title="Total Revenue" value="45,231.89" change="+15% from last month" currency />
-      <StatBox title="Subscriptions" value="280% " change="+45% from last month" currency />
       <StatBox title="Sales" value="12,234" change="+6% from last month" currency />
-      <StatBox title="Active Now" value="53" change="+12% from last month" currency />
     </div>
   );
 };
