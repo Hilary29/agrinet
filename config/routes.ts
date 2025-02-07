@@ -26,21 +26,28 @@ export const RESSOURCES_SERVER = "http://localhost:4000/api/v1";
 export const ressourcesRoutes = {
   ressourcesCategorie: `${RESSOURCES_SERVER}/categorie`,
   ressourcesCategorieCreate: `${RESSOURCES_SERVER}/categorie/create`,
+
+  ressourcesProductPost: `${RESSOURCES_SERVER}/product_post`,
   ressourcesProductPostCreate: `${RESSOURCES_SERVER}/product_post/create`,
-  ressourcesMediaAddProduct: `${RESSOURCES_SERVER}/media/add/product`
+
+  ressourcesMedia: `${RESSOURCES_SERVER}/media`,
+  ressourcesMediaAddProduct: `${RESSOURCES_SERVER}/media/add/product`,
+  ressourcesMediaDownload: `${RESSOURCES_SERVER}/media/download`
+
 }
 
-
+export const MARKETPLACE_SERVER = "http://localhost:...";
+export const marketplaceRoutes = {}
 
 /*
 export const UserRoutes = {
-  PROFILE: `${API_BASE_URL}/users/profile`, // Endpoint pour le profil utilisateur
-  UPDATE_PROFILE: `${API_BASE_URL}/users/update`, // Endpoint pour mettre à jour le profil
+  PROFILE: `${ API_BASE_URL }/users/profile`, // Endpoint pour le profil utilisateur
+  UPDATE_PROFILE: `${ API_BASE_URL } /users/update`, // Endpoint pour mettre à jour le profil
 };
 
 export const ProductRoutes = {
-  GET_ALL_PRODUCTS: `${API_BASE_URL}/products`, // Endpoint pour récupérer tous les produits
-  GET_PRODUCT_BY_ID: (id: string) => `${API_BASE_URL}/products/${id}`, // Endpoint pour récupérer un produit par son ID
+  GET_ALL_PRODUCTS: `${ API_BASE_URL } /products`, / / Endpoint pour récupérer tous les produits
+GET_PRODUCT_BY_ID: (id: string) => `${API_BASE_URL}/products/${id}`, // Endpoint pour récupérer un produit par son ID
 };
 
 // Ajoutez d'autres routes au besoin*/

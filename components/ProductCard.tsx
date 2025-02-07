@@ -13,6 +13,7 @@ import axios from "axios"; // Import axios
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 import TraceabilityDialog from "@/components/TraceabilityDialog";
+import { ressourcesRoutes } from "@/config/routes";
 
 interface Media {
   id: string;
@@ -128,7 +129,7 @@ export function ProductCard({
     const fetchProducts = async () => {
       try {
         const response = await axios.get<Product[]>(
-          "http://localhost:4000/api/v1/product_post"
+          ressourcesRoutes.ressourcesProductPost
         );
         setProducts(response.data);
       } catch (error) {
@@ -171,7 +172,7 @@ export function ProductCard({
             <div className="aspect-square relative">
               {primaryImage ? (
                 <img
-                  src={`http://localhost:4000/api/v1/media?targetId=${primaryImage.targetId}`}
+                  src={`${ressourcesRoutes.ressourcesMedia}?targetId=${primaryImage.targetId}`}
                   alt={product.name}
                 />
               ) : (
@@ -191,52 +192,52 @@ export function ProductCard({
               </Badge>
             </div>
             <Link href={href}>
-            <CardContent className="p-4">
-              <div className="flex flex-row justify-between">
-              <h2 className="font-semibold text-lg mb-2 line-clamp-1">
-                {product.name}
-              </h2>
-              <Button
-              onClick={handleAddToCart}
-              disabled={isAdding || stock !== "in-stock"}
-              className="bg-accent-700 p-2.5  sm:p-4"
-            >
-              {isAdding ? "Adding..." : ""}
-              <ShoppingCart className="text-white-50" />
-            </Button>
-              </div>
+              <CardContent className="p-4">
+                <div className="flex flex-row justify-between">
+                  <h2 className="font-semibold text-lg mb-2 line-clamp-1">
+                    {product.name}
+                  </h2>
+                  <Button
+                    onClick={handleAddToCart}
+                    disabled={isAdding || stock !== "in-stock"}
+                    className="bg-accent-700 p-2.5  sm:p-4"
+                  >
+                    {isAdding ? "Adding..." : ""}
+                    <ShoppingCart className="text-white-50" />
+                  </Button>
+                </div>
 
-              <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                {product.shortDescription}
-              </p>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-{/*                   <Weight className="w-4 h-4" />
+                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                  {product.shortDescription}
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    {/*                   <Weight className="w-4 h-4" />
                   <span>
                     {product.weight} {product.saleUnit}
                   </span> */}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    <span>Expire {timeUntilExpiry}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>Expire {timeUntilExpiry}</span>
+              </CardContent>
+              <CardFooter className="p-4 pt-0 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-accent-700">
+                  <p>FCFA</p>
+                  <span className="font-semibold">
+                    {product.basePrice.toFixed(2)}
+                  </span>
                 </div>
-              </div>
-            </CardContent>
-            <CardFooter className="p-4 pt-0 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-accent-700">
-                <p>FCFA</p>
-                <span className="font-semibold">
-                  {product.basePrice.toFixed(2)}
-                </span>
-              </div>
-              <Badge variant="outline">Stock: {product.quantity}</Badge>
-            </CardFooter>
+                <Badge variant="outline">Stock: {product.quantity}</Badge>
+              </CardFooter>
             </Link>
             <TraceabilityDialog
-          showTraceability={showTraceability}
-          setShowTraceability={setShowTraceability}
-          traceabilityData={traceabilityData}
-        />
+              showTraceability={showTraceability}
+              setShowTraceability={setShowTraceability}
+              traceabilityData={traceabilityData}
+            />
           </Card>
         );
       })}

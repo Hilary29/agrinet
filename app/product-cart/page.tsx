@@ -10,24 +10,25 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import axios from "axios"
 import { useRouter } from 'next/navigation';
+import { ressourcesRoutes } from "@/config/routes";
 
 interface CartItem {
-    id: string
-    productId: string
-    quantity: number
-    unitPrice: number
-    subtotal: number
-    addedAt: string
-  }
-  
+  id: string
+  productId: string
+  quantity: number
+  unitPrice: number
+  subtotal: number
+  addedAt: string
+}
+
 interface Cart {
-    id: string
-    userId: string
-    totalAmount: number
-    createdAt: string
-    updatedAt: string
-    items: CartItem[]
-  }
+  id: string
+  userId: string
+  totalAmount: number
+  createdAt: string
+  updatedAt: string
+  items: CartItem[]
+}
 
 export default function CartPage() {
   const [cart, setCart] = useState<Cart | null>(null)
@@ -36,9 +37,9 @@ export default function CartPage() {
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false);
 
-  const router=useRouter()
+  const router = useRouter()
 
-  const handleCheckout=()=>{
+  const handleCheckout = () => {
     router.push("/marketplace/checkout")
   }
 
@@ -49,7 +50,7 @@ export default function CartPage() {
         const response = await fetch("/api/cart", {
 
         })
-      
+
 
         if (!response.ok) {
           const errorData = await response.json()
@@ -58,8 +59,8 @@ export default function CartPage() {
 
         const data = await response.json()
         setCart(data)
-        
-        
+
+
       } catch (err) {
         setError(err instanceof Error ? err.message : "An error occurred")
       } finally {
@@ -72,44 +73,44 @@ export default function CartPage() {
 
   useEffect(() => {
     const getProductNames = async () => {
-        if (cart) {
-            const names: { [key: string]: string } = {};
-            const productRequests = cart.items.map(async (item) => {
-                const response = await axios.get(`http://localhost:4000/api/v1/product_post/${item.productId}`);
-                names[item.productId] = response.data.name;
-            });
+      if (cart) {
+        const names: { [key: string]: string } = {};
+        const productRequests = cart.items.map(async (item) => {
+          const response = await axios.get(`${ressourcesRoutes.ressourcesProductPost}/${item.productId}`);
+          names[item.productId] = response.data.name;
+        });
 
-            await Promise.all(productRequests);
-            setProductNames(names);
-        }
+        await Promise.all(productRequests);
+        setProductNames(names);
+      }
     };
 
     getProductNames();
-}, [cart]);
+  }, [cart]);
 
-const handleDelete = async (id: string) => {
-  
-  try {
+  const handleDelete = async (id: string) => {
+
+    try {
       const response = await fetch('/api/cart', {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ productId: id }),
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId: id }),
       });
 
       if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error);
+        const errorData = await response.json();
+        throw new Error(errorData.error);
       }
 
       const data = await response.json();
       toast.success(data.message || "Item deleted successfully");
-  } catch (error) {
+    } catch (error) {
       console.error(error);
       toast.error("Failed to delete item");
-  }
-};
+    }
+  };
 
   if (loading) {
     return (
@@ -185,10 +186,10 @@ const handleDelete = async (id: string) => {
         </CardContent>
         <CardFooter className="flex justify-between">
           <div className="text-sm text-muted-foreground">Last updated: {format(new Date(cart.updatedAt), "PPp")}</div>
-          
+
         </CardFooter>
       </Card>
-      
+
     </div>
   )
 }

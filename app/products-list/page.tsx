@@ -9,6 +9,7 @@ import axios from "axios"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { ressourcesRoutes } from "@/config/routes"
 
 interface Media {
   id: string
@@ -50,7 +51,7 @@ export default function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get<Product[]>("http://localhost:4000/api/v1/product_post")
+        const response = await axios.get<Product[]>(ressourcesRoutes.ressourcesProductPost)
         setProducts(response.data)
         const initialQuantities = response.data.reduce(
           (acc, product) => {
@@ -118,14 +119,14 @@ export default function ProductList() {
           const timeUntilExpiry = formatDistance(new Date(product.expiresAt), new Date(), {
             addSuffix: true,
             locale: enUS,
-          }) 
-          if (product.medias.length>0) {
+          })
+          if (product.medias.length > 0) {
             return (
               <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-square relative">
                   {primaryImage ? (
                     <img
-                      src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
+                      src={`${ressourcesRoutes.ressourcesMediaDownload}/${primaryImage.realName}/${primaryImage.name}`}
                       alt={product.name}
                     />
                   ) : (
@@ -164,7 +165,7 @@ export default function ProductList() {
                         </Button>
                       </div>
                     </div>
-  
+
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{product.shortDescription}</p>
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center gap-2">

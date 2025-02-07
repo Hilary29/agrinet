@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import TraceabilityDialog, { TraceData } from "./TraceabilityDialog";
+import { ressourcesRoutes } from "@/config/routes";
 
 interface Media {
   id: string;
@@ -100,7 +101,7 @@ export default function ProductList() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get<Product[]>(
-          "http://localhost:4000/api/v1/product_post"
+          ressourcesRoutes.ressourcesProductPost
         );
         setProducts(response.data);
         const initialQuantities = response.data.reduce((acc, product) => {
@@ -267,14 +268,14 @@ export default function ProductList() {
                         </span>
                       </div>
                       <Button
-                          className="bg-accent-600 hover:bg-accent-700"
-                          onClick={() => addToCart(product)}
-                          disabled={
-                            quantities[product.id] === 0 ||
-                            product.status !== "AVAILABLE"
-                          }
-                        >
-                          <ShoppingCartIcon />
+                        className="bg-accent-600 hover:bg-accent-700"
+                        onClick={() => addToCart(product)}
+                        disabled={
+                          quantities[product.id] === 0 ||
+                          product.status !== "AVAILABLE"
+                        }
+                      >
+                        <ShoppingCartIcon />
                       </Button>
                     </CardFooter>
                   </Link>
