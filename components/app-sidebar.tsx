@@ -80,7 +80,7 @@ const navigation = [
         roles: ["user", "farmer", "organization"],
       },
       {
-        name: "Wishlist",
+        name: "Wish",
         href: "/marketplace/wishlist",
         roles: ["user", "farmer", "organization"],
       },
