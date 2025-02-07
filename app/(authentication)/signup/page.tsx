@@ -6,7 +6,7 @@ import { EyeOff, Eye } from "lucide-react";
 import { AuthRoutes } from "@/config/routes";
 import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
-
+import axios from 'axios';
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -26,41 +26,83 @@ export default function Page() {
     setFormData({ ...formData, [name]: value });
   };
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
 
     try {
-      const response = await fetch(AuthRoutes.REGISTER, {
-        method: "POST",
+      const response = await axios.post(AuthRoutes.REGISTER, formData, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
 
-        body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        console.log(response.body);
+      // Vérifiez la réponse
+      if (response.status === 200) {
         router.push("/signin-verify-email"); // Redirection vers la page d'accueil
-      } else {
-        // Lire le corps de la réponse pour obtenir le message d'erreur
-        const errorData = await response.json();
+      }
+    } catch (error) {
+      // Gérer les erreurs
+      if (axios.isAxiosError(error)) {
+        const errorData = error.response?.data;
         setErrorMessage(
-          errorData.message || "Erreur lors de la création de l’utilisateur"
+          errorData?.message || "Erreur lors de la création de l’utilisateur"
         ); // Utiliser le message d'erreur de la réponse
         console.error(
           "Erreur lors de la création de l'utilisateur:",
-          errorData.message
+          errorData?.message
         );
+      } else {
+        console.error("Erreur réseau:", error);
+        setErrorMessage("Network error during registration."); // Message d'erreur par défaut
       }
-    } catch (error) {
-      console.error("Erreur réseau:", error);
-      setErrorMessage("Network error during registration."); // Message d'erreur par défaut
     }
-    console.log(formData); //a enlever
+    console.log(formData); // à enlever
   };
-
+  /*
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setErrorMessage("");
+  
+      try {
+        const response = await fetch(AuthRoutes.REGISTER, {
+          mode: 'no-cors',
+          //Access-Control-Allow-Origin: '*',
+  
+          // credentials: 'same-origin',
+  
+          method: "POST",
+          headers: {
+  
+            "Content-Type": "application/json",
+          },
+  
+          body: JSON.stringify(formData),
+        });
+  
+        if (response.ok) {
+          console.log(response.body);
+          router.push("/signin-verify-email"); // Redirection vers la page d'accueil
+        } else {
+          // Lire le corps de la réponse pour obtenir le message d'erreur
+          const errorData = await response.json();
+          setErrorMessage(
+            errorData.message || "Erreur lors de la création de l’utilisateur"
+          ); // Utiliser le message d'erreur de la réponse
+          console.error(
+            "Erreur lors de la création de l'utilisateur:",
+            errorData.message
+          );
+        }
+      } catch (error) {
+        console.error("Erreur réseau:", error);
+        setErrorMessage("Network error during registration."); // Message d'erreur par défaut
+      }
+      console.log(formData); //a enlever
+    };
+  */
   return (
     <div className="flex justify-center  p-4">
       <div className="flex w-full  max-w-[560px] flex-col items-center rounded-lg bg-white-50 p-6 md:p-10">
@@ -236,14 +278,14 @@ export default function Page() {
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     Facebook
                   </div>
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D6D6D6] px-3 py-2.5 text-sm font-medium hover:bg-gray-50"
-                >
-                  <svg className="h-5 w-5" fill="#1877F2" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </button>
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D6D6D6] px-3 py-2.5 text-sm font-medium hover:bg-gray-50"
+                  >
+                    <svg className="h-5 w-5" fill="#1877F2" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                  </button>
                 </div>
 
 
@@ -251,18 +293,18 @@ export default function Page() {
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     Yowyob
                   </div>
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D6D6D6] px-3 py-2.5 text-sm font-medium hover:bg-gray-50"
-                >
-                  <Image
-                    src="/images/yowyob.png"
-                    alt="yowyob"
-                    width={32}
-                    height={32}
-                    className=""
-                  />
-                </button>
+                  <button
+                    type="button"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D6D6D6] px-3 py-2.5 text-sm font-medium hover:bg-gray-50"
+                  >
+                    <Image
+                      src="/images/yowyob.png"
+                      alt="yowyob"
+                      width={32}
+                      height={32}
+                      className=""
+                    />
+                  </button>
                 </div>
 
               </div>
