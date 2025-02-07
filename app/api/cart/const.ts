@@ -1,0 +1,1 @@
+export const PRODUCTNAME_ROUTE="http://localhost:4000/api/v1/product_post/"

@@ -4,6 +4,8 @@ import { NextRequest } from "next/server"
 
 const userId = "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
 
+
+
 export async function GET() {
   try {
     const headersList = headers()

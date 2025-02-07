@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import axios from "axios"
 import { useRouter } from 'next/navigation';
+import { PRODUCTNAME_ROUTE } from "@/app/api/cart/const";
 
 interface CartItem {
     id: string
@@ -83,11 +84,12 @@ export default function Cart() {
   }, [])
 
   useEffect(() => {
+    localStorage.setItem("cartItems", cart?.items.length.toString() || "0");
     const getProductNames = async () => {
         if (cart) {
             const names: { [key: string]: string } = {};
             const productRequests = cart.items.map(async (item) => {
-                const response = await axios.get(`http://localhost:4000/api/v1/product_post/${item.productId}`);
+                const response = await axios.get(`${PRODUCTNAME_ROUTE}${item.productId}`);
                 names[item.productId] = response.data.name;
             });
 
@@ -95,7 +97,6 @@ export default function Cart() {
             setProductNames(names);
         }
     };
-
     getProductNames();
 }, [cart]);
 
