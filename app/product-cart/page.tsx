@@ -113,8 +113,8 @@ export default function CartPage() {
                 <TableRow key={item.id}>
                   <TableCell className="font-medium">{item.productId}</TableCell>
                   <TableCell className="text-right">{item.quantity}</TableCell>
-                  <TableCell className="text-right">${item.unitPrice.toFixed(2)}</TableCell>
-                  <TableCell className="text-right">${item.subtotal.toFixed(2)}</TableCell>
+                  <TableCell className="text-right">{item.unitPrice.toFixed(2)} FCFA</TableCell>
+                  <TableCell className="text-right">{item.subtotal.toFixed(2)}FCFA</TableCell>
                   <TableCell className="text-right">{format(new Date(item.addedAt), "PPp")}</TableCell>
                 </TableRow>
               ))}
@@ -123,7 +123,7 @@ export default function CartPage() {
         </CardContent>
         <CardFooter className="flex justify-between">
           <div className="text-sm text-muted-foreground">Last updated: {format(new Date(cart.updatedAt), "PPp")}</div>
-          <div className="text-lg font-bold">Total: ${cart.totalAmount.toFixed(2)}</div>
+          <div className="text-lg font-bold">Total: {cart.totalAmount.toFixed(2)} FCFA</div>
         </CardFooter>
       </Card>
     </div>
