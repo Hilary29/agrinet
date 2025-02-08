@@ -14,6 +14,7 @@ import ChatbotButton from "@/components/ChatbotButton";
 /* import { ModeToggle } from "@/components/ModeToggle"; */ //Changement de theme Dark light
 import * as React from "react";
 import dynamic from "next/dynamic";
+import FarmerRecommendations from "@/components/FarmerRecommandations";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <Features />
         <Benefits />
         <HowItWorks />
+        <FarmerRecommendations />
         <Testimonials />
         <Faq />
       </div>
