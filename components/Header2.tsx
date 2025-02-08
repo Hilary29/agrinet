@@ -18,12 +18,23 @@ import { Separator } from "./ui/separator"
 import { SidebarTrigger } from "./ui/sidebar"
 import { Button } from "./ui/button"
 import { Bell, Search, User, Globe, ChevronDown, Link, Menu, MessageSquare, ShoppingCart } from "lucide-react"
-import { Notification, notifications } from '@/public/data/notification'
+import NotificationList from '@/public/data/notification';
 import { NotificationCard } from "@/components/NotificationCard"
 import IntroText from '@/components/IntroText'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { RoleSelector } from './RoleSelector';
-
+import { account } from '@/app/(dashboard)/account/page';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const Header2 = () => {
   
@@ -34,22 +45,27 @@ const Header2 = () => {
 
   const handleTabClick = (tab: string) => setActiveTab(tab);
 
-  const notificationList = [notifications[0],notifications[1]];
-  
-  const filteredNotifications = notificationList.filter((notification) => {
-    if (activeTab === 'All') return true;
-    return notification.status === activeTab;
-  }).filter((notification) => notification.title.toLowerCase());
+  const notifications = NotificationList({ userId: '48c13d8b-d922-4894-ab36-6ae3f7dfb7ad' });
+
+  const notificationList = [notifications[0], notifications[1]];
+
+  const filteredNotifications = notificationList
+    .filter((notification) => notification !== undefined)
+    .filter((notification) => {
+      if (activeTab === 'All') return true;
+      return notification.status === activeTab;
+    })
+    .filter((notification) => notification.subject.toLowerCase());
 
   const handleNotificationClick = (title: string) => {
-      setRead(true);
-      // Update the notification status to 'read'
-      notifications.forEach((notification) => {
-        if (notification.title === title) {
-          notification.status = 'read';
-        }
-      });
-    };
+    setRead(true);
+    // Update the notification status to 'read'
+    notifications.forEach((notification) => {
+      if (notification.subject === title) {
+        notification.status = 'read';
+      }
+    });
+  };
 
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-6 w-full bg-white-50 border-b border-gray-300">
@@ -65,119 +81,127 @@ const Header2 = () => {
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-1">
-          {/**Bouton messagerie */}
-          <div className="relative group">
-            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              Chat
-            </div>
-            <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-              <a href="/chat">
-                {" "}
-                <MessageSquare className="text-black-400 h-7 w-7" />
-              </a>
-
-              <span className="absolute -top-[4px] -right-2 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-7 h-5 flex items-center justify-center">
-                +99
-              </span>
-            </Button>
+        <Button
+            variant="ghost"
+            size="icon"
+            className="sm:hidden"
+            aria-label="Menu"
+          >
+          <Menu className="h-5 w-5" />
+        </Button>
+        {/**Bouton messagerie */}
+        <div className="relative group">
+          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            Chat
           </div>
-          {/**Bouton notifications */}
-          <div className="relative group">
-            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              notifications
-            </div>
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Notifications">
-                  <a href="/notifications">
-                  {" "}
-                    <Bell className="text-black-400 h-7 w-7" />
-                  </a>
-                  <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    4
-                  </span>
-                </Button>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-[477px]">
-                <IntroText 
-                  title="Notifications" 
-                  description="Stay informed with real-time updates and alerts." />
-                <div className='py-5'>
-                  {tabs.map((tab, index) => (
-                    <button
-                      key={index}
-                      className={`px-4 py-2 mr-4 rounded-md ${
-                        activeTab === tab
-                          ? 'bg-green-200 text-green-600 hover:text-green-700'
-                          : 'bg-gray-100 text-gray-600 hover:text-gray-800'
-                      }`}
-                      onClick={() => handleTabClick(tab)}
-                    >
-                      {tab}
-                    </button>
-                  ))}
-                </div>
-                <div className='flex justify-between items-center mr-10'>
-                  <div>
-                    {filteredNotifications.map((notification) => (
-                      <NotificationCard key={notification.title} notification={notification} onClick={handleNotificationClick} />
-                    ))}
-                  </div>
-                </div>
-                <Button variant="outline" className='w-full'>
-                  <a href="/notifications">{" "} Show All</a>
-                </Button>
-              </HoverCardContent>
-            </HoverCard>
-          </div>
-          {/**Bouton panier des achats */}
-          <div className="relative group">
-            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              cart
-            </div>
-            <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-              <a href="/marketplace/cart">
+          <Button variant="ghost" size="icon" aria-label="Shopping Cart">
+            <a href="/chat">
               {" "}
-                <ShoppingCart className="text-black-400 h-7 w-7" />
-              </a>
-              <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
-                4
+              <MessageSquare className="text-black-400 h-7 w-7" />
+            </a>
+
+            <span className="absolute -top-[4px] -right-2 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-7 h-5 flex items-center justify-center">
+              +99
+            </span>
+          </Button>
+        </div>
+        {/**Bouton notifications */}
+        <HoverCard>
+          <HoverCardTrigger asChild>
+            <div className="relative group">
+              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                notifications
+              </div>
+              <Button variant="ghost" size="icon" aria-label="Notifications">
+              <a href="/notifications">
+              {" "}
+                <Bell className="text-black-400 h-7 w-7" />
+                </a>
+                <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  4
+                </span>
+              </Button>
+            </div>
+          </HoverCardTrigger>
+          <HoverCardContent className="w-[477px]">
+            <IntroText 
+              title="Notifications" 
+              description="Stay informed with real-time updates and alerts." />
+            <div className='py-5'>
+              {tabs.map((tab, index) => (
+                <button
+                  key={index}
+                  className={`px-4 py-2 mr-4 rounded-md ${
+                    activeTab === tab
+                      ? 'bg-green-200 text-green-600 hover:text-green-700'
+                      : 'bg-gray-100 text-gray-600 hover:text-gray-800'
+                  }`}
+                  onClick={() => handleTabClick(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+            <div className='flex justify-between items-center mr-10'>
+              <div>
+                {filteredNotifications.map((notification) => (
+                  <NotificationCard key={notification.subject} notification={notification} onClick={handleNotificationClick} />
+                ))}
+              </div>
+            </div>
+            <a href="/notifications">
+              <Button variant="outline" className='w-full'>
+                Show All
+              </Button>
+            </a>
+          </HoverCardContent>
+        </HoverCard>
+        {/**Bouton panier des achats */}
+        <div className="relative group">
+          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            cart
+          </div>
+          <Button variant="ghost" size="icon" aria-label="Shopping Cart">
+          <a href="/marketplace/cart">
+          {" "}
+            <ShoppingCart className="text-black-400 h-7 w-7" />
+            </a>
+            <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
+              4
+            </span>
+          </Button>
+        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="flex items-center gap-2">
+              <User className="text-black-100 h-5 w-5" />
+              <span className="text-black-100 font-medium hidden sm:inline">
+                {account.name}{" "}{account.surname}
               </span>
             </Button>
-          </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
-                <User className="text-black-100 h-5 w-5" />
-                <span className="text-black-100 font-medium hidden sm:inline">
-                  Ahmed Musa
-                </span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2">
-                <Globe className="text-black-100 h-5 w-5" />
-                <span className="text-black-100 font-medium hidden sm:inline">
-                  English
-                </span>
-                <ChevronDown className="text-black-400 h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>English</DropdownMenuItem>
-              <DropdownMenuItem>Français</DropdownMenuItem>
-              <DropdownMenuItem>Español</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem><a href='/account'>Profile</a></DropdownMenuItem>
+            <DropdownMenuItem><a href='/settings'>Settings</a></DropdownMenuItem>
+            <DropdownMenuItem><a href='/logout'>Logout</a></DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="flex items-center gap-2">
+              <Globe className="text-black-100 h-5 w-5" />
+              <span className="text-black-100 font-medium hidden sm:inline">
+                English
+              </span>
+              <ChevronDown className="text-black-400 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>English</DropdownMenuItem>
+            <DropdownMenuItem>Français</DropdownMenuItem>
+            <DropdownMenuItem>Español</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <RoleSelector/>
     </header>

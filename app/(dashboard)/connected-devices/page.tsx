@@ -101,7 +101,6 @@ const Page = () => {
       />
       <Card className="mb-6 ">
         <CardHeader className="flex flex-row items-center justify-between">
-          
           <Button onClick={handleAddDevice} className='bg-green-600'>Add New Device</Button>
         </CardHeader>
         <CardContent>

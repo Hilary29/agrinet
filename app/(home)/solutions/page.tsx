@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 
 import IntroText from '@/components/IntroText'
-
-import { Notification, notifications } from '@/public/data/notification'
+import NotificationList from '@/public/data/notification';
 import { NotificationCard } from '@/components/NotificationCard'
 
 const Page = () => {
@@ -15,17 +14,19 @@ const Page = () => {
   const [read, setRead] = useState(false);
 
   const handleTabClick = (tab: string) => setActiveTab(tab);
+
+  const notifications = NotificationList({ userId: '1' });
   
   const filteredNotifications = notifications.filter((notification) => {
     if (activeTab === 'All') return true;
     return notification.status === activeTab;
-  }).filter((notification) => notification.title.toLowerCase());
+  }).filter((notification) => notification.subject.toLowerCase());
 
   const handleNotificationClick = (title: string) => {
     setRead(true);
     // Update the notification status to 'read'
     notifications.forEach((notification) => {
-      if (notification.title === title) {
+      if (notification.subject === title) {
         notification.status = 'read';
       }
     });
@@ -54,7 +55,7 @@ const Page = () => {
       <div className='flex justify-between w-full items-center mr-10'>
         <div>
           {filteredNotifications.map((notification) => (
-            <NotificationCard key={notification.title} notification={notification} onClick={handleNotificationClick} />
+            <NotificationCard key={notification.subject} notification={notification} onClick={handleNotificationClick} />
           ))}
         </div>
       </div>
