@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ProductDetailsTab } from "@/components/ProductDetailsTab";
+import { ProductDetailsTab2 } from "@/components/ProductDetailsTab2";
 
 export async function generateStaticParams() {
   return products.map((product) => ({
@@ -56,7 +56,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
           </Button>
         </Link>
         <div className="container mx-auto px-4 py-8">
-      <ProductDetailsTab product={product} />
+      <ProductDetailsTab2 product={product} />
     </div>
       </div>
       <Footer />
