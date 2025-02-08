@@ -87,7 +87,7 @@ const Header2 = () => {
             <ShoppingCart className="text-black-400 h-7 w-7" />
             </a>
             <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
-            {localStorage.getItem("cartItems") || 0}
+            {localStorage?.getItem("cartItems") || 0}
             </span>
           </Button>
         </div>

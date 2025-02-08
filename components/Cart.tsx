@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import axios from "axios"
 import { useRouter } from 'next/navigation';
-import { PRODUCTNAME_ROUTE } from "@/app/api/cart/const";
+import { PRODUCTNAME_ROUTE } from "@/config/routes";
 
 interface CartItem {
     id: string
@@ -50,7 +50,7 @@ export default function Cart() {
             service_quantity: item.quantity
         }))
     };
-    sessionStorage.setItem("paymentData",JSON.stringify(paymentData.transaction_amount))
+    localStorage.setItem("paymentData",JSON.stringify(paymentData.transaction_amount))
 
     router.push(`/marketplace/checkout`)
   }
@@ -115,9 +115,10 @@ const handleDelete = async (id: string) => {
           const errorData = await response.json();
           throw new Error(errorData.error);
       }
-
       const data = await response.json();
-      toast.success(data.message || "Item deleted successfully");
+      console.log(data);
+      
+      toast.success("Item deleted successfully");
   } catch (error) {
       console.error(error);
       toast.error("Failed to delete item");
@@ -190,7 +191,7 @@ const handleDelete = async (id: string) => {
                   <TableCell className="text-right">{item.unitPrice.toFixed(2)} FCFA</TableCell>
                   <TableCell className="text-right">{item.subtotal.toFixed(2)}FCFA</TableCell>
                   <TableCell className="text-right">{format(new Date(item.addedAt), "PPp")}</TableCell>
-                  <TableCell className="text-right"><button className=" hover:bg-red-500 px-2 py-2 rounded-sm bg-white-50" onClick={() => handleDelete(item.id)}><Trash className="h-4 w-4 hover:text-white-50 font-bold text-red-500 hover:h-4.5 hover:w-4.5" /></button></TableCell>
+                  <TableCell className="text-right"><button className=" hover:bg-red-500 px-2 py-2 rounded-sm bg-white-50" onClick={() => handleDelete(item.productId)}><Trash className="h-4 w-4 hover:text-white-50 font-bold text-red-500 hover:h-4.5 hover:w-4.5" /></button></TableCell>
                 </TableRow>
               ))}
             </TableBody>

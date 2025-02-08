@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ChevronDownCircle, FileSearch } from "lucide-react";
+import axios from "axios";
 
 export type TraceData = {
   identification: string;
@@ -26,6 +27,30 @@ const TraceabilityDialog: React.FC<TraceabilityDialogProps> = ({
   traceabilityData,
 }) => {
   const [showMore, setShowMore] = useState(false);
+  const [names, setNames] = useState<{ [key: string]: string }>({});
+  const [locations, setLocations] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const namePromises = traceabilityData.map(item => 
+        axios.get(`http://localhost:4001/api/v1/business_actor/${item.creator}`)
+          .then(response => ({ id: item.creator, name: response.data.businessActorName }))
+      );
+
+      const locationPromises = traceabilityData.map(item => 
+        axios.get(`http://localhost:4001/api/v1/agence/${item.creationLocation}`)
+          .then(response => ({ id: item.creationLocation, location: response.data.location }))
+      );
+
+      const namesArray = await Promise.all(namePromises);
+      const locationsArray = await Promise.all(locationPromises);
+
+      setNames(Object.fromEntries(namesArray.map(({ id, name }) => [id, name])));
+      setLocations(Object.fromEntries(locationsArray.map(({ id, location }) => [id, location])));
+    };
+
+    fetchData();
+  }, [traceabilityData]);
 
   return (
     <Dialog open={showTraceability} onOpenChange={setShowTraceability}>
@@ -47,14 +72,14 @@ const TraceabilityDialog: React.FC<TraceabilityDialogProps> = ({
                 <li key={item.identification} className="border-b py-2">
                   {index === 0 ? (
                     <>
-                      <strong>Creator:</strong> {item.creator} <br />
-                      <strong>Creation Location:</strong> {item.creationLocation} <br />
+                      <strong>Creator:</strong> {names[item.creator] || 'Loading...'} <br />
+                      <strong>Creation Location:</strong> {locations[item.creationLocation] || 'Loading...'} <br />
                       <strong>Timestamp:</strong> {new Date(item.timestamp * 1000).toLocaleString()}
                     </>
                   ) : (
                     <>
-                      <strong>Location:</strong> {item.location} <br />
-                      <strong>Owner:</strong> {item.owner} <br />
+                      <strong>Location:</strong> {locations[item.location] || 'Loading...'} <br />
+                      <strong>Owner:</strong> {names[item.owner] || 'Loading...'} <br />
                       <strong>Timestamp:</strong> {new Date(item.timestamp * 1000).toLocaleString()}
                     </>
                   )}

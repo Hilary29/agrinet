@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatbotButton from "@/components/ChatbotButton";
+import Link from "next/link";
 
 type PricingCardProps = {
   isYearly?: boolean;
@@ -27,6 +28,10 @@ type PricingCardProps = {
   actionLabel: string;
   variant: "basic" | "pro" | "enterprise";
 };
+
+type func={
+  handlePay:()=>void
+}
 
 const variantStyles = {
   basic: {
@@ -49,6 +54,7 @@ const variantStyles = {
     features: "text-white-50 dark:text-green-400",
   },
 };
+
 
 const PricingSwitch = ({ onSwitch }: { onSwitch: (value: string) => void }) => (
   <Tabs defaultValue="0" className="w-40 mx-auto" onValueChange={onSwitch}>
@@ -73,6 +79,7 @@ const PricingCard = ({
   actionLabel,
   variant,
 }: PricingCardProps) => (
+  
   <Card
     className={cn(
       "w-72 flex flex-col justify-between py-1 mx-auto sm:mx-0",
@@ -119,17 +126,19 @@ const PricingCard = ({
       ))}
     </CardContent>
     <CardFooter className="mt-2">
+      <Link href="/marketplace/checkout">
       <Button className="relative w-full rounded-md bg-black-50 text-white-50 dark:bg-white-50 dark:text-black px-6 font-medium">
         <div className="absolute -inset-0.5 -z-10 rounded-lg bg-gradient-to-b from-[#c7d2fe] to-[#8678f9] opacity-75 blur" />
         {actionLabel}
       </Button>
+      </Link>
     </CardFooter>
   </Card>
 );
 
 export default function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
-
+  
   const plans: PricingCardProps[] = [
     {
       title: "Basic",
@@ -157,6 +166,8 @@ export default function Pricing() {
       variant: "enterprise",
     },
   ];
+
+
 
   return (
     <div className="flex flex-col items-start w-full px-4 sm:px-6 md:px-8 lg:px-32 pt-28 md:pt-32">

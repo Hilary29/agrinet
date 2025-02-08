@@ -26,10 +26,18 @@ export const RESSOURCES_SERVER = "http://localhost:4000/api/v1";
 export const ressourcesRoutes = {
   ressourcesCategorie: `${RESSOURCES_SERVER}/categorie`,
   ressourcesCategorieCreate: `${RESSOURCES_SERVER}/categorie/create`,
+  
+  ressourcesProductPost: `${RESSOURCES_SERVER}/product_post`,
   ressourcesProductPostCreate: `${RESSOURCES_SERVER}/product_post/create`,
   ressourcesMediaAddProduct: `${RESSOURCES_SERVER}/media/add/product`
 }
 
+export const PRODUCTNAME_ROUTE="http://localhost:4000/api/v1/product_post/"
+export const MEDIA_ROUTE="http://localhost:4000/api/v1/media/download/"
+
+export const PAYMENT_ROUTE="http://192.168.1.171:4010/api/payment-client/payin"
+
+export const BLOCKCHAIN_ROUTE="http://192.168.1.169:8080/api/v2/resource/states/"
 
 
 /*

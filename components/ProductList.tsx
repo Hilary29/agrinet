@@ -18,6 +18,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import TraceabilityDialog, { TraceData } from "./TraceabilityDialog";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { ressourcesRoutes } from "@/config/routes";
 
 interface Media {
   id: string;
@@ -90,9 +93,24 @@ export default function ProductList() {
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
   const [showTraceability, setShowTraceability] = useState(false);
 
-  const handleTraceabilityClick = (id: string) => {
-    const response = fetch("/api/blockchain");
-    //à revoir
+  const router=useRouter()
+
+  const [traceData, setTraceData] = useState<TraceData[]>([]);
+
+  const handleTraceabilityClick = async(id: string) => {
+    console.log(id);
+    
+    await axios.get(`http://192.168.1.169:8080/api/v2/resource/states/${id}`)
+    .then((response) => {
+      console.log(response.data);
+      setTraceData(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+      
+    })
+    
+    
     setShowTraceability(true);
   };
 
@@ -100,7 +118,8 @@ export default function ProductList() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get<Product[]>(
-          "http://localhost:4000/api/v1/product_post"
+          ressourcesRoutes.ressourcesProductPost
+         // "http://localhost:4000/api/v1/product_post"
         );
         setProducts(response.data);
         const initialQuantities = response.data.reduce((acc, product) => {
@@ -155,6 +174,11 @@ export default function ProductList() {
     }
   };
 
+  const handlePreview=(id:string)=>{
+    //localStorage.setItem("product",JSON.stringify(products.find((p) => p.id === id)))
+    //router.push("/marketplace/products")
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -186,10 +210,10 @@ export default function ProductList() {
                 <div className="relative w-full max-h-44 overflow-hidden cursor-pointer rounded-md">
                   {primaryImage ? (
                     <img
-                      src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
+                    src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
                   ) : (
                     <div className="w-full h-full bg-muted flex items-center justify-center">
                       <Package2 className="w-12 h-12 text-muted-foreground" />
@@ -213,9 +237,8 @@ export default function ProductList() {
                   </button>
                 </div>
                 <div>
-                  <Link
-                    href="/app"
-                    className="flex flex-col items-start gap-1 w-full px-2"
+                  <div onClick={()=>{handlePreview(product.id)}}
+                    className="flex flex-col items-start gap-1 w-full px-2 cursor-pointer"
                   >
                     <CardContent className="p-4">
                       <div className="flex flex-row justify-between items-center">
@@ -267,22 +290,22 @@ export default function ProductList() {
                         </span>
                       </div>
                       <Button
-                          className="bg-accent-600 hover:bg-accent-700"
-                          onClick={() => addToCart(product)}
-                          disabled={
-                            quantities[product.id] === 0 ||
-                            product.status !== "AVAILABLE"
-                          }
-                        >
-                          <ShoppingCartIcon />
+                        className="bg-accent-600 hover:bg-accent-700"
+                        onClick={() => addToCart(product)}
+                        disabled={
+                          quantities[product.id] === 0 ||
+                          product.status !== "AVAILABLE"
+                        }
+                      >
+                        <ShoppingCartIcon />
                       </Button>
                     </CardFooter>
-                  </Link>
+                  </div>
                   {/* Composant de traçabilité */}
                   <TraceabilityDialog
                     showTraceability={showTraceability}
                     setShowTraceability={setShowTraceability}
-                    traceabilityData={traceabilityData}
+                    traceabilityData={traceData}
                   />
                 </div>
               </Card>
