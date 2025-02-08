@@ -2,7 +2,7 @@
 
 export const API_BASE_URL = "http://192.168.1.186:4010";
 
-export const USER_MANAGEMENT = `http://192.168.1.167:8085/api/v1`;
+export const USER_MANAGEMENT = `http://192.168.1.167:8081/api/v1`;
 export const AuthRoutes = {
   REGISTER: `${USER_MANAGEMENT}/users`, // Endpoint pour l'inscription?
   REGISTER_: `${USER_MANAGEMENT}/auth/`,
