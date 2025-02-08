@@ -2,6 +2,9 @@
 
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, Label } from "recharts";
+// Import the desired Lucide icon
+import { Brain } from "lucide-react"; // Import the Brain icon from Lucide
+import Image from 'next/image'; // Import Image from Next.js
 
 // Dummy data for crops and livestock
 const cropData = [
@@ -26,24 +29,34 @@ const Welcome: React.FC = () => {
     <div className="flex flex-col h-full p-4">
       <div className="flex space-x-4">
         {/* Welcome Box */}
-        <div className="bg-green-500 text-white p-6 rounded-md flex-1">
-          <h2 className="text-xl font-semibold">Welcome to the Farm Dashboard!</h2>
-          <p>Explore our tools and insights to enhance your agricultural practices.</p>
+        <div className="bg-green-100 text-white p-6 rounded-2xl flex-1 relative">
+          <h2 className="text-3xl font-satoshi font-semibold">Welcome to your Agrinet Farmer Dashboard!</h2>
+          <p className="text-xl mt-4 font-inter">Explore our tools and insights to enhance your agricultural practices.</p>
+          <Image
+            src="/images/logo.png" // Replace with your image path
+            alt="Welcome Illustration"
+            width={150} // Specify width
+            height={150} // Specify height
+            className="absolute bottom-2 right-2" // Adjust size as necessary
+          />
         </div>
 
         {/* AI Recommendations Box */}
-        <div className="bg-yellow-400 p-6 rounded-md flex-1">
-          <h2 className="text-lg font-semibold">AI Recommendations</h2>
-          <ul className="list-disc pl-6 space-y-2">
+        <div className="bg-yellow-200 p-6 rounded-2xl flex-1 relative">
+          <h2 className="text-3xl font-satoshi font-semibold">AI Recommendations</h2>
+          <ul className="list-disc text-lg mt-4 font-inter pl-6 space-y-2">
             <li>Consider rotating your crops to improve soil health.</li>
             <li>Implement cover cropping to prevent erosion.</li>
             <li>Diversify livestock to enhance farm resilience.</li>
           </ul>
+          <div className="absolute bottom-2 right-2 flex items-center">
+            <Brain className="w-32 h-32 text-gray-800" /> {/* Use Lucide Brain icon */}
+          </div>
         </div>
 
         {/* Livestock and Crop Rotation Chart */}
-        <div className="bg-gray-500 p-6 rounded-md flex-1">
-          <h3 className="text-white text-center mb-4">Livestock and Crop Rotation</h3>
+        <div className="bg-gray-100 p-6 rounded-2xl flex-1">
+          <h3 className="text-3xl font-satoshi font-semibold">Livestock and Crop Rotation</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Tooltip />

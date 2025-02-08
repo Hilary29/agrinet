@@ -45,7 +45,7 @@ const Page = () => {
   return (
     <div className="flex">
       {/* Left Side: Forum Posts */}
-      <div className="w-3/4 p-4">
+      <div className="w-3/4 p-4 border-2 border-gray-200 rounded-3xl">
         <div className='flex overflow-x-auto space-x-4'>
           {filteredForums.slice(0, 4).map((forum) => (
             <ForumCard key={forum.title} forum={forum} />
@@ -53,7 +53,7 @@ const Page = () => {
         </div>
 
         <div className='mt-4'>
-          <Button variant="outline" className="w-full">See More</Button>
+          <Button variant="outline" className="w-full font-inter">See More</Button>
         </div>
       </div>
 
@@ -80,8 +80,8 @@ const ForumCard = ({ forum }: { forum: Forum }) => (
       height={200}
     />
     <div className="p-4 flex-1">
-      <h3 className="text-lg font-medium">{forum.title}</h3>
-      <p className="text-gray-700 mb-2">{forum.description}</p>
+      <h3 className="text-lg font-satoshi font-semibold ">{forum.title}</h3>
+      <p className="text-gray-700 font-inter mb-2">{forum.description}</p>
       <div className="text-gray-500 text-sm mb-2">{forum.date} - {forum.members} members</div>
       <div className="flex justify-between items-center text-gray-500 text-sm">
         <div className='flex items-center'>

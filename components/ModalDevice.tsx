@@ -1,15 +1,8 @@
-import { useState, useEffect } from "react";
+"use client";
 
-// Define the Device interface
-interface Device {
-  name: string;
-  type: string;
-  support: string;
-  typeMCU: string;
-  description: string;
-  unit: string;
-  status: "Active" | "Inactive";
-}
+import { useState, useEffect } from "react";
+import axios from "axios"; // Import Axios
+import { Device } from '@/public/data/device'; // Adjust the import path accordingly
 
 interface ModalDeviceProps {
   isOpen: boolean;
@@ -22,21 +15,21 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
   const [deviceName, setDeviceName] = useState<string>("");
   const [deviceType, setDeviceType] = useState<string>("");
   const [support, setSupport] = useState<string>("");
-  const [typeMCU, setTypeMCU] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [status, setStatus] = useState<"Active" | "Inactive">("Active");
-  const [unit, setUnit] = useState<string>("");
+
+  // Static owner and category IDs
+  const organisationId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
+  const categorieId = "3fa85f64-5717-4562-b3fc-2c963f66afa6";
 
   // Populate form fields when editing
   useEffect(() => {
     if (currentDevice) {
-      setDeviceName(currentDevice.name);
+      setDeviceName(currentDevice.deviceName);
       setDeviceType(currentDevice.type);
       setSupport(currentDevice.support);
-      setTypeMCU(currentDevice.typeMCU);
       setDescription(currentDevice.description);
       setStatus(currentDevice.status);
-      setUnit(currentDevice.unit);
     } else {
       resetForm();
     }
@@ -46,49 +39,57 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
     setDeviceName("");
     setDeviceType("");
     setSupport("");
-    setTypeMCU("");
     setDescription("");
     setStatus("Active");
-    setUnit("");
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const newDevice: Device = {
-      name: deviceName,
+      deviceName,
       type: deviceType,
       support,
-      typeMCU,
-      description,
       status,
-      unit,
+      description,
+      organisationId,
+      categorieId,
+      deviceId: "",
+      name: "",
+      typeMCU: "",
+      unit: "",
+      api: "",
+      temperatureData: [],
+      phLevelData: [],
+      npkLevelData: [],
+      humidityData: []
     };
 
-    onAddDevice(newDevice);
-    resetForm();
-    onClose(); // Close the modal
+    try {
+      // Send a POST request to the backend
+      const response = await axios.post("http://192.168.1.173:8081/api/v1/iot/device/create", newDevice);
+      console.log("Device added:", response.data);
+      onAddDevice(newDevice); // Call the parent function to update the state
+      
+      // Save to local storage
+      saveDeviceToLocalStorage(newDevice);
+      
+      resetForm();
+      onClose(); // Close the modal
+    } catch (error) {
+      console.error("Error adding device:", error);
+      // Handle error appropriately, e.g., show an alert or notification
+    }
+  };
+
+  const saveDeviceToLocalStorage = (device: Device) => {
+    const existingDevices = JSON.parse(localStorage.getItem('devices') || '[]');
+    existingDevices.push(device);
+    localStorage.setItem('devices', JSON.stringify(existingDevices));
   };
 
   const handleDeviceTypeChange = (type: string) => {
     setDeviceType(type);
-    // Set unit based on device type
-    switch (type) {
-      case "Temperature sensor":
-        setUnit("°C");
-        break;
-      case "Humidity sensor":
-        setUnit("%");
-        break;
-      case "PH sensor":
-        setUnit("pH");
-        break;
-      case "NPK sensor":
-        setUnit("mg/L");
-        break;
-      default:
-        setUnit("");
-    }
   };
 
   if (!isOpen) return null;
@@ -101,6 +102,7 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Device Name Field */}
             <div className="mb-4">
               <label className="block mb-2">Device Name</label>
               <input
@@ -108,9 +110,12 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
                 value={deviceName}
                 onChange={(e) => setDeviceName(e.target.value)}
                 required
+                placeholder="Enter device name"
                 className="border border-gray-300 rounded-lg p-2 w-full"
               />
             </div>
+
+            {/* Device Type Field */}
             <div className="mb-4">
               <label className="block mb-2">Device Type</label>
               <select
@@ -120,12 +125,15 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
                 className="border border-gray-300 rounded-lg p-2 w-full"
               >
                 <option value="">Select Device Type</option>
-                <option value="Temperature sensor">Temperature sensor</option>
+                <option value="ESP">ESP</option>
                 <option value="Humidity sensor">Humidity sensor</option>
-                <option value="PH sensor">PH sensor</option>
                 <option value="NPK sensor">NPK sensor</option>
+                <option value="PHSensor data">PHSensor data</option>
+                <option value="TempSensor data">TempSensor data</option>
               </select>
             </div>
+
+            {/* Support Field */}
             <div className="mb-4">
               <label className="block mb-2">Support</label>
               <input
@@ -133,19 +141,12 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
                 value={support}
                 onChange={(e) => setSupport(e.target.value)}
                 required
+                placeholder="Enter support type"
                 className="border border-gray-300 rounded-lg p-2 w-full"
               />
             </div>
-            <div className="mb-4">
-              <label className="block mb-2">Type of MCU</label>
-              <input
-                type="text"
-                value={typeMCU}
-                onChange={(e) => setTypeMCU(e.target.value)}
-                required
-                className="border border-gray-300 rounded-lg p-2 w-full"
-              />
-            </div>
+
+            {/* Description Field */}
             <div className="mb-4 col-span-2">
               <label className="block mb-2">Description</label>
               <textarea
@@ -154,21 +155,11 @@ const ModalDevice: React.FC<ModalDeviceProps> = ({ isOpen, onClose, onAddDevice,
                 required
                 className="border border-gray-300 rounded-lg p-2 w-full"
                 rows={3}
-                placeholder="Please provide a brief description of your device"
+                placeholder="Provide a brief description of your device"
               />
             </div>
-            <div className="mb-4 col-span-2">
-              <label className="block mb-2">S.I. Unit</label>
-              <input
-                type="text"
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-                required
-                className="border border-gray-300 rounded-lg p-2 w-full"
-                placeholder="Enter the S.I. unit"
-                readOnly // Make it read-only since it's determined by the device type
-              />
-            </div>
+
+            {/* Status Field */}
             <div className="mb-4 col-span-2">
               <label className="block mb-2">Status</label>
               <div className="flex items-center">

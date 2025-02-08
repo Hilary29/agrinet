@@ -1,38 +1,74 @@
 "use client";
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import IntroText from '@/components/IntroText';
 import ModalDevice from "@/components/ModalDevice";
 import InfoModal from "@/components/InfoDevice";
 import { FaPlus, FaEdit, FaTrash, FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Image from 'next/image';
-import { deviceList } from '@/public/data/datadevices'; // Adjust the path as necessary
-
-interface Device {
-  name: string;
-  type: string;
-  support: string;
-  typeMCU: string;
-  description: string;
-  unit: string;
-  status: "Active" | "Inactive";
-}
+import axios from 'axios';
+import { Device } from '@/public/data/device'; // Adjust the import path accordingly
 
 const Page = () => {
-  const [devices, setDevices] = useState<Device[]>(deviceList);
+  const [devices, setDevices] = useState<Device[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const [currentDeviceIndex, setCurrentDeviceIndex] = useState<number | null>(null);
+  const [currentDeviceData, setCurrentDeviceData] = useState<Device | undefined>(undefined); // Change to Device | undefined
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
 
+  const infoDevice = {
+    deviceId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    deviceName: "string",
+    support: "string",
+    api: "string",
+    typeMcu: "string",
+    status: "string",
+    description: "string"
+  }
+
+  const organisationId = localStorage.getItem('organisationId');
+
+  const fetchDevices = async () => {
+    if (!organisationId) {
+      console.error("Organisation ID not found in local storage.");
+      return;
+    }
+    try {
+      const response = await axios.get(`/api/v1/iot/device/${organisationId}`);
+      setDevices(response.data);
+      localStorage.setItem('devices', JSON.stringify(response.data)); // Save fetched devices to local storage
+    } catch (error) {
+      console.error("Error fetching devices:", error);
+    }
+  };
+
+  const fetchDeviceById = async (deviceId: string) => {
+    try {
+      const response = await axios.get(`/api/v1/iot/device/${deviceId}`);
+      setCurrentDeviceData(response.data);
+      setIsInfoModalOpen(true); // Open the info modal after fetching data
+    } catch (error) {
+      console.error("Error fetching device data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDevices(); // Fetch devices from the API on mount
+  }, []);
+
   const handleAddDevice = (device: Device) => {
     if (currentDeviceIndex !== null) {
       const updatedDevices = [...devices];
-      updatedDevices[currentDeviceIndex] = device;
+      updatedDevices[currentDeviceIndex] = device; // Update existing device
       setDevices(updatedDevices);
+      localStorage.setItem('devices', JSON.stringify(updatedDevices)); // Update local storage
     } else {
-      setDevices((prevDevices) => [...prevDevices, device]);
+      const newDevices = [...devices, device]; // Add new device
+      setDevices(newDevices);
+      localStorage.setItem('devices', JSON.stringify(newDevices)); // Update local storage
     }
     resetModal();
   };
@@ -42,35 +78,37 @@ const Page = () => {
     setIsModalOpen(true);
   };
 
-  const handleDeleteDevice = (index: number) => {
-    setDevices((prevDevices) => prevDevices.filter((_, i) => i !== index));
+  const handleDeleteDevice = async (deviceId: string) => {
+    try {
+      await axios.delete(`/api/v1/iot/device/delete/${deviceId}`);
+      const updatedDevices = devices.filter(device => device.deviceId !== deviceId);
+      setDevices(updatedDevices);
+      localStorage.setItem('devices', JSON.stringify(updatedDevices)); // Update local storage
+    } catch (error) {
+      console.error("Error deleting device:", error);
+    }
   };
 
-  const handleViewDeviceInfo = (index: number) => {
-    setCurrentDeviceIndex(index);
-    setIsInfoModalOpen(true);
+  const handleViewDeviceInfo = (dev: Device) => {
+    alert(dev.deviceId)
   };
 
   const resetModal = () => {
     setIsModalOpen(false);
     setIsInfoModalOpen(false);
     setCurrentDeviceIndex(null);
+    setCurrentDeviceData(undefined); // Reset current device data to undefined
   };
 
-  // Filter devices based on search query across multiple fields
   const filteredDevices = devices.filter(device =>
-    device.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    device.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    device.support.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    device.typeMCU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    device.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    device.unit.toLowerCase().includes(searchQuery.toLowerCase())
+    (device.deviceName && device.deviceName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (device.type && device.type.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (device.support && device.support.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (device.description && device.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (device.status && device.status.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  // Calculate the current devices to display based on the page number
   const currentDevices = filteredDevices.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
-
-  // Calculate total pages
   const totalPages = Math.ceil(filteredDevices.length / itemsPerPage);
 
   return (
@@ -124,48 +162,30 @@ const Page = () => {
                     <th className="p-4 font-normal">Device Name</th>
                     <th className="p-4 font-normal">Device Type</th>
                     <th className="p-4 font-normal">Support</th>
-                    <th className="p-4 font-normal">Type of MCU</th>
+                    <th className="p-4 font-normal">Description</th>
                     <th className="p-4 font-normal">Status</th>
-                    <th className="p-4 font-normal">S.I. Unit</th>
-                    <th className="p-4 font-normal">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentDevices.map((device, index) => (
                     <tr
-                      key={index}
+                      key={device.deviceId} // Use deviceId as the key
                       className="border-b border-green-200 hover:bg-gray-50 cursor-pointer"
-                      onClick={() => handleViewDeviceInfo(index)} // Make the row clickable
+                      onClick={() => handleViewDeviceInfo(device)} // Make the row clickable
                     >
                       <td className="p-4 text-center">{index + 1 + currentPage * itemsPerPage}</td>
-                      <td className="p-4 text-center">{device.name}</td>
+                      <td className="p-4 text-center">{device.deviceName}</td>
                       <td className="p-4 text-center">{device.type}</td>
                       <td className="p-4 text-center">{device.support}</td>
-                      <td className="p-4 text-center">{device.typeMCU}</td>
+                      <td className="p-4 text-center">{device.description}</td>
                       <td className="p-4 text-center">
-                        <div
-                          className={`inline-flex items-center justify-center px-2 py-1 text-sm font-semibold rounded-full ${device.status === "Active" ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-500"
-                            }`}
-                        >
+                        <div className={`inline-flex items-center justify-center px-2 py-1 text-sm font-semibold rounded-full ${device.status === "Active" ? "bg-green-100 text-green-600" : "bg-gray-200 text-gray-500"}`}>
                           {device.status}
                         </div>
                       </td>
-                      <td className="p-4">{device.unit}</td>
                       <td className="p-4 text-center flex justify-center space-x-2">
-                        <FaEdit
-                          className="cursor-pointer text-blue-600 hover:text-blue-800"
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent row click
-                            handleEditDevice(index);
-                          }}
-                        />
-                        <FaTrash
-                          className="cursor-pointer text-red-600 hover:text-red-800"
-                          onClick={(e) => {
-                            e.stopPropagation(); // Prevent row click
-                            handleDeleteDevice(index);
-                          }}
-                        />
+                        <FaEdit className="cursor-pointer text-blue-600 hover:text-blue-800" onClick={(e) => { e.stopPropagation(); handleEditDevice(index); }} />
+                        <FaTrash className="cursor-pointer text-red-600 hover:text-red-800" onClick={(e) => { e.stopPropagation(); handleDeleteDevice(device.deviceId); }} />
                       </td>
                     </tr>
                   ))}
@@ -175,22 +195,12 @@ const Page = () => {
 
             {/* Pagination Controls */}
             <div className="flex justify-between mt-4">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
-                disabled={currentPage === 0}
-                className={`flex items-center p-2 rounded-lg ${currentPage === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-400 transition'}`}
-              >
+              <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} disabled={currentPage === 0} className={`flex items-center p-2 rounded-lg ${currentPage === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-400 transition'}`}>
                 <FaArrowLeft className="mr-2" />
                 Previous
               </button>
-              <span>
-                Page {currentPage + 1} of {totalPages}
-              </span>
-              <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))}
-                disabled={currentPage >= totalPages - 1}
-                className={`flex items-center p-2 rounded-lg ${currentPage >= totalPages - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-400 transition'}`}
-              >
+              <span>Page {currentPage + 1} of {totalPages}</span>
+              <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))} disabled={currentPage >= totalPages - 1} className={`flex items-center p-2 rounded-lg ${currentPage >= totalPages - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-400 transition'}`}>
                 Next
                 <FaArrowRight className="ml-2" />
               </button>
@@ -208,7 +218,7 @@ const Page = () => {
         <InfoModal
           isOpen={isInfoModalOpen}
           onClose={resetModal}
-          device={currentDeviceIndex !== null ? devices[currentDeviceIndex] : undefined}
+          device={currentDeviceData} // Pass the fetched device data
         />
       </main>
     </div>

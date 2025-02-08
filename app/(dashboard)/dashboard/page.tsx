@@ -17,25 +17,21 @@ const Page: React.FC = () => {
       <div className="bg-white-50 p-4 rounded-lg">
         {/* Welcome Section */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold">Crop</h2>
           <Welcome />
         </div>
 
         {/* IoT Section */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold">IoT</h2>
           <IoT />
         </div>
 
         {/* Marketplace Section */}
-        <div className="mb-6">
-          {/* <h2 className="text-xl font-semibold">Marketplace</h2> */}
+        {/* <div className="mb-6">
           <Market />
-        </div>
+        </div> */}
 
         {/* Fora Section */}
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold">Fora</h2>
+        <div className="">
           <Fora />
         </div>
       </div>

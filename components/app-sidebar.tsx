@@ -60,7 +60,7 @@ const navigation = [
   },
   {
     name: "Connected Devices",
-    href: "/farmer/connected-devices",
+    href: "/connected-devices",
     icon: SmartphoneNfc,
     roles: ["farmer", "organization"],
   },
@@ -107,7 +107,7 @@ const navigation = [
     ],
   },
   {
-    name: "AI Recommandations",
+    name: "AI Predictions",
     href: "/ai-recommandations",
     icon: BrainCog,
     roles: ["farmer", "organization"],

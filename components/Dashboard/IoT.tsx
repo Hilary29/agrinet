@@ -1,10 +1,10 @@
 "use client";
+
 import React, { useState } from 'react';
-import IoTGraphs from "@/components/IoTGraphs"; 
-import { FaPlus } from "react-icons/fa";
+import LeafletMap from "@/components/LeafletMap"; // Import the LeafletMap component
 import Image from 'next/image';
 import { deviceList } from '@/public/data/datadevices'; 
-import { useRouter } from 'next/navigation'; // Update import for App Router
+import { useRouter } from 'next/navigation'; 
 
 interface Device {
   name: string;
@@ -31,9 +31,9 @@ const IoT: React.FC = () => {
   );
 
   return (
-    <div className="p-4 md:p-6 bg-white-50 flex">
-      <IoTGraphs />
-      <main className="rounded-lg p-4 md:p-6 flex-1">
+    <div className="p-4 md:p-6 bg-white-50 flex flex-col md:flex-row">
+      <LeafletMap /> {/* Replace IoTGraphs with LeafletMap */}
+      <main className="rounded-lg p-4 md:p-6 flex-1 mt-4 md:mt-0">
         <header className="w-full flex items-center mb-4 justify-between flex-wrap">
           <input
             type="text"
@@ -70,7 +70,7 @@ const IoT: React.FC = () => {
         {filteredDevices.length > 0 && (
           <div className="mt-4">
             <button
-              onClick={() => router.push('/farmer/connected-devices')}
+              onClick={() => router.push('/connected-devices')}
               className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-400 transition"
             >
               View Connected Devices
