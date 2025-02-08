@@ -7,6 +7,7 @@ import ImageCaroussel from './ImageCaroussel'
 import { FaHeart, FaThumbsUp, FaThumbsDown, FaMoneyBill, FaTruck, FaMapPin, FaCreditCard } from 'react-icons/fa'
 import { MessageSquare, Package, Clock, MapPin, CreditCard, DollarSign } from 'lucide-react'
 import { ProductDetailsDevelopTab } from './ProductDetailsDevelopTab'
+import ProductRecommendations from './ProductRecommandations'
 
 interface ProductDetailsProps {
   product: {
@@ -53,11 +54,14 @@ function TabContent({ product }: ProductDetailsProps) {
 
 function ProductTab({ product }: ProductDetailsProps) {
   return (
-    <TabsContent value="product">
+    <TabsContent value="product" className='pb-16'>
       <div className="grid md:grid-cols-2 gap-8 pt-4 ">
         <ImageSection product={product} />
         <ProductInfo product={product} />
       </div>
+      <ProductRecommendations />
+
+
     </TabsContent>
   )
 }
@@ -167,43 +171,43 @@ function ActionButton({ icon: Icon, tooltip, color }: { icon: React.ElementType,
 function ProductInfo({ product }: ProductDetailsProps) {
   return (
     <div className=''>
-            <div className="flex flex-col gap-6">
-      <ProductHeader product={product} />
-      <div className="space-y-2">
-        <Badge variant="outline">{product.category}</Badge>
+      <div className="flex flex-col gap-6">
+        <ProductHeader product={product} />
+        <div className="space-y-2">
+          <Badge variant="outline">{product.category}</Badge>
+        </div>
+        <div className="space-y-4">
+          <p className="text-xl font-bold text-accent-700">
+            {product.price.toLocaleString()} FCFA
+          </p>
+          {product.quantity && (
+            <p className="text-black-400">{product.quantity}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <h2 className="font-semibold text-lg">Description</h2>
+          <p className="text-black-400 leading-relaxed">
+            {product.description}
+          </p>
+        </div>
+        <div className="space-y-2">
+          <h2 className="font-semibold text-lg">Seller</h2>
+          <p className="text-black-400">{product.seller}</p>
+        </div>
+        <div className="flex flex-col gap-3 mt-4">
+          <Button
+            size="lg"
+            className="w-full"
+            disabled={product.stock !== "in-stock"}
+          >
+            <Package className="mr-2 h-5 w-5" />
+            Add to Cart
+          </Button>
+          <Button variant="outline" size="lg" className="w-full">
+            Contact Seller
+          </Button>
+        </div>
       </div>
-      <div className="space-y-4">
-        <p className="text-xl font-bold text-accent-700">
-          {product.price.toLocaleString()} FCFA
-        </p>
-        {product.quantity && (
-          <p className="text-black-400">{product.quantity}</p>
-        )}
-      </div>
-      <div className="space-y-2">
-        <h2 className="font-semibold text-lg">Description</h2>
-        <p className="text-black-400 leading-relaxed">
-          {product.description}
-        </p>
-      </div>
-      <div className="space-y-2">
-        <h2 className="font-semibold text-lg">Seller</h2>
-        <p className="text-black-400">{product.seller}</p>
-      </div>
-      <div className="flex flex-col gap-3 mt-4">
-        <Button
-          size="lg"
-          className="w-full"
-          disabled={product.stock !== "in-stock"}
-        >
-          <Package className="mr-2 h-5 w-5" />
-          Add to Cart
-        </Button>
-        <Button variant="outline" size="lg" className="w-full">
-          Contact Seller
-        </Button>
-      </div>
-    </div>
     </div>
 
   )
@@ -214,7 +218,7 @@ function PriceBreakdownCard({ product }: ProductDetailsProps) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <FaMoneyBill className='text-secondary-400'/>
+          <FaMoneyBill className='text-secondary-400' />
           Price Breakdown
         </CardTitle>
         <CardDescription>
