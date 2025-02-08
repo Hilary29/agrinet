@@ -73,8 +73,8 @@ const OrganizationForm = () => {
     }
   };
   return(
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-lg mx-auto ">
+    <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-white-50 rounded-lg shadow-6dp-v2">
       <input type="text" name="phoneNumber" placeholder="Phone Number" className="w-full p-2 border rounded" onChange={handleChange} />
       <input type="email" name="email" placeholder="Email" className="w-full p-2 border rounded" onChange={handleChange} />
       <input type="text" name="businessActorName" placeholder="Business Actor Name" className="w-full p-2 border rounded" onChange={handleChange} />

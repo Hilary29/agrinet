@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Bell,
@@ -23,6 +23,14 @@ import {
 import { RoleSelector } from "./RoleSelector";
 
 const Header2 = () => {
+  const [name,setName]=useState('')
+  useEffect(()=>{
+    const token=sessionStorage.getItem("decodedToken")
+
+    if (token) {
+      setName(JSON.parse(token).name) 
+    }
+  },[])
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-6 w-full bg-white-50 border-b border-gray-300">
       <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto mb-4 sm:mb-0">
@@ -96,7 +104,7 @@ const Header2 = () => {
             <Button variant="ghost" className="flex items-center gap-2">
               <User className="text-black-100 h-5 w-5" />
               <span className="text-black-100 font-medium hidden sm:inline">
-                Ahmed Musa
+                {name}
               </span>
             </Button>
           </DropdownMenuTrigger>

@@ -6,7 +6,7 @@ import { Badge } from 'lucide-react'
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Notification } from '@/types/notification'
+import { Notification } from '@/public/data/notification'
 
 //{ items }: { items: OverviewItem[] }
 
@@ -16,8 +16,8 @@ interface NotificationCardProps {
   }
 
   export const NotificationCard: React.FC<NotificationCardProps> = ({ notification, onClick }) => (
-    <div onClick={() => onClick(notification.title)}>
-        <div className="flex items-top p-2 mb-2 space-x-4 cursor-pointer">
+    <div onClick={() => onClick(notification.subject)}>
+        <div className="flex items-top p-2 mb-2 space-x-4 cursor-pointer hover:bg-accent">
             {/* <Skeleton className="h-12 w-12 rounded-full animation-none" >
             {notification.images.map((image, index) => (
                 <Image key={index} src={image} alt={`Image ${index + 1}`} className="rounded-full object-cover w-full h-full" />
@@ -48,31 +48,31 @@ interface NotificationCardProps {
                 </Skeleton>
             </div> */}
             <div className="w-12 h-12 mr-4">
-                <AspectRatio ratio={1}>
+{/*                 <AspectRatio ratio={1}>
                     {notification.images.map((image, index) => (
                     <Image key={index} width={200} height={200} src={image} alt={`Image ${index + 1}`} className="rounded-full object-cover w-full h-full" />
                     ))}
-                </AspectRatio>
+                </AspectRatio> */}
             </div>
             <div className="flex-1">
                 <button className={`px-4 py-1 rounded-md disable ${
-                    notification.type === 'Alert'? 'bg-orange-200 text-orange-600' 
-                    : notification.type === 'Recommendation'?'bg-blue-200 text-blue-600'
+                    notification.property.toLowerCase() === 'alert'? 'bg-orange-200 text-orange-600' 
+                    : notification.property.toLowerCase() === 'recommendation'?'bg-blue-200 text-blue-600'
                     : ''
                 }`}>
-                    {notification.type}
+                    {notification.property}
                 </button>
                 <div className="flex justify-between items-start mb-1">
                     {notification.status === 'unread' ? (
                         <Badge color="primary" >
-                            <h3 className="text-lg font-medium">{notification.title}</h3>
+                            <h3 className="text-lg font-medium">{notification.subject}</h3>
                         </Badge>
                     ) : (
-                        <h3 className="text-lg font-medium">{notification.title}</h3>
+                        <h3 className="text-lg font-medium">{notification.subject}</h3>
                     )}
-                    <div className="text-gray-500 text-sm">{notification.date}</div>
+                    <div className="text-gray-500 text-sm">{new Date(notification.timestamp).toLocaleString()}</div>
                 </div>
-                <p className="text-gray-700 mb-2 mt-2">{notification.content}</p>
+                <p className="text-gray-700 mb-2 mt-2">{notification.message}</p>
             </div>
         </div>
         <Separator className="my-2" /> 

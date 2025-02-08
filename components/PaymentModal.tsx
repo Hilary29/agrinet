@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
-import axios from "axios";
-import { PAYMENT_ROUTE } from "@/config/routes";
 
 interface PaymentCart {
   transaction_amount: number;
@@ -14,77 +12,51 @@ interface Payment {
   payer_email: string; //fourni auth-service
   payer_name: string; //fourni auth-service
   payer_phone_number: string;
-  payer_lang: string; //fourni auth-service
-  transaction_amount: number; //fourni auth-service
+  payer_reference: string; //fourni auth-service
+  service_description: string; //"Produit(s) sur Agrinet";
+  service_reference: string;
+  service_name: string; //MarketPlace
+  transaction_currency: string; //XAF
+  transaction_method: string; //MOBILE
+  transaction_reference: string; //fourni auth-service
 }
 
 const PaymentModal = () => {
-  const [datas, setData] = useState<any>();
-  useEffect(() => {
-    const data = sessionStorage.getItem("decodedToken");
-    if (data) {
-      console.log(data);
+  const paymentData=sessionStorage.getItem("paymentData");
 
-      setData(JSON.parse(data));
-    }
-  }, []);
-
-  const [credent, setCredent] = useState<Payment>({
-    payer_email: "", //fourni auth-service
-    payer_name: "", //fourni auth-service
-    payer_phone_number: "",
-    payer_lang: "", //fourni auth-service
-    transaction_amount: 0, //fourni auth-service
-  });
-  const paymentData = localStorage.getItem("paymentData");
-
+  const PaymentAPI=()=>{
+    
+  }
   const handleCheckout = async () => {
     try {
-      const data = JSON.stringify(credent);
-      
-      const config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: `${PAYMENT_ROUTE}`,
-        headers: { 
-          'Content-Type': 'application/json'
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        data: data
-      };
-      
-      const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error);
+      }
+
+      const data = await response.json();
+      toast.success(data.message || "Order created successfully");
     } catch (error) {
-      // Vérifiez si l'erreur a un message, sinon affichez un message générique
-      const errorMessage = error.response ? error.response.data : error.message;
-      console.error(errorMessage);
-      toast.error("Failed to create order: " + errorMessage);
+      console.error(error);
+      toast.error("Failed to create order");
     }
   };
-  const [isActive, setIsActive] = useState(3);
-  const [phone, setPhone] = useState("");
-  const handlePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(e.target.value);
-  };
-
-  useEffect(() => {
-    setCredent((prevData) => ({
-      ...prevData,
-      payer_email: datas?.email,
-      payer_name: datas?.name,
-      payer_phone_number: phone,
-      payer_lang: "fr",
-      transaction_amount: Number(paymentData),
-    }));
-  }, [phone]);
+  const [isActive, setIsActive] = useState(0);
 
   return (
-    <div className="bg-white-50-50 rounded-2xl p-3 sm:p-0 lg:p-6 mb-5">
-      <ul className="flex flex-wrap items-center gap-6">
+    <div className="bg-white-50 max-w-6xl  rounded-2xl p-3 sm:p-0 lg:p-6 mb-5">
+      <ul className="flex flex-wrap items-center gap-6 w-full">
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14 p-4 rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
                 isActive == 0 ? "bg-primary-700 text-white-50" : ""
               } `}
               onClick={() => {
@@ -184,7 +156,7 @@ const PaymentModal = () => {
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14 p-4 rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700  hover:text-white-50 border-2 border-gray-500 p-4 ${
                 isActive == 4 ? "bg-primary-700 text-white-50" : ""
               } `}
               onClick={() => {
@@ -276,32 +248,27 @@ const PaymentModal = () => {
               width={30}
               height={30}
             />
-            <input
-              type="text"
-              placeholder="+237 699 99 99 99"
-              value={phone}
-              onChange={handlePhone}
-            />
+            <input type="text" placeholder="+237 699 99 99 99" />
           </div>
           <div className="col-span-12">
             <label
-              htmlFor="card-number"
-              className="text-xl font-medium block mb-3"
+            htmlFor="card-number"
+            className="text-xl font-medium block mb-3"
             >
-              Payable Amount
+            Payable Amount
             </label>
             <input
-              type="text"
-              className="w-full bg-[var(--bg-1)] focus:outline-none border border-neutral-40 rounded-lg py-3 px-5"
-              id="card-number"
-              value={paymentData?.toString()}
+            type="text"
+            className="w-full bg-[var(--bg-1)] focus:outline-none border border-neutral-40 rounded-lg py-3 px-5"
+            id="card-number"
+            value={paymentData?.toString()}
             />
-          </div>
+        </div>
         </div>
       )}
 
       <button
-        className="bg-primary-400 w-[30%] p-3 rounded-lg flex items-center justify-center mt-10 text-xl ml-[35%]"
+        className="bg-primary-400 w-[30%] text-white-50 p-3 rounded-lg flex items-center justify-center mt-10 text-xl ml-[35%]"
         onClick={handleCheckout}
       >
         Confirm payment

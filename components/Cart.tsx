@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { format, set } from "date-fns"
-import { ShoppingCart, AlertCircle, Trash } from "lucide-react"
+import { ShoppingCart, AlertCircle, Trash, ShoppingBag } from "lucide-react"
 import { toast } from 'react-hot-toast';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import axios from "axios"
 import { useRouter } from 'next/navigation';
 import { PRODUCTNAME_ROUTE } from "@/config/routes";
+import Link from "next/link";
 
 interface CartItem {
     id: string
@@ -125,6 +126,8 @@ const handleDelete = async (id: string) => {
   }
 };
 
+
+
   if (loading) {
     return (
       <div className="container mx-auto p-6 space-y-4">
@@ -149,12 +152,18 @@ const handleDelete = async (id: string) => {
   if (!cart || cart.items.length === 0) {
     return (
       <div className="container mx-auto p-6">
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <ShoppingCart className="h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-xl font-medium text-muted-foreground">Your cart is empty</p>
-          </CardContent>
-        </Card>
+        <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
+          <ShoppingBag className="h-20 w-20 text-muted-foreground" />
+          <h1 className="text-paragraph-lg font-inter font-medium">
+            Your cart is empty
+          </h1>
+          <Link
+            href="/marketplace/all-products"
+            className="bg-primary-600 hover:bg-primary-700 text-white-50 font-semibold font-inter text-paragraph-md rounded-md py-2.5 px-4 sm:text-lg transition duration-300 "
+          >
+            Continue Shopping
+          </Link>
+        </div>
       </div>
     )
   }

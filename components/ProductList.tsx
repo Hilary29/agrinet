@@ -237,10 +237,7 @@ export default function ProductList() {
                   </button>
                 </div>
                 <div>
-                  <div onClick={()=>{handlePreview(product.id)}}
-                    className="flex flex-col items-start gap-1 w-full px-2 cursor-pointer"
-                  >
-                    <CardContent className="p-4">
+                <CardContent className="p-4 cursor-pointer" onClick={()=>{handlePreview(product.id)}}>
                       <div className="flex flex-row justify-between items-center">
                         <p className="font-semibold text-lg mb-2 line-clamp-1">
                           {product.name}
@@ -278,7 +275,7 @@ export default function ProductList() {
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <Clock className="w-4 h-4" />
-                          <span>Expire {timeUntilExpiry}</span>
+                          <span>Expire in {product.lifespan} days</span>
                         </div>
                       </div>
                     </CardContent>
@@ -300,7 +297,6 @@ export default function ProductList() {
                         <ShoppingCartIcon />
                       </Button>
                     </CardFooter>
-                  </div>
                   {/* Composant de traçabilité */}
                   <TraceabilityDialog
                     showTraceability={showTraceability}

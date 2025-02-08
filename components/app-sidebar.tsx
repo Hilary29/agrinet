@@ -56,7 +56,7 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
-    roles: ["user", "farmer", "organization"],
+    roles: [ "farmer", "organization"],
   },
   {
     name: "Connected Devices",

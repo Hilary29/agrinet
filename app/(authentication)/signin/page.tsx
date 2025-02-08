@@ -59,7 +59,7 @@ export default function Page() {
                   htmlFor="username"
                   className="font-inter text-paragraph-lg font-medium "
                 >
-                  UserName or Name
+                  Username or Email
                 </label>
                 <input
                   type="text"

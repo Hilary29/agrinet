@@ -14,12 +14,11 @@ import { Search } from "lucide-react";
 import IntroText from "@/components/IntroText";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/public/data/products";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import ProductList from "@/components/ProductList";
 
 
 export default function Home() {
-
 
   return (
     <main className="container">

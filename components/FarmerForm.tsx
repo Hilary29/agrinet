@@ -92,7 +92,7 @@ const FarmerForm = () => {
     };
   
     return (
-      <div className="mx-auto p-6 bg-white rounded-lg w-[30%]">
+      <div className="mx-auto p-6 bg-white-50 shadow-6dp-v2 rounded-md max-w-5xl w-[600px] ">
         <h2 className="text-2xl font-semibold mb-4 text-center text-primary-800 flex items-center justify-center"><FaLeaf/>Create Farmer Profile</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
