@@ -14,12 +14,10 @@ import { Search } from "lucide-react";
 import IntroText from "@/components/IntroText";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/public/data/products";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import ProductList from "@/components/ProductList";
 
-
 export default function Home() {
-
   return (
     <main className="container">
       <IntroText
@@ -36,9 +34,6 @@ export default function Home() {
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 " />
           </div>
-{/*           <Button className="bg-[#2FB551] hover:bg-[#2FB551]/90">
-            + Create new listing
-          </Button> */}
         </div>
         <div className="flex justify-between mb-6 ">
           <p className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">
@@ -67,19 +62,7 @@ export default function Home() {
             </Select>
           </div>
         </div>
-        <ProductList/>
-{/*             <div className=" justify-center  grid md:grid-cols-2 xl:grid-cols-4 md:gap-8 gap-2">
-              {products.map((product) => (
-                <ProductCard
-                href={`/marketplace/products/${product.id}`}
-                  onAddToCart={function (productId: string): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  key={product.id}
-                  {...product}
-                />
-              ))}
-            </div> */}
+        <ProductList />
       </div>
     </main>
   );

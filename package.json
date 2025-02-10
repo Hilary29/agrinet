@@ -31,7 +31,6 @@
     "@radix-ui/react-toast": "^1.2.5",
     "@radix-ui/react-tooltip": "^1.1.4",
     "@stomp/stompjs": "^7.0.0",
-    "agrinet": "file:",
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

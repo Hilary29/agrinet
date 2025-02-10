@@ -20,7 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { RoleSelector } from "./RoleSelector";
+
 
 const Header2 = () => {
   const [name,setName]=useState('')
@@ -32,7 +32,7 @@ const Header2 = () => {
     }
   },[])
   return (
-    <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-6 w-full bg-white-50 border-b border-gray-300">
+    <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-2.5 w-full bg-white-50 border-b border-gray-300">
       <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto mb-4 sm:mb-0">
         <SidebarTrigger className="text-black-100" />
         <div className="relative flex-grow sm:flex-grow-0">
@@ -131,7 +131,7 @@ const Header2 = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <RoleSelector/>
+{/*       <RoleSelector/> */}
     </header>
   );
 };

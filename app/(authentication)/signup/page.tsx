@@ -6,7 +6,7 @@ import { EyeOff, Eye } from "lucide-react";
 import { AuthRoutes, notificationsRoutes } from "@/config/routes";
 import { FaGoogle, FaFacebook, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
-import axios from 'axios';
+import axios from "axios";
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -19,7 +19,6 @@ export default function Page() {
     password: "",
   });
 
-
   const [errorMessage, setErrorMessage] = useState(""); // État pour stocker le message d'erreur
   const router = useRouter();
 
@@ -28,7 +27,6 @@ export default function Page() {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
@@ -36,9 +34,8 @@ export default function Page() {
     try {
       const response = await axios.post(AuthRoutes.REGISTER, formData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-
       });
 
       console.log(response);
@@ -46,7 +43,6 @@ export default function Page() {
       // Vérifiez la réponse
       if (response.status === 201) {
         router.push("/signin-verify-email");
-
       }
     } catch (error) {
       // Gérer les erreurs
@@ -72,15 +68,13 @@ export default function Page() {
     try {
       const response = await axios.get(AuthRoutes.REGISTER_ + `${platform}`, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-
       });
 
       console.log(response.data);
       router.push(response.data);
-    }
-    catch (err) {
+    } catch (err) {
       console.log(`une erreur de ${platform} `, err);
     }
     // Vous pouvez ajouter ici la logique pour gérer chaque plateforme
@@ -289,7 +283,7 @@ export default function Page() {
                     google
                   </div>
                   <button
-                    onClick={() => handleButtonClick('google')}
+                    onClick={() => handleButtonClick("google")}
                     type="button"
                     className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#D6D6D6] px-3 py-2.5 text-sm font-medium hover:bg-gray-50"
                   >
@@ -328,7 +322,6 @@ export default function Page() {
                   </button>
                 </div>
 
-
                 <div className="relative group">
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     Yowyob
@@ -346,15 +339,23 @@ export default function Page() {
                     />
                   </button>
                 </div>
-
               </div>
             </div>
           </form>
+          <p className="text-center font-inter text-base font-medium text-[#1E1E1E]">
+            Have a business?{" "}
+            <a
+              href="/signup-business"
+              className="text-primary-500 hover:underline"
+            >
+              Create a Business Account
+            </a>
+          </p>
 
           <p className="text-center font-inter text-base font-medium text-[#1E1E1E]">
             Already have an account?{" "}
             <a href="/signin" className="text-primary-500 hover:underline">
-              Sign in
+              Sign In
             </a>
           </p>
         </div>

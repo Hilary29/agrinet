@@ -36,11 +36,11 @@ const FarmerForm = () => {
     }));
   
     const paymentMethodsOptions = [
-      { value: 'Bank Card', label: 'Bank Card', icon: '/img/credit-card-2.png' },
-      { value: 'Paypal', label: 'Paypal', icon: '/img/paypal.png' },
-      { value: 'Orange Money', label: 'Orange Money', icon: '/img/orange-money.png' },
-      { value: 'Mobile Money', label: 'Mobile Money', icon: '/img/mobile--money.png' },
-      { value: 'Cash', label: 'Cash', icon: '/img/salary.png' },
+      { value: 'Bank Card', label: 'Bank Card', icon: '/images/credit-card.png' },
+      { value: 'Paypal', label: 'Paypal', icon: '/images/paypal-transparent.png' },
+      { value: 'Orange Money', label: 'Orange Money', icon: '/images/orange-money.png' },
+      { value: 'Mobile Money', label: 'Mobile Money', icon: '/images/mobile--money.png' },
+      { value: 'Cash', label: 'Cash', icon: '/images/salary.png' },
     ];
   
     useEffect(() => {
@@ -185,7 +185,7 @@ const FarmerForm = () => {
                   className={`flex items-center p-2 border rounded cursor-pointer ${formData.paymentMethods.includes(method.value) ? 'bg-blue-200' : 'bg-white'}`}
                   onClick={() => handlePaymentMethodToggle(method.value)}
                 >
-                  <Image src={method.icon} alt={method.label} width={24} height={24} className="w-6 h-6 mr-2" />
+                  <Image src={method.icon} alt={method.label} width={24} height={24} className="w-12 h-8 mr-2" />
                   <span>{method.label}</span>
                 </div>
               ))}

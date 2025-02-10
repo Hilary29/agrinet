@@ -56,53 +56,53 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
-    roles: [ "farmer", "organization"],
+    roles: [ "business"],
   },
   {
     name: "Connected Devices",
     href: "/connected-devices",
     icon: SmartphoneNfc,
-    roles: ["farmer", "organization"],
+    roles: ["business"],
   },
   {
     name: "Marketplace",
     icon: ShoppingCart,
-    roles: ["user", "farmer", "organization"],
+    roles: ["user", "business"],
     subItems: [
       {
         name: "All Products",
         href: "/marketplace/all-products",
-        roles: ["user", "farmer", "organization"],
+        roles: ["user", "business"],
       },
       {
         name: "Cart",
         href: "/marketplace/cart",
-        roles: ["user", "farmer", "organization"],
+        roles: ["user", "business"],
       },
       {
         name: "Wishlist",
         href: "/marketplace/wishlist",
-        roles: ["user", "farmer", "organization"],
+        roles: ["user", "business"],
       },
       {
         name: "My Shop",
         href: "/marketplace/my-shop",
-        roles: ["farmer", "organization"],
+        roles: ["business"],
       },
       {
         name: "My Marketplace profile",
         href: "/marketplace/marketplace-profile",
-        roles: ["farmer", "organization"],
+        roles: ["business"],
       },
       {
         name: "My Marketplace settings",
         href: "/marketplace/marketplace-settings",
-        roles: ["farmer", "organization"],
+        roles: ["business"],
       },
       {
         name: "Invoices",
         href: "/marketplace/invoices",
-        roles: ["user","farmer", "organization"],
+        roles: ["user","business"],
       },
     ],
   },
@@ -110,42 +110,40 @@ const navigation = [
     name: "AI Recommandations",
     href: "/ai-recommendations",
     icon: BrainCog,
-    roles: ["farmer", "organization"],
+    roles: ["business"],
   },
   {
     name: "Forum",
     href: "/forum",
     icon: MessageCircleMore,
-    roles: ["user", "farmer", "organization"],
+    roles: ["business"],
   },
   {
     name: "Chat",
     href: "/chat",
     icon: MessageSquare,
-    roles: ["user", "farmer", "organization"],
+    roles: ["user", "business"],
   },
   {
     name: "Notifications",
     href: "/notifications",
     icon: Bell,
-    roles: ["user", "farmer", "organization"],
+    roles: ["user", "business"],
   },
   {
     name: "Upgrade",
     href: "/upgrade",
     icon: MoveUpIcon,
-    roles: ["user", "farmer", "organization"],
+    roles: ["user", "business"],
   },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
-  const { userRole } = useUserRole();
+/*   const { userRole } = useUserRole(); */
+  const userRole = "business"
 
-  const filteredNavigation = navigation.filter((item) =>
-    item.roles.includes(userRole)
-  );
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -183,8 +181,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   Overview
                 </p>
               )}
-              {filteredNavigation.map((item) => (
-                <SidebarMenuItem key={item.name}>
+              {navigation.map(
+                (item) =>
+                  item.roles.includes(userRole) && (
+                    <SidebarMenuItem key={item.name}>
                   {item.subItems ? (
                     <Collapsible>
                       <CollapsibleTrigger asChild>
