@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import { AuthRoutes, notificationsRoutes } from "@/config/routes";
 import axios from 'axios';
 
-const router = useRouter();
+
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         // Extraire les paramètres de la requête GET
         const { code, state } = req.query; // Si vous avez des paramètres dans l'URL comme ?name=John&age=30
-
+        
         const handleButtonClick = async (platform = "google") => {
             // console.log(`Button clicked for: ${platform}`);
             try {

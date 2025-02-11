@@ -79,14 +79,19 @@ export default function CreateBusinessAccount() {
   }
 
   return (
-    <div className="flex  justify-center p-4">
-      <div className="w-full bg-white-50 max-w-2xl rounded-md p-2 space-y-8">
-        <h1 className="text-3xl font-bold text-center">Créer un compte business</h1>
-        {errorMessage && <p className="text-red-500 text-sm my-2">{errorMessage}</p>}
+    <div className="flex justify-center  p-4">
+      <div className="flex w-full  max-w-[560px] flex-col items-center rounded-lg bg-white-50 p-6 md:p-10">
+        <div className="w-full max-w-[480px] space-y-8">
+          <p className="font-satoshi text-2xl font-semibold leading-9 text-black-50 md:text-heading-desktop-h4">
+            Create your Agrinet Business account
+          </p>
+          {errorMessage && (
+            <p className="text-red-500 text-sm my-2">{errorMessage}</p>
+          )}
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="businessActorName" className="block text-sm font-medium text-gray-700">
+          <div className="space-y-5">
+            <div className="space-y-2">
+              <label htmlFor="businessActorName" className="font-inter text-paragraph-lg font-medium ">
                 Nom de l&apos;entreprise
               </label>
               <input
@@ -96,10 +101,10 @@ export default function CreateBusinessAccount() {
                 value={formData.businessActorName}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
+                className="w-full rounded-lg border border-[#D6D6D6] p-3 font-inter text-base focus:border-[#2FB551] focus:outline-none focus:ring-1 focus:ring-[#2FB551]"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email
               </label>
@@ -113,7 +118,7 @@ export default function CreateBusinessAccount() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
                 Numéro de téléphone
               </label>
@@ -127,7 +132,7 @@ export default function CreateBusinessAccount() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Mot de passe
               </label>
@@ -154,7 +159,7 @@ export default function CreateBusinessAccount() {
                 </button>
               </div>
             </div>
-            <div>
+            <div className="space-y-2"> 
               <label htmlFor="baType" className="block text-sm font-medium text-gray-700">
                 Type d&apos;entreprise
               </label>
@@ -170,7 +175,7 @@ export default function CreateBusinessAccount() {
                 <option value="full">Complet</option>
               </select>
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">
                 Date de naissance
               </label>
@@ -184,7 +189,7 @@ export default function CreateBusinessAccount() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="gender" className="block text-sm font-medium text-gray-700">
                 Genre
               </label>
@@ -197,7 +202,7 @@ export default function CreateBusinessAccount() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="nationality" className="block text-sm font-medium text-gray-700">
                 Nationalité
               </label>
@@ -210,7 +215,7 @@ export default function CreateBusinessAccount() {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
               />
             </div>
-            <div>
+            <div className="space-y-2">
               <label htmlFor="profession" className="block text-sm font-medium text-gray-700">
                 Profession
               </label>
@@ -224,7 +229,7 @@ export default function CreateBusinessAccount() {
               />
             </div>
           </div>
-          <div>
+          <div className="space-y-2">
             <label htmlFor="businessDomainIds" className="block text-sm font-medium text-gray-700">
               Domaines d&apos;activité (séparés par des virgules)
             </label>
@@ -237,7 +242,7 @@ export default function CreateBusinessAccount() {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
             />
           </div>
-          <div>
+          <div className="space-y-2">
             <label htmlFor="qualificationIds" className="block text-sm font-medium text-gray-700">
               Qualifications (séparées par des virgules)
             </label>
@@ -250,7 +255,7 @@ export default function CreateBusinessAccount() {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
             />
           </div>
-          <div>
+          <div className="space-y-2">
             <label htmlFor="paymentMethods" className="block text-sm font-medium text-gray-700">
               Méthodes de paiement (séparées par des virgules)
             </label>
@@ -263,7 +268,7 @@ export default function CreateBusinessAccount() {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50"
             />
           </div>
-          <div>
+          <div className="space-y-2">
             <label htmlFor="description" className="block text-sm font-medium text-gray-700">
               Description
             </label>
@@ -292,14 +297,16 @@ export default function CreateBusinessAccount() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white-50 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+              className="w-full rounded-md bg-[#2FB551] py-3 font-inter text-base font-medium text-white-50 hover:bg-[#2FB551]/90"
             >
-              Créer le compte business
+              Sign up
             </button>
           </div>
         </form>
       </div>
     </div>
+    </div>
+
   )
 }
 

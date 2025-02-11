@@ -130,7 +130,7 @@ const handleDelete = async (id: string) => {
 
   if (loading) {
     return (
-      <div className="container mx-auto p-6 space-y-4">
+      <div className="container mx-auto p-6 pt-16 sm:pt-0 space-y-4">
         <Skeleton className="h-8 w-[200px]" />
         <Skeleton className="h-[400px] w-full" />
       </div>
@@ -139,10 +139,10 @@ const handleDelete = async (id: string) => {
 
   if (error) {
     return (
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-6 pt-16 sm:pt-0">
         <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertCircle className="h-4 w-4 " />
+          <AlertTitle>Please check your connection</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       </div>
@@ -151,7 +151,7 @@ const handleDelete = async (id: string) => {
 
   if (!cart || cart.items.length === 0) {
     return (
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-6 bg-red-800 pt-16 sm:pt-0">
         <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
           <ShoppingBag className="h-20 w-20 text-muted-foreground" />
           <h1 className="text-paragraph-lg font-inter font-medium">

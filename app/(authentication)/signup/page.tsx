@@ -268,7 +268,20 @@ export default function Page() {
                   className="mt-1 h-5 w-5 rounded border-[#C3C3C3] text-primary-600 focus:ring-primary-700 "
                 />
                 <span className="font-inter text-base text-[#686868]">
-                  I agree to the Terms of Service and Privacy Policy
+                  I agree to the{" "}
+                  <a
+                    href="/terms-of-service"
+                    className="text-primary-600 hover:underline"
+                  >
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="/privacy-policy"
+                    className="text-primary-600 hover:underline"
+                  >
+                    Privacy Policy
+                  </a>
                 </span>
               </label>
             </div>
@@ -346,7 +359,7 @@ export default function Page() {
             Have a business?{" "}
             <a
               href="/signup-business"
-              className="text-primary-500 hover:underline"
+              className="text-primary-600 hover:underline"
             >
               Create a Business Account
             </a>
@@ -354,7 +367,7 @@ export default function Page() {
 
           <p className="text-center font-inter text-base font-medium text-[#1E1E1E]">
             Already have an account?{" "}
-            <a href="/signin" className="text-primary-500 hover:underline">
+            <a href="/signin" className="text-primary-600 hover:underline">
               Sign In
             </a>
           </p>

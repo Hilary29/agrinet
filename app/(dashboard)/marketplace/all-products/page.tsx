@@ -24,7 +24,7 @@ export default function Home() {
         title="Marketplace"
         description="Buy farming supplies, sell your produce, and connect directly with buyers"
       />
-      <div className="flex flex-col w-full py-6 sm:py-0 gap-6">
+      <div className="flex flex-col w-full py-24 sm:py-0 gap-6">
         <div className="flex flex-col gap-4 sm:flex-row justify-between items-center  md:mt-[44px] ">
           <div className="relative flex-grow sm:flex-grow-0 md:w-[556px] ">
             <input
@@ -64,6 +64,5 @@ export default function Home() {
         </div>
         <ProductList />
       </div>
-    </main>
-  );
+    </main>  );
 }

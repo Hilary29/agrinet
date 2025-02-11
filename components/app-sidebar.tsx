@@ -53,11 +53,38 @@ const navigationfooter = [
 
 const navigation = [
   {
+    name: "Organization",
+    icon: ShoppingCart,
+    roles: ["business"],
+    subItems: [
+      {
+        name: "Agency",
+        href: "/organisation/agency",
+        roles: ["business"],
+      },
+      {
+        name: "Personnel",
+        href: "/organisation/personnel",
+        roles: ["business"],
+      },
+      {
+        name: "Product",
+        href: "/organisation/product",
+        roles: [ "business"],
+      },
+      {
+        name: "Profile",
+        href: "/organisation/profile",
+        roles: ["business"],
+      }
+    ],
+  },
+/*   {
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
     roles: [ "business"],
-  },
+  }, */
   {
     name: "Connected Devices",
     href: "/connected-devices",
