@@ -12,11 +12,14 @@ import {
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
 import IntroText from "@/components/IntroText";
-import { useState } from "react";
+import { ProductCard } from "@/components/ProductCard";
+import { products } from "@/public/data/products";
+import { useState,useEffect } from "react";
+import ProductList from "@/components/ProductList";
+
 
 export default function Home() {
-  const [step, setStep] = useState(1);
-  const progress = (step / 3) * 100;
+
 
   return (
     <main className="container">
@@ -24,7 +27,7 @@ export default function Home() {
         title="Marketplace"
         description="Buy farming supplies, sell your produce, and connect directly with buyers"
       />
-      <div className="flex flex-col w-full py-6 sm:py-10 gap-6">
+      <div className="flex flex-col w-full py-6 sm:py-8 gap-6">
         <div className="flex flex-col gap-4 sm:flex-row justify-between items-center  md:mt-[44px] ">
           <div className="relative flex-grow sm:flex-grow-0 md:w-[556px] ">
             <input
@@ -34,9 +37,9 @@ export default function Home() {
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 " />
           </div>
-          <Button className="bg-[#2FB551] hover:bg-[#2FB551]/90">
+{/*           <Button className="bg-[#2FB551] hover:bg-[#2FB551]/90">
             + Create new listing
-          </Button>
+          </Button> */}
         </div>
         <div className="flex justify-between mb-6 ">
           <p className="font-satoshi font-semibold text-heading-desktop-h6 mb-4">
@@ -74,93 +77,3 @@ export default function Home() {
     </main>
   );
 }
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  location: string;
-  image: string;
-}
-
-function ProductCard({ product }: { product: Product }) {
-  return (
-    <div className="bg-white-50 rounded-md overflow-hidden">
-      <Image
-        src={product.image || "/placeholder.svg"}
-        alt={product.name}
-        width={248}
-        height={207}
-        className="w-full h-52 object-cover"
-      />
-      <div className="p-4">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-lg font-medium">
-            FCFA {product.price.toLocaleString()}
-          </span>
-        </div>
-        <h3 className="text-gray-700 text-base mb-2">{product.name}</h3>
-        <p className="text-gray-500 text-sm">{product.location}</p>
-      </div>
-    </div>
-  );
-}
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: "3 cans of freshly harvested tomatoes",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/images/tomato-product.jpg",
-  },
-  {
-    id: 2,
-    name: "3 cans of freshly harvested tomatoes",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/images/tomato-product3.jpg",
-  },
-  {
-    id: 3,
-    name: "3 cans of freshly harvested bananas",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/placeholder.svg?height=207&width=248",
-  },
-  {
-    id: 4,
-    name: "3 cans of freshly harvested peppers",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/placeholder.svg?height=207&width=248",
-  },
-  {
-    id: 5,
-    name: "3 cans of freshly harvested tomatoes",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/placeholder.svg?height=207&width=248",
-  },
-  {
-    id: 6,
-    name: "3 cans of freshly harvested tomatoes",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/placeholder.svg?height=207&width=248",
-  },
-  {
-    id: 7,
-    name: "3 cans of freshly harvested bananas",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/placeholder.svg?height=207&width=248",
-  },
-  {
-    id: 8,
-    name: "3 cans of freshly harvested peppers",
-    price: 6000,
-    location: "Yaoundé",
-    image: "/placeholder.svg?height=207&width=248",
-  },
-];

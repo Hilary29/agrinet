@@ -4,6 +4,8 @@ import { NextRequest } from "next/server"
 
 const userId = "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
 
+
+
 export async function GET() {
   try {
     const headersList = headers()
@@ -19,8 +21,10 @@ export async function GET() {
         "User-Id": userId,
       },
     })
+    
 
     if (!response.ok) {
+
       return NextResponse.json({ error: "Failed to fetch cart" }, { status: response.status })
     }
 
@@ -70,40 +74,18 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const headersList = headers()
+    const headersList = headers();
     // A modifier lorsque les services vont communiquer
-    // const userId = headersList.get("User-Id")
+    // const userId = headersList.get("User-Id");
 
     if (!userId) {
-      return NextResponse.json({ error: "User ID is required" }, { status: 400 })
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
     }
 
-    const url = new URL(request.url)
-    const pathSegments = url.pathname.split("/")
-    const action = pathSegments[pathSegments.length - 2]
-    const productId = pathSegments.pop()
-
-    if (action === "clear") {
-      const response = await fetch("http://localhost:4002/api/cart/clear", {
-        method: "DELETE",
-        headers: {
-          "User-Id": userId,
-        },
-      })
-
-      if (response.status === 404) {
-        return NextResponse.json({ error: "Cart not found" }, { status: 404 })
-      }
-
-      if (!response.ok) {
-        return NextResponse.json({ error: "Failed to clear cart" }, { status: response.status })
-      }
-
-      return NextResponse.json({ message: "Cart cleared successfully" })
-    }
+    const { productId } = await request.json(); // Récupérer productId du corps de la requête
 
     if (!productId) {
-      return NextResponse.json({ error: "Product ID is required" }, { status: 400 })
+      return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
     }
 
     const response = await fetch(`http://localhost:4002/api/cart/items/${productId}`, {
@@ -111,18 +93,15 @@ export async function DELETE(request: NextRequest) {
       headers: {
         "User-Id": userId,
       },
-    })
-
-    if (response.status === 404) {
-      return NextResponse.json({ error: "Item not found" }, { status: 404 })
-    }
+    });
 
     if (!response.ok) {
-      return NextResponse.json({ error: "Failed to remove item from cart" }, { status: response.status })
+      return NextResponse.json({ error: "Failed to delete item from cart" }, { status: response.status });
     }
 
-    return NextResponse.json({ message: "Item removed successfully" })
+    return NextResponse.json({ message: "Item deleted successfully" });
   } catch (error) {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+

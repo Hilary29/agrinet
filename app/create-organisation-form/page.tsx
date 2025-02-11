@@ -3,6 +3,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+import { businessActorRoutes } from "@/config/routes";
+
 const BusinessActorForm = () => {
   const [formData, setFormData] = useState({
     userId: "",
@@ -32,18 +34,18 @@ const BusinessActorForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-  
+
     setFormData({
       ...formData,
       [name]: type === "checkbox" && e.target instanceof HTMLInputElement ? e.target.checked : value,
     });
   };
-  
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4001/api/v1/business_actor/create", {
+      const response = await axios.post(businessActorRoutes.createBusinessActor, {
         ...formData,
         businessDomainIds: formData.businessDomainIds.split(","),
         qualificationIds: formData.qualificationIds.split(","),
@@ -58,7 +60,7 @@ const BusinessActorForm = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-4">Créer un Business Actor</h2>
+      <h2 className="text-xl font-bold mb-4">Create a Business Actor</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="userId" placeholder="User ID" className="w-full p-2 border rounded" onChange={handleChange} />
         <input type="text" name="phoneNumber" placeholder="Phone Number" className="w-full p-2 border rounded" onChange={handleChange} />
@@ -71,7 +73,7 @@ const BusinessActorForm = () => {
         <input type="text" name="qualificationIds" placeholder="Qualification IDs (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
         <input type="text" name="paymentMethods" placeholder="Payment Methods (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
         <input type="password" name="password" placeholder="Password" className="w-full p-2 border rounded" onChange={handleChange} />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Créer</button>
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Create</button>
       </form>
     </div>
   );

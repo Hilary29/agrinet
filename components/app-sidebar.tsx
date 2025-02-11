@@ -56,7 +56,7 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
-    roles: ["user", "farmer", "organization"],
+    roles: [ "farmer", "organization"],
   },
   {
     name: "Connected Devices",
@@ -103,6 +103,11 @@ const navigation = [
         name: "My Marketplace settings",
         href: "/marketplace/marketplace-settings",
         roles: ["farmer", "organization"],
+      },
+      {
+        name: "Invoices",
+        href: "/marketplace/invoices",
+        roles: ["user","farmer", "organization"],
       },
     ],
   },
@@ -212,7 +217,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 href={subItem.href}
                                 className={`flex items-center py-2 pl-10  text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
                                   pathname === subItem.href
-                                    ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-black-50"
+                                    ? "bg-primary-600 text-white-50 hover:bg-primary-600 "
                                     : ""
                                 }`}
                               >

@@ -42,8 +42,8 @@ export const encryptToken = async (token: string): Promise<Uint8Array> => {
     const base64Key = arrayBufferToBase64(keyBuffer);
 
     // Stocker la clé et l'IV pour le déchiffrement
-    localStorage.setItem('encryptionKey', base64Key);
-    localStorage.setItem('iv', JSON.stringify(Array.from(iv))); // Convertir l'IV en chaîne JSON
+    sessionStorage.setItem('encryptionKey', base64Key);
+    sessionStorage.setItem('iv', JSON.stringify(Array.from(iv))); // Convertir l'IV en chaîne JSON
 
     return new Uint8Array(encryptedToken);
 };
@@ -51,14 +51,14 @@ export const encryptToken = async (token: string): Promise<Uint8Array> => {
 // Fonction pour sauvegarder le token chiffré
 export const saveToken = async (token: string): Promise<void> => {
     const encryptedToken = await encryptToken(token);
-    localStorage.setItem('jwtToken', JSON.stringify(Array.from(encryptedToken))); // Convertir le token en chaîne JSON
+    sessionStorage.setItem('jwtToken', JSON.stringify(Array.from(encryptedToken))); // Convertir le token en chaîne JSON
 };
 
 // Fonction pour déchiffrer le JWT
 export const decryptToken = async (encryptedToken: number[], iv: number[]): Promise<string> => {
-    const base64Key = localStorage.getItem('encryptionKey');
+    const base64Key = sessionStorage.getItem('encryptionKey');
     if (!base64Key) {
-        throw new Error('Encryption key not found in localStorage');
+        throw new Error('Encryption key not found in sessionStorage');
     }
 
     const keyData = Uint8Array.from(atob(base64Key), c => c.charCodeAt(0));
@@ -78,8 +78,8 @@ export const decryptToken = async (encryptedToken: number[], iv: number[]): Prom
 
 // Fonction pour récupérer et déchiffrer le token
 export const getToken = async (): Promise<string | null> => {
-    const encryptedToken = JSON.parse(localStorage.getItem('jwtToken') || '[]');
-    const iv = JSON.parse(localStorage.getItem('iv') || '[]');
+    const encryptedToken = JSON.parse(sessionStorage.getItem('jwtToken') || '[]');
+    const iv = JSON.parse(sessionStorage.getItem('iv') || '[]');
 
     if (encryptedToken.length && iv.length) {
         return await decryptToken(encryptedToken, iv);
