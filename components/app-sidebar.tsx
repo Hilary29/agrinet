@@ -43,6 +43,7 @@ import { useRoleBasedAccess } from "@/hooks/useRoleBasedAccess";
 
 import logo from "../public/images/logo.png";
 import { Button } from "./ui/button";
+import UpgradeCard from "./UpgradeCard";
 
 const navigationfooter = [
   { name: "Settings", href: "/settings", icon: Settings },
@@ -288,14 +289,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   )
               )}
               {state === "expanded" && (
-                <Link
-                  href="/upgrade"
-                  className="text-paragraph-lg rounded-md  bg-accent-700 hover:bg-accent-800 text-white-50 font-semibold font-inter mt-2 p-2 mx-2"
-                >
-                  <p className="text-center font-semibold text-white-50">
-                    Become Agrinet Business
-                  </p>
-                </Link>
+                  <UpgradeCard/>
               )}
             </SidebarMenu>
           </SidebarContent>

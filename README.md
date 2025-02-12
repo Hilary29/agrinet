@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+En attendant d'implementer les roles
+Dans app-sidebar, remplacer la variable 
+  const userRole = "user";
+  Par user ou business pour avoir les appercus des dashboards
 
 ## Getting Started
 
