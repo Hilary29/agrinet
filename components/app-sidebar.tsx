@@ -14,7 +14,7 @@ import {
   MessageCircleMore,
   MessageSquare,
   MoveUpIcon,
-  Building
+  Building,
 } from "lucide-react";
 
 import { usePathname } from "next/navigation";
@@ -42,6 +42,7 @@ import { useUserRole } from "@/contexts/UserRoleContext";
 import { useRoleBasedAccess } from "@/hooks/useRoleBasedAccess";
 
 import logo from "../public/images/logo.png";
+import { Button } from "./ui/button";
 
 const navigationfooter = [
   { name: "Settings", href: "/settings", icon: Settings },
@@ -58,17 +59,17 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
-    roles: [ "user"],
-  }, 
+    roles: ["user"],
+  },
   {
     name: "Dashboard",
     href: "/business-dashboard",
     icon: LayoutDashboard,
-    roles: [ "business"],
-  }, 
+    roles: ["business"],
+  },
   {
     name: "Organization",
-    icon: Building ,
+    icon: Building,
     roles: ["business"],
     subItems: [
       {
@@ -84,18 +85,18 @@ const navigation = [
       {
         name: "Product",
         href: "/organisation/product",
-        roles: [ "business"],
+        roles: ["business"],
       },
       {
         name: "Business",
         href: "/organisation/business",
-        roles: [ "business"],
+        roles: ["business"],
       },
       {
         name: "Profile",
         href: "/organisation/profile",
         roles: ["business"],
-      }
+      },
     ],
   },
   {
@@ -142,7 +143,7 @@ const navigation = [
       {
         name: "Invoices",
         href: "/marketplace/invoices",
-        roles: ["user","business"],
+        roles: ["user", "business"],
       },
     ],
   },
@@ -169,29 +170,25 @@ const navigation = [
     href: "/notifications",
     icon: Bell,
     roles: ["user", "business"],
-  },
-  {
-    name: "Upgrade",
-    href: "/upgrade",
-    icon: MoveUpIcon,
-    roles: ["user"],
-  },
+  }
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
-/*   const { userRole } = useUserRole(); */
-//A recuperer automatiquement lorsque le backend de gestion des roles sera pret
-  const userRole = "user"
-
+  /*   const { userRole } = useUserRole(); */
+  //A recuperer automatiquement lorsque le backend de gestion des roles sera pret
+  const userRole = "user";
 
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <>
           {state === "collapsed" && (
-            <Link className="flex items-center gap-2 pt-2 pb-4 mx-auto " href="/">
+            <Link
+              className="flex items-center gap-2 pt-2 pb-4 mx-auto "
+              href="/"
+            >
               <Image
                 src={logo || "/placeholder.svg"}
                 alt="Agrinet logo"
@@ -226,69 +223,80 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 (item) =>
                   item.roles.includes(userRole) && (
                     <SidebarMenuItem key={item.name}>
-                  {item.subItems ? (
-                    <Collapsible>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="w-full mx-auto px-4 py-5 hover:bg-gray-200">
-                          <item.icon size={48} />
+                      {item.subItems ? (
+                        <Collapsible>
+                          <CollapsibleTrigger asChild>
+                            <SidebarMenuButton className="w-full mx-auto px-4 py-5 hover:bg-gray-200">
+                              <item.icon size={48} />
+                              {state === "expanded" && (
+                                <>
+                                  <span className="flex-grow font-inter text-paragraph-lg text-left">
+                                    {item.name}
+                                  </span>
+                                  <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 " />
+                                </>
+                              )}
+                            </SidebarMenuButton>
+                          </CollapsibleTrigger>
                           {state === "expanded" && (
-                            <>
+                            <CollapsibleContent>
+                              {item.subItems
+                                .filter((subItem) =>
+                                  subItem.roles.includes(userRole)
+                                )
+                                .map((subItem) => (
+                                  <Link
+                                    key={subItem.name}
+                                    href={subItem.href}
+                                    className={`flex items-center py-2 pl-10  text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
+                                      pathname === subItem.href
+                                        ? "bg-primary-600 text-white-50 hover:bg-primary-600 "
+                                        : ""
+                                    }`}
+                                  >
+                                    {subItem.name}
+                                  </Link>
+                                ))}
+                            </CollapsibleContent>
+                          )}
+                        </Collapsible>
+                      ) : (
+                        <SidebarMenuButton
+                          asChild
+                          key={item.name}
+                          className="w-full mx-auto text-paragraph-lg font-inter hover:bg-gray-200"
+                        >
+                          <Link
+                            href={item.href}
+                            key={item.name}
+                            className={`flex my-0 px-4 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
+                              pathname === item.href
+                                ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
+                                : ""
+                            }`}
+                          >
+                            <item.icon size={24} />
+                            {state === "expanded" && (
                               <span className="flex-grow font-inter text-paragraph-lg text-left">
                                 {item.name}
                               </span>
-                              <ChevronRight className="ml-auto h-4 w-4 transition-transform duration-200 " />
-                            </>
-                          )}
+                            )}
+                          </Link>
                         </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      {state === "expanded" && (
-                        <CollapsibleContent>
-                          {item.subItems
-                            .filter((subItem) =>
-                              subItem.roles.includes(userRole)
-                            )
-                            .map((subItem) => (
-                              <Link
-                                key={subItem.name}
-                                href={subItem.href}
-                                className={`flex items-center py-2 pl-10  text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
-                                  pathname === subItem.href
-                                    ? "bg-primary-600 text-white-50 hover:bg-primary-600 "
-                                    : ""
-                                }`}
-                              >
-                                {subItem.name}
-                              </Link>
-                            ))}
-                        </CollapsibleContent>
                       )}
-                    </Collapsible>
-                  ) : (
-                    <SidebarMenuButton
-                      asChild
-                      key={item.name}
-                      className="w-full mx-auto text-paragraph-lg font-inter hover:bg-gray-200"
-                    >
-                      <Link
-                        href={item.href}
-                        key={item.name}
-                        className={`flex my-0 px-4 py-5 gap-2 text-paragraph-md font-inter rounded-md hover:bg-gray-200 ${
-                          pathname === item.href
-                            ? "bg-primary-600 text-white-50 hover:bg-primary-600 hover:text-white-50"
-                            : ""
-                        }`}
-                      >
-                        <item.icon size={24} />
-                        {state === "expanded" && (
-                          <span className="flex-grow font-inter text-paragraph-lg text-left">
-                            {item.name}
-                          </span>
-                        )}
-                      </Link>
-                    </SidebarMenuButton>
-                  )}
-                </SidebarMenuItem>
-              ))}
+                    </SidebarMenuItem>
+                  )
+              )}
+              {state === "expanded" && (
+                <Link
+                  href="/upgrade"
+                  className="text-paragraph-lg rounded-md  bg-secondary-500 hover:bg-secondary-600 text-white-50 font-semibold font-inter mt-2 p-2 mx-2"
+                >
+                  <p className="text-center font-semibold text-white-50">
+                    Become Agrinet Business
+                  </p>
+                </Link>
+              )}
             </SidebarMenu>
           </SidebarContent>
         </div>
