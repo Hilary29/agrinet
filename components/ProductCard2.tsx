@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { Product } from "@/public/data/products";
+import type { Product } from "@/types/products-post";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, FileSearch } from "lucide-react";
@@ -82,7 +82,7 @@ export function ProductCard2({
           variant={stock === "in-stock" ? "default" : "secondary"}
           className="absolute top-2 right-2"
         >
-          {stock === "in-stock" ? "In Stock" : "Out of Stock"}
+          {stock === "in-stock" ? `In Stock : ${quantity}` : "Out of Stock"}
         </Badge>
       </div>
       <Link
@@ -96,15 +96,15 @@ export function ProductCard2({
           <Button
             onClick={handleAddToCart}
             disabled={isAdding || stock !== "in-stock"}
-            className="bg-accent-700 p-2.5  sm:p-4"
+            className="bg-accent-700 p-2  sm:p-4"
           >
             {isAdding ? "Adding..." : ""}
             <ShoppingCart className="text-white-50" />
           </Button>
         </div>
         <p className="text-black-400 text-base line-clamp-2">{description}</p>
-        {quantity && <p className="text-black-400 text-sm">{quantity}</p>}
-        <p className="text-accent-700 font-bold mt-2">
+{/*         {quantity && <p className="text-black-400 text-sm">{quantity}</p>} */}
+        <p className="text-accent-700 font-semibold mt-2">
           {price.toLocaleString()} FCFA
         </p>
       </Link>

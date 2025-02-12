@@ -3,7 +3,7 @@ export interface Product {
   name: string
   description: string
   price: number
-  quantity?: string
+  quantity?: number
   category: string
   seller: string
   SalePoints: string[]
@@ -38,7 +38,7 @@ export interface Product2 {
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity: "3",
+      quantity: 3,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       SalePoints: ["Yaounde,Marche Madagascar"],
@@ -50,7 +50,7 @@ export interface Product2 {
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity: "5",
+      quantity: 3,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       SalePoints: ["Yaounde, Marche Mokolo"],
@@ -62,7 +62,7 @@ export interface Product2 {
       name: "Carrots",
       description: "Fresh and crispy carrots, perfect for salads and cooking.",
       price: 2500,
-      quantity: "10",
+      quantity: 1 ,
       category: "Vegetables",
       seller: "Organic Roots",
       SalePoints: ["Douala, Marche Deido"],
@@ -74,7 +74,7 @@ export interface Product2 {
       name: "Plantain",
       description: "Fresh plantains bunches, perfect for cooking or grilling.",
       price: 15000,
-      quantity: "6",
+      quantity: 6,
       category: "Fruits",
       seller: "Tropical Harvest",
       SalePoints: ["Douala, Marche Dakar"],
@@ -86,7 +86,7 @@ export interface Product2 {
       name: "Tomatoes",
       description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
       price: 6000,
-      quantity:"2",
+      quantity:2,
       category: "Vegetables",
       seller: "Farm Fresh Cooperative",
       SalePoints: ["Ebolowa, Quartier Haoussa"],
@@ -98,7 +98,7 @@ export interface Product2 {
         name: "Plantain",
         description: "Fresh plantains, perfect for cooking or grilling.",
         price: 15000,
-        quantity:"2",
+        quantity: 8,
         category: "Fruits",
         seller: "Tropical Harvest",
         SalePoints: ["Bafoussam, Marche A, B"],
@@ -110,7 +110,7 @@ export interface Product2 {
         name: "Pepper",
         description: "Differents varieties of pepper. Grown locally with sustainable farming practices.",
         price: 9000,
-        quantity: "3",
+        quantity: 3,
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
         SalePoints: ["Yaounde, Marche Madagascar"],
@@ -122,7 +122,7 @@ export interface Product2 {
         name: "Tomatoes",
         description: "Fresh, ripe tomatoes perfect for salads and cooking. Grown locally with sustainable farming practices.",
         price: 6000,
-        quantity: "10",
+        quantity: 5,
         category: "Vegetables",
         seller: "Farm Fresh Cooperative",
         SalePoints: ["Yaounde,Marche Madagascar"],

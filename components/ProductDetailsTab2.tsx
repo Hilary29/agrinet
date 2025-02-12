@@ -16,7 +16,7 @@ interface ProductDetailsProps {
     stock: 'in-stock' | 'out-of-stock'
     category: string
     price: number
-    quantity?: string
+    quantity?: number
     description: string
     seller: string
     SalePoints: string[]
@@ -125,7 +125,7 @@ function PaymentTab({ product }: ProductDetailsProps) {
 function ImageSection({ product }: ProductDetailsProps) {
   return (
     <div className="relative rounded-md max-w-[500px] h-[300px]">
-      <ImageCaroussel images={product.images} alt={product.name} />
+{/*       <ImageCaroussel images={product.images} alt={product.name} /> */}
       <Badge
         variant={product.stock === "in-stock" ? "default" : "secondary"}
         className="absolute top-4 right-4"
@@ -178,7 +178,7 @@ function ProductInfo({ product }: ProductDetailsProps) {
         </div>
         <div className="space-y-4">
           <p className="text-xl font-bold text-accent-700">
-            {product.price.toLocaleString()} FCFA
+            {product.price} FCFA
           </p>
           {product.quantity && (
             <p className="text-black-400">{product.quantity}</p>
@@ -230,7 +230,7 @@ function PriceBreakdownCard({ product }: ProductDetailsProps) {
           <div className="flex justify-between items-center">
             <span className="text-muted-foreground">Base Price</span>
             <span className="font-semibold">
-              {product.price.toLocaleString()} FCFA
+              {product.price} FCFA
             </span>
           </div>
           <div className="flex justify-between items-center">
@@ -238,7 +238,7 @@ function PriceBreakdownCard({ product }: ProductDetailsProps) {
               Service Fee (2%)
             </span>
             <span className="font-semibold">
-              {(product.price * 0.02).toLocaleString()} FCFA
+              {(product.price * 0.02)} FCFA
             </span>
           </div>
           <div className="flex justify-between items-center">
@@ -250,7 +250,7 @@ function PriceBreakdownCard({ product }: ProductDetailsProps) {
           <div className="border-t pt-4 flex justify-between items-center">
             <span className="font-semibold">Total Price</span>
             <span className="font-bold text-lg text-accent-700">
-              {(product.price * 1.02 + 1500).toLocaleString()} FCFA
+              {(product.price * 1.02 + 1500)} FCFA
             </span>
           </div>
         </div>

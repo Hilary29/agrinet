@@ -14,6 +14,7 @@ import Link from "next/link";
 import { ProductCard2 } from "@/components/ProductCard2";
 import { products } from "../../../public/data/products";
 import ChatbotButton from "@/components/ChatbotButton";
+import ProductListing from "@/components/product-listing";
 
 
 const filterSections: FilterSection[] = [
@@ -132,16 +133,8 @@ export default function Home() {
             </div>
 
             {/* Products Grid */}
-            <div className="mt-6 justify-center lg:mx-16 grid md:grid-cols-2 xl:grid-cols-3 md:gap-8 gap-2">
-              {products.map((product) => (
-                <ProductCard2
-                  onAddToCart={function (productId: string): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  key={product.id}
-                  {...product}
-                />
-              ))}
+            <div className="">
+            <ProductListing/>
             </div>
           </div>
         </div>

@@ -55,7 +55,7 @@ const ChatbotButton = () => {
             ))}
             <button
               onClick={toggleChat}
-              className="bg-accent-500 hover:bg-accent-600 text-white-50 rounded-[10px] md:rounded-[16px] p-1.5 md:p-2.5 shadow-lg transition-colors duration-200 relative z-10"
+              className="bg-accent-600 hover:bg-accent-700 text-white-50 rounded-[10px] md:rounded-[16px] p-1.5 md:p-2.5 shadow-lg transition-colors duration-200 relative z-10"
             >
               <MessageSquare size={24} />
             </button>

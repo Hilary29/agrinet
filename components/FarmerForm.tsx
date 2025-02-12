@@ -105,7 +105,7 @@ const FarmerForm = () => {
       <Card className="max-w-4xl mx-auto">
         <CardHeader>
           <CardTitle className=" flex items-center gap-2">
-            <span className="font-satoshi ">Upgrade to a Business Account</span>
+            <span className="font-satoshi ">Upgrade to Business Account</span>
           </CardTitle>
         </CardHeader>
         <CardContent>
