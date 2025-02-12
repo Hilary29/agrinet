@@ -80,14 +80,16 @@ const Page = () => {
 
   const handleDeleteDevice = async (deviceId: string) => {
     try {
-      await axios.delete(`/api/v1/iot/device/delete/${deviceId}`);
-      const updatedDevices = devices.filter(device => device.deviceId !== deviceId);
-      setDevices(updatedDevices);
-      localStorage.setItem('devices', JSON.stringify(updatedDevices)); // Update local storage
+        console.log(`Deleting device at URL: /api/v1/iot/device/delete/${deviceId}`);
+        await axios.delete(`/api/v1/iot/device/delete/${deviceId}`);
+        const updatedDevices = devices.filter(device => device.deviceId !== deviceId);
+        setDevices(updatedDevices);
+        localStorage.setItem('devices', JSON.stringify(updatedDevices)); // Update local storage
     } catch (error) {
-      console.error("Error deleting device:", error);
+        console.error("Error deleting device:", error);
+        alert("Failed to delete device. Please try again."); // User feedback
     }
-  };
+};
 
   const handleViewDeviceInfo = (dev: Device) => {
     alert(dev.deviceId)

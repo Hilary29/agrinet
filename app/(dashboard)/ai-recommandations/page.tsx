@@ -50,7 +50,7 @@ const Page = () => {
     const postCropPrediction = async (data: CropPredictionData) => {
         try {
             setLoading(true);
-            const response = await axios.post('http://192.168.150.235:8001/prediction', data);
+            const response = await axios.post('http://192.168.1.101:8001/prediction', data);
             setCrops(response.data.crop.map((c: { value: any; }) => c.value)); // Store only the crop names
             setShapValues(response.data.shap_values); // Store SHAP values
             console.log('Crop Prediction Response:', response.data); // Log the response
@@ -66,7 +66,7 @@ const Page = () => {
     const postYieldPrediction = async (data: YieldPredictionData) => {
         try {
             setLoading(true);
-            const response = await axios.post('http://192.168.150.235:8001/prevision', data);
+            const response = await axios.post('http://192.168.1.101:8001/prevision', data);
             setCrops(response.data.crop.map((c: { value: any; }) => c.value)); // Store only the crop names
             setShapValues(response.data.shap_values); // Store SHAP values
             console.log('Yield Prediction Response:', response.data); // Log the response
@@ -82,7 +82,7 @@ const Page = () => {
     const postWateringTips = async (data: WateringTipsData) => {
         try {
             setLoading(true);
-            const response = await axios.post('http://192.168.150.235:8001/prediction/water', data);
+            const response = await axios.post('http://192.168.1.101:8001/prediction/water', data);
             console.log('Watering Tips Response:', response.data); // Log the response
             // Handle watering tips response if needed
         } catch (err) {
@@ -120,7 +120,7 @@ const Page = () => {
     return (
         <div className="md:p-6 bg-white-50">
             <IntroText
-                title="AI Crop Prediction"
+                title="AI Tips"
                 description="Use AI to predict the best crops for your farm based on sensor data."
             />
             <main className="rounded-lg p-4 md:p-6 flex flex-col">

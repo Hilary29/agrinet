@@ -29,7 +29,7 @@ const Welcome: React.FC = () => {
     <div className="flex flex-col h-full p-4">
       <div className="flex space-x-4">
         {/* Welcome Box */}
-        <div className="bg-green-100 text-white p-6 rounded-2xl flex-1 relative">
+        <div className="bg-green-100 p-6 rounded-2xl flex-1 relative">
           <h2 className="text-3xl font-satoshi font-semibold">Welcome to your Agrinet Farmer Dashboard!</h2>
           <p className="text-xl mt-4 font-inter">Explore our tools and insights to enhance your agricultural practices.</p>
           <Image
@@ -55,7 +55,7 @@ const Welcome: React.FC = () => {
         </div>
 
         {/* Livestock and Crop Rotation Chart */}
-        <div className="bg-gray-100 p-6 rounded-2xl flex-1">
+        <div className="bg-gray-50 p-6 rounded-2xl flex-1">
           <h3 className="text-3xl font-satoshi font-semibold">Livestock and Crop Rotation</h3>
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
