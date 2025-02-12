@@ -6,13 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, FileSearch } from "lucide-react";
 import { useState } from "react";
 import TraceabilityDialog2 from "@/components/TraceabilityDialog2";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 
 interface ProductCardProps extends Product {
   onAddToCart: (productId: string) => void;

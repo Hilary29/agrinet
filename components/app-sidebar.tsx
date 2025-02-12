@@ -13,8 +13,10 @@ import {
   UserRound,
   MessageCircleMore,
   MessageSquare,
-  MoveUpIcon
+  MoveUpIcon,
+  Building
 } from "lucide-react";
+
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -53,8 +55,20 @@ const navigationfooter = [
 
 const navigation = [
   {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+    roles: [ "user"],
+  }, 
+  {
+    name: "Dashboard",
+    href: "/business-dashboard",
+    icon: LayoutDashboard,
+    roles: [ "business"],
+  }, 
+  {
     name: "Organization",
-    icon: ShoppingCart,
+    icon: Building ,
     roles: ["business"],
     subItems: [
       {
@@ -73,18 +87,17 @@ const navigation = [
         roles: [ "business"],
       },
       {
+        name: "Business",
+        href: "/organisation/business",
+        roles: [ "business"],
+      },
+      {
         name: "Profile",
         href: "/organisation/profile",
         roles: ["business"],
       }
     ],
   },
-/*   {
-    name: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-    roles: [ "business"],
-  }, */
   {
     name: "Connected Devices",
     href: "/connected-devices",
@@ -161,7 +174,7 @@ const navigation = [
     name: "Upgrade",
     href: "/upgrade",
     icon: MoveUpIcon,
-    roles: ["user", "business"],
+    roles: ["user"],
   },
 ];
 
@@ -169,7 +182,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
 /*   const { userRole } = useUserRole(); */
-  const userRole = "business"
+//A recuperer automatiquement lorsque le backend de gestion des roles sera pret
+  const userRole = "user"
 
 
   return (
@@ -177,16 +191,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <>
           {state === "collapsed" && (
-            <Link className="flex items-center gap-2 py-5 mx-auto " href="/">
+            <Link className="flex items-center gap-2 pt-2 pb-4 mx-auto " href="/">
               <Image
                 src={logo || "/placeholder.svg"}
                 alt="Agrinet logo"
-                className="w-8 h-[24px] lg:w-10 lg:h-[32px]"
+                className="w-8 h-[24px] lg:w-10 lg:h-[30px]"
               />
             </Link>
           )}
           {state === "expanded" && (
-            <Link className="flex items-center gap-2 py-5" href="/">
+            <Link className="flex items-center gap-2 pt-1 pb-4 " href="/">
               <Image
                 src={logo || "/placeholder.svg"}
                 alt="Agrinet logo"

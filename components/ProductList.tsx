@@ -209,7 +209,8 @@ export default function ProductList() {
               >
                 <div className="relative w-full max-h-44 overflow-hidden cursor-pointer rounded-md">
                   {primaryImage ? (
-                    <Image
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
                     src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform hover:scale-105"

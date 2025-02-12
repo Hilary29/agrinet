@@ -15,6 +15,7 @@ import { ProductCard2 } from "@/components/ProductCard2";
 import { products } from "../../../public/data/products";
 import ChatbotButton from "@/components/ChatbotButton";
 
+
 const filterSections: FilterSection[] = [
   {
     id: "product-type",
@@ -119,7 +120,7 @@ export default function Home() {
             />
           </aside>
 
-          {/* Products Section */}
+          {/* sort Section */}
           <div className="flex-1">
             <div className="flex justify-between items-center pb-4 border-b border-gray-200">
               <p className="text-lg font-semibold">Products</p>
