@@ -1,6 +1,7 @@
 import { Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import Link from "next/link"
 
 interface UpgradeCardProps {
   title?: string
@@ -23,9 +24,9 @@ export default function UpgradeCard({
           <p className="text-sm text-white-50/80">{description}</p>
         </div>
 
-        <Button onClick={onClick} className="bg-white-50 hover:bg-white-50/90 text-emerald-700 font-medium">
+        <Link href='/upgrade' className="bg-white-50 p-2 rounded-md hover:bg-white-50/90 text-emerald-700 font-medium">
           {buttonText}
-        </Button>
+        </Link>
       </CardContent>
     </Card>
   )
