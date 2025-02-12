@@ -171,7 +171,7 @@ const navigation = [
     href: "/notifications",
     icon: Bell,
     roles: ["user", "business"],
-  }
+  },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -288,9 +288,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuItem>
                   )
               )}
-              {state === "expanded" && (
-                  <UpgradeCard/>
-              )}
+              {userRole === "user" && state === "expanded" && <UpgradeCard />}
             </SidebarMenu>
           </SidebarContent>
         </div>
