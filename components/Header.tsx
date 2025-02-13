@@ -121,7 +121,7 @@ export function Header() {
               size={26}
             />
           </div>
-          <Link className="flex items-center gap-2" href={"/"}>
+          <Link className="flex items-center gap-2" href={"/marketplace"}>
             <Image
               src={logo}
               alt="Agrinet logo"

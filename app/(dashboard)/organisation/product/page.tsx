@@ -1,18 +1,108 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect , type ChangeEvent, type FormEvent} from "react";
+import Image from "next/image"
 import { DataTable } from "@/components/organizationDataTable";
 import { DataGrid } from "@/components/OrganizationDataGrid";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Edit, Grid, List, Search, Trash } from "lucide-react";
+import { ArrowLeft, Edit, Grid, List, Search, Trash } from "lucide-react";
 import IntroText from "@/components/IntroText";
 import { Product, getProducts } from "@/public/data/organization-products";
+import CreateProduct from "@/components/CreateProduct";
 
+interface FormData {
+  name: string
+  description: string
+  price: string
+  category: string
+  deliveryOptions: string[]
+}
 
 const Page = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [viewMode, setViewMode] = useState<"grid" | "table">("table");
+    const [showForm, setShowForm] = useState(false)
+    const [photos, setPhotos] = useState<File[]>([])
+    const [formData, setFormData] = useState<FormData>({
+      name: "",
+      description: "",
+      price: "",
+      category: "",
+      deliveryOptions: [],
+    })
+  
+    const handleAddProduct = () => {
+      setShowForm(true)
+    }
+  
+    const handleGoBack = () => {
+      setShowForm(false)
+    }
+  
+    const handlePhotoUpload = (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        const newPhotos = Array.from(e.target.files)
+        setPhotos((prevPhotos) => [...prevPhotos, ...newPhotos].slice(0, 5))
+      }
+    }
+  
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target
+      setFormData((prevData) => ({ ...prevData, [name]: value }))
+    }
+  
+    const handleCategoryChange = (value: string) => {
+      setFormData((prevData) => ({ ...prevData, category: value }))
+    }
+  
+    const handleDeliveryOptionChange = (option: string) => {
+      setFormData((prevData) => {
+        const updatedOptions = prevData.deliveryOptions.includes(option)
+          ? prevData.deliveryOptions.filter((item) => item !== option)
+          : [...prevData.deliveryOptions, option]
+        return { ...prevData, deliveryOptions: updatedOptions }
+      })
+    }
+  
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+  
+      const formDataToSend = new FormData()
+      photos.forEach((photo) => {
+        formDataToSend.append("photos", photo)
+      })
+      Object.entries(formData).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((item) => formDataToSend.append(key, item))
+        } else {
+          formDataToSend.append(key, value)
+        }
+      })
+      //visualiser les donnees envoyees
+      console.log(formData)
+  
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/create-product", {
+          method: "POST",
+          body: formDataToSend,
+        })
+  
+        if (response.ok) {
+          // Handle successful submission
+          console.log("Product created successfully")
+          // Reset form or redirect user
+        } else {
+          // Handle error
+          console.error("Failed to create product")
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error)
+      }
+    }
+  
+
+
 
   useEffect(() => {
     getProducts().then(setProducts);
@@ -79,6 +169,7 @@ const Page = () => {
     </div>
   );
 
+  if (!showForm) {
   return (
     <div>
       <IntroText
@@ -123,14 +214,11 @@ const Page = () => {
                 <Grid className="h-4 w-4" />
               </Button>
             </div>
-            <Link
-              href="/organisation/agency/create"
-              className="w-full sm:w-auto"
-            >
-              <Button className="w-full bg-primary-600 text-white-50 hover:bg-primary-700">
+            <Button
+              onClick={handleAddProduct}
+               className="w-full bg-primary-600 text-white-50 hover:bg-primary-700">
                 + New Product
               </Button>
-            </Link>
           </div>
         </div>
         <div className="overflow-x-auto ">
@@ -140,9 +228,33 @@ const Page = () => {
             <DataGrid data={products} renderItem={renderProductCard} />
           )}
         </div>
+
       </div>
     </div>
   );
+}
+
+return (
+  <div>
+    <div className="flex flex-row gap-4  ">
+      <button onClick={handleGoBack} className=" hover:text-black-300 ">
+        <ArrowLeft />
+      </button>
+      <div className="flex flex-col items-center  sm:items-start gap-1 absolute md:static">
+        <p className="text-heading-desktop-h6 md:text-heading-desktop-h5 font-semibold font-satoshi  text-black-50">
+          Create new listing
+        </p>
+        <p className="text-paragraph-sm md:text-paragraph-md font-normal font-inter leading-6 text-primary-600 ">
+          Organization
+        </p>
+      </div>
+    </div>
+<CreateProduct/>
+  </div>
+)
+
+
+
 };
 
 export default Page;

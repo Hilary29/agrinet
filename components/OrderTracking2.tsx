@@ -15,7 +15,7 @@ type Order = {
   status: 'pending' | 'processing' | 'shipped' | 'delivered'
 }
 
-const OrderTracking: React.FC = () => {
+const OrderTracking2: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([
     { id: 'ORD001', customer: 'Alice Kamga', amount: 150.00, date: '2023-06-15', status: 'delivered' },
     { id: 'ORD002', customer: 'Mbaham Modoum', amount: 89.99, date: '2023-06-16', status: 'processing' },
@@ -64,4 +64,4 @@ const OrderTracking: React.FC = () => {
   )
 }
 
-export default OrderTracking
+export default OrderTracking2

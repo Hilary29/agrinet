@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Building, Leaf } from 'lucide-react'
+import IntroText from "./IntroText"
 
 const FarmerForm = () => {
   const [formData, setFormData] = useState({
@@ -101,11 +102,14 @@ const FarmerForm = () => {
   }
 
   return (
-    <div className="container mx-auto py-10">
-      <Card className="max-w-4xl mx-auto">
+    <div className=" ">
+      <IntroText 
+      title="Upgrade to Business Account" 
+      description=""/>
+      <Card className="max-w-4xl border-none">
         <CardHeader>
-          <CardTitle className=" flex items-center gap-2">
-            <span className="font-satoshi ">Upgrade to Business Account</span>
+          <CardTitle className=" flex items-center">
+            <span className="font-satoshi "></span>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -143,9 +147,6 @@ const FarmerForm = () => {
                     onChange={handleChange}
                   />
                 </div>
-
-
-
                 <div className="space-y-2">
                   <Label>Gender</Label>
                   <RadioGroup

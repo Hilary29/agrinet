@@ -12,7 +12,7 @@ interface UpgradeCardProps {
 
 export default function UpgradeCard({
   title = "Agrinet Business",
-  description = "Get access to all features on Agrinet",
+  description = "Get access to all features",
   buttonText = "Become Agri-Business",
   onClick,
 }: UpgradeCardProps) {

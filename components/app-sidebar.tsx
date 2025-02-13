@@ -94,10 +94,15 @@ const navigation = [
         roles: ["business"],
       },
       {
+        name: "Published products",
+        href: "/marketplace/published-products",
+        roles: ["business"],
+      },
+/*       {
         name: "Profile",
         href: "/organisation/profile",
         roles: ["business"],
-      },
+      }, */
     ],
   },
   {
@@ -107,13 +112,13 @@ const navigation = [
     roles: ["business"],
   },
   {
-    name: "Marketplace",
+    name: "Shopping",
     icon: ShoppingCart,
     roles: ["user", "business"],
     subItems: [
       {
-        name: "All Products",
-        href: "/marketplace/all-products",
+        name: "My products",
+        href: "/marketplace",
         roles: ["user", "business"],
       },
       {
@@ -126,12 +131,7 @@ const navigation = [
         href: "/marketplace/wishlist",
         roles: ["user", "business"],
       },
-      {
-        name: "My Shop",
-        href: "/marketplace/my-shop",
-        roles: ["business"],
-      },
-      {
+/*       {
         name: "My Marketplace profile",
         href: "/marketplace/marketplace-profile",
         roles: ["business"],
@@ -140,7 +140,7 @@ const navigation = [
         name: "My Marketplace settings",
         href: "/marketplace/marketplace-settings",
         roles: ["business"],
-      },
+      }, */
       {
         name: "Invoices",
         href: "/marketplace/invoices",
@@ -179,7 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   /*   const { userRole } = useUserRole(); */
   //A recuperer automatiquement lorsque le backend de gestion des roles sera pret
-  const userRole = "user";
+  const userRole = "business";
 
   return (
     <Sidebar collapsible="icon" {...props}>

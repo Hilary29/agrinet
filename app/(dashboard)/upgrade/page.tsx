@@ -1,117 +1,146 @@
 "use client"
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { FaLeaf, FaBuilding } from 'react-icons/fa';
-import FarmerForm from '@/components/FarmerForm';
-import { businessActorRoutes } from "@/config/routes";
 
+import React, { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import IntroText from "@/components/IntroText"
+import PersonalInfo from "./PersonalInfo"
+import AdditionalInfo from "./AdditionalInfo"
+import PaymentAndDescription from "./PaymentAndDescription"
 
-const UpgradeComponent = () => {
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
-
-  const handleRoleChange = (role: string) => {
-    setSelectedRole(role);
-  };
-
-  return (
-    <div className="flex flex-col items-center">
-      <FarmerForm />
-    </div>
-  );
-};
-
-
-const OrganizationForm = () => {
+const FarmerForm = () => {
+  const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
+    userId: "",
     phoneNumber: "",
     email: "",
     avatarPicture: "",
     profilePicture: "",
     businessActorName: "",
-    isIndividual: true,//Ajouter un radio button
-    baType: "isIndividual",//Afficher une liste de selection
+    isIndividual: true,
+    baType: "Farmer",
     isAvailable: true,
     dateOfBirth: "",
     age: 0,
     gender: "",
     nationality: "",
     profession: "",
-    businessDomainIds: "",
-    qualificationIds: "",
-    paymentMethods: "",
+    paymentMethods: [],
     isVerified: true,
     isLocked: true,
     description: "",
     reviews: "",
-    password: "",
-    businessActorId: ""
-  });
+  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
+  const router = useRouter()
 
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" && e.target instanceof HTMLInputElement ? e.target.checked : value,
-    });
-  };
+  const [datas, setData] = useState<string | null>()
 
+  useEffect(() => {
+    const data = sessionStorage.getItem("decodedToken")
+    if (data) {
+      setData(JSON.parse(data))
+    }
+  }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+
+    setFormData((prevData) => ({
+      ...prevData,
+      userId: datas?.sub,
+      email: datas?.email,
+      [name]: value,
+    }))
+  }
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const date = e.target.value
+    setFormData((prevData) => ({
+      ...prevData,
+      dateOfBirth: date,
+      age: calculateAge(date),
+    }))
+  }
+
+  const handlePaymentMethodToggle = (method: string) => {
+    setFormData((prevData) => {
+      const newMethods = prevData.paymentMethods.includes(method)
+        ? prevData.paymentMethods.filter((m) => m !== method)
+        : [...prevData.paymentMethods, method]
+      return { ...prevData, paymentMethods: newMethods }
+    })
+  }
+
+  const calculateAge = (dateOfBirth: string) => {
+    const birthDate = new Date(dateOfBirth)
+    const ageDifMs = Date.now() - birthDate.getTime()
+    const ageDate = new Date(ageDifMs)
+    return Math.abs(ageDate.getUTCFullYear() - 1970)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(businessActorRoutes.createBusinessActor, {
-        ...formData,
-        businessDomainIds: formData.businessDomainIds.split(","),
-        qualificationIds: formData.qualificationIds.split(","),
-        paymentMethods: formData.paymentMethods.split(","),
-      });
-      console.log("Success:", response.data);
-      //Envoyer A gestion des utilisateurs l'id et le role
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-  return(
-    <div className="max-w-lg mx-auto ">
-    <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-white-50 rounded-lg shadow-6dp-v2">
-      <input type="text" name="phoneNumber" placeholder="Phone Number" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="email" name="email" placeholder="Email" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="businessActorName" placeholder="Business Actor Name" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="gender" placeholder="Gender" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="nationality" placeholder="Nationality" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="profession" placeholder="Profession" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="businessDomainIds" placeholder="Business Domain IDs (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="qualificationIds" placeholder="Qualification IDs (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="text" name="paymentMethods" placeholder="Payment Methods (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
-      <input type="password" name="password" placeholder="Password" className="w-full p-2 border rounded" onChange={handleChange} />
-      <button type="submit" className="w-full bg-primary-500 text-white p-2 rounded">Create</button>
-    </form>
-  </div>
+    e.preventDefault()
+    router.push("/pricing")
+  }
+
+  const nextStep = () => setStep(step + 1)
+  const prevStep = () => setStep(step - 1)
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <IntroText 
+        title="Upgrade to Business Account" 
+        description="Complete the form in 3 easy steps"
+      />
+      <Card className="max-w-4xl mx-auto border-none">
+        <CardHeader>
+          <CardTitle className="flex items-center justify-between">
+            <span className="font-satoshi">Step {step} of 3</span>
+            <div className="flex space-x-2">
+              {step > 1 && (
+                <Button onClick={prevStep} variant="outline">
+                  Previous
+                </Button>
+              )}
+              {step < 3 ? (
+                <Button onClick={nextStep}>Next</Button>
+              ) : (
+                <Button onClick={handleSubmit} className="bg-primary-600 hover:bg-primary-700">
+                  Create Business Account
+                </Button>
+              )}
+            </div>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {step === 1 && (
+              <PersonalInfo
+                formData={formData}
+                handleChange={handleChange}
+              />
+            )}
+            {step === 2 && (
+              <AdditionalInfo
+                formData={formData}
+                handleChange={handleChange}
+                handleDateChange={handleDateChange}
+              />
+            )}
+            {step === 3 && (
+              <PaymentAndDescription
+                formData={formData}
+                handleChange={handleChange}
+                handlePaymentMethodToggle={handlePaymentMethodToggle}
+              />
+            )}
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   )
-};
+}
 
-// Styles
-const styles = `
-.role-card {
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-.role-card:hover {
-  background-color: #f0f0f0;
-}
-.role-card.selected {
-  border-color: #007bff;
-  background-color: #e7f1ff;
-}
-.icon {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-`;
-
-export default UpgradeComponent;
+export default FarmerForm

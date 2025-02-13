@@ -20,7 +20,7 @@ function MetricCard({
   iconColor,
 }: MetricCardProps) {
   return (
-    <Card className={`p-6 ${bgColor}`}>
+    <Card className={`p-6 border-none ${bgColor}`}>
       <div className="space-y-4">
         <div
           className={`w-12 h-12 rounded-full ${iconColor} flex items-center justify-center`}

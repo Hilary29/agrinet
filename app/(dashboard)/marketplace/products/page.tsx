@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 const ProductPage = () => {
+  
   const [product, setProduct] = useState<any>(null);
 
   useEffect(() => {
