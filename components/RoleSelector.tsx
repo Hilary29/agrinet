@@ -6,12 +6,11 @@ export function RoleSelector() {
   return (
     <select
       value={userRole}
-      onChange={(e) => setUserRole(e.target.value as "user" | "farmer" | "organization")}
+      onChange={(e) => setUserRole(e.target.value as "user" | "business")}
       className="p-2 border rounded"
     >
       <option value="user">User</option>
-      <option value="farmer">Farmer(Single Organisation)</option>
-      <option value="organization">Organisation</option>
+      <option value="business">Business</option>
     </select>
   )
 }

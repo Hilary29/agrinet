@@ -18,6 +18,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import TraceabilityDialog, { TraceData } from "./TraceabilityDialog";
+<<<<<<< HEAD
+=======
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+>>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
 import { ressourcesRoutes } from "@/config/routes";
 
 interface Media {
@@ -91,9 +96,24 @@ export default function ProductList() {
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
   const [showTraceability, setShowTraceability] = useState(false);
 
-  const handleTraceabilityClick = (id: string) => {
-    const response = fetch("/api/blockchain");
-    //à revoir
+  const router=useRouter()
+
+  const [traceData, setTraceData] = useState<TraceData[]>([]);
+
+  const handleTraceabilityClick = async(id: string) => {
+    console.log(id);
+    
+    await axios.get(`http://192.168.1.169:8080/api/v2/resource/states/${id}`)
+    .then((response) => {
+      console.log(response.data);
+      setTraceData(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+      
+    })
+    
+    
     setShowTraceability(true);
   };
 
@@ -102,6 +122,10 @@ export default function ProductList() {
       try {
         const response = await axios.get<Product[]>(
           ressourcesRoutes.ressourcesProductPost
+<<<<<<< HEAD
+=======
+         // "http://localhost:4000/api/v1/product_post"
+>>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
         );
         setProducts(response.data);
         const initialQuantities = response.data.reduce((acc, product) => {
@@ -156,6 +180,11 @@ export default function ProductList() {
     }
   };
 
+  const handlePreview=(id:string)=>{
+    //localStorage.setItem("product",JSON.stringify(products.find((p) => p.id === id)))
+    //router.push("/marketplace/products")
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -186,11 +215,12 @@ export default function ProductList() {
               >
                 <div className="relative w-full max-h-44 overflow-hidden cursor-pointer rounded-md">
                   {primaryImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
+                    src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform hover:scale-105"
+                  />
                   ) : (
                     <div className="w-full h-full bg-muted flex items-center justify-center">
                       <Package2 className="w-12 h-12 text-muted-foreground" />
@@ -214,11 +244,7 @@ export default function ProductList() {
                   </button>
                 </div>
                 <div>
-                  <Link
-                    href="/app"
-                    className="flex flex-col items-start gap-1 w-full px-2"
-                  >
-                    <CardContent className="p-4">
+                <CardContent className="p-4 cursor-pointer" onClick={()=>{handlePreview(product.id)}}>
                       <div className="flex flex-row justify-between items-center">
                         <p className="font-semibold text-lg mb-2 line-clamp-1">
                           {product.name}
@@ -256,7 +282,7 @@ export default function ProductList() {
                       <div className="space-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <Clock className="w-4 h-4" />
-                          <span>Expire {timeUntilExpiry}</span>
+                          <span>Expire in {product.lifespan} days</span>
                         </div>
                       </div>
                     </CardContent>
@@ -278,12 +304,11 @@ export default function ProductList() {
                         <ShoppingCartIcon />
                       </Button>
                     </CardFooter>
-                  </Link>
                   {/* Composant de traçabilité */}
                   <TraceabilityDialog
                     showTraceability={showTraceability}
                     setShowTraceability={setShowTraceability}
-                    traceabilityData={traceabilityData}
+                    traceabilityData={traceData}
                   />
                 </div>
               </Card>

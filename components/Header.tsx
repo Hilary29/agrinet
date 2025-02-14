@@ -4,6 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
+import { LogOut, Settings, User } from "lucide-react"; // Added icons
 
 import { cn } from "@/lib/utils";
 import {
@@ -29,6 +30,13 @@ import { Button } from "@/components/ui/button";
 
 import logo from "../public/images/logo.png";
 
+// Mock user state - replace with your actual auth logic
+const user = {
+  name: "Hilary D",
+  email: "hilary@gmail.com",
+  image: ""
+};
+const isAuthenticated = true; // Replace with your actual auth state
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -97,6 +105,11 @@ const components: { title: string; href: string; description: string }[] = [
 export function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
+  const handleLogout = () => {
+    // Implement your logout logic here
+    console.log("Logging out...");
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-br from-white-50 to-primary-50">
       <div className="mx-auto flex justify-between items-center px-2 lg:px-16 py-4 ">
@@ -108,7 +121,7 @@ export function Header() {
               size={26}
             />
           </div>
-          <Link className="flex items-center gap-2" href={"/"}>
+          <Link className="flex items-center gap-2" href={"/marketplace"}>
             <Image
               src={logo}
               alt="Agrinet logo"
@@ -153,34 +166,13 @@ export function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
-                    <li className="row-span-3">
-                      <NavigationMenuLink asChild>
-                        <a
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                          href="/"
-                        >
-                          <div className="mb-2 mt-4 text-lg font-medium">
-                            shadcn/ui
-                          </div>
-                          <p className="text-sm leading-tight text-muted-foreground">
-                            Beautifully designed components that you can copy
-                            and paste into your apps. Accessible.
-                            Customizable. Open Source.
-                          </p>
-                        </a>
-                      </NavigationMenuLink>
-                    </li>
                     <ListItem href="/docs" title="Introduction">
-                      Re-usable components built using Radix UI and Tailwind
-                      CSS.
+                      Re-usable components built using Radix UI and Tailwind CSS.
                     </ListItem>
                     <ListItem href="/docs/installation" title="Installation">
                       How to install dependencies and structure your app.
                     </ListItem>
-                    <ListItem
-                      href="/docs/primitives/typography"
-                      title="Typography"
-                    >
+                    <ListItem href="/docs/primitives/typography" title="Typography">
                       Styles for headings, paragraphs, lists...etc
                     </ListItem>
                   </ul>
@@ -208,28 +200,65 @@ export function Header() {
           </Link>
         </nav>
 
-        {/* Conditionnel : Afficher Login/Sign up si non authentifié */}
-        <div className="flex items-center  gap-[18px] font-inter text-paragraph-sm md:text-paragraph-md ">
-          <>
-            <Link
-              className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
-              href={"/signin"}
-            >
-              Log In
-            </Link>
-            <Link
-              className="items-center bg-primary-600 text-white-50 px-1.5 py-1 md:px-3 md:py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
-              href={"/signup"}
-            >
-              Sign Up
-            </Link>
-          </>
+        <div className="flex items-center gap-[18px] font-inter text-paragraph-sm md:text-paragraph-md">
+          {isAuthenticated ? (
+            <div className="flex items-center gap-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={user.image} alt={user.name} />
+                    <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <span className="hidden md:inline-block font-medium text-black-200">
+                    {user.name}
+                  </span>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">{user.name}</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <a href="/dashboard">Profile</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <a href="/settings">Settings</a>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <>
+              <Link
+                className="hidden md:flex text-black-100 hover:text-accent-500 transition-colors duration-300"
+                href={"/signin"}
+              >
+                Log In
+              </Link>
+              <Link
+                className="items-center bg-primary-600 text-white-50 px-1.5 py-1 md:px-3 md:py-2 rounded-md hover:bg-green-700 transition-colors duration-300"
+                href={"/signup"}
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
           <LanguageSwitcher />
         </div>
       </div>
-      <MobileSidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-      />
+      <MobileSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
     </header>
-  )};
+  );
+}

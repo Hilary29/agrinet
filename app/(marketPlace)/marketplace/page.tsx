@@ -11,9 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Filters, FilterSection } from "@/components/Filters";
 import { SortBy } from "@/components/SortBy";
 import Link from "next/link";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCard2 } from "@/components/ProductCard2";
 import { products } from "../../../public/data/products";
 import ChatbotButton from "@/components/ChatbotButton";
+import ProductListing from "@/components/product-listing";
+
 
 const filterSections: FilterSection[] = [
   {
@@ -119,7 +121,7 @@ export default function Home() {
             />
           </aside>
 
-          {/* Products Section */}
+          {/* sort Section */}
           <div className="flex-1">
             <div className="flex justify-between items-center pb-4 border-b border-gray-200">
               <p className="text-lg font-semibold">Products</p>
@@ -131,16 +133,8 @@ export default function Home() {
             </div>
 
             {/* Products Grid */}
-            <div className="mt-6 justify-center lg:mx-16 grid md:grid-cols-2 xl:grid-cols-3 md:gap-8 gap-2">
-              {products.map((product) => (
-                <ProductCard
-                  onAddToCart={function (productId: string): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  key={product.id}
-                  {...product}
-                />
-              ))}
+            <div className="">
+            <ProductListing/>
             </div>
           </div>
         </div>

@@ -73,7 +73,7 @@ const BusinessActorForm = () => {
         <input type="text" name="qualificationIds" placeholder="Qualification IDs (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
         <input type="text" name="paymentMethods" placeholder="Payment Methods (comma separated)" className="w-full p-2 border rounded" onChange={handleChange} />
         <input type="password" name="password" placeholder="Password" className="w-full p-2 border rounded" onChange={handleChange} />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Créer</button>
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Create</button>
       </form>
     </div>
   );

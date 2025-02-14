@@ -1,19 +1,46 @@
 "use client";
 
-import React from 'react';
-import IntroText from '@/components/IntroText';
-import TopSection from '@/components/TopSection';
-import RecentSales from '@/components/Dashboard/RecentSales';
-import AIRecommendations from '@/components/Dashboard/AiRecommendations'; 
-import RevenueChart from '@/components/Dashboard/RevenueChart';
+import React from "react";
+import IntroText from "@/components/IntroText";
+import TopSection from "@/components/TopSection";
+import RecentSales from "@/components/Dashboard/RecentSales";
+import AIRecommendations from "@/components/Dashboard/AiRecommendations";
+import RevenueChart from "@/components/Dashboard/RevenueChart";
+import UserMetrics from "@/components/UserMetrics";
+import ExpenseTracker from "@/components/ExpenseTracker";
+import TransactionHistory2 from "@/components/TransactionHistory2";
+import OrderTracking2 from "@/components/OrderTracking2";
+import UserInfo from "@/components/user-info";
+import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
+
+
+
+const user = {
+  imageUrl: "/images/avatar-dashboard.jpg",
+  name: "Ahmed Mousa",
+  username: "Ahmed65",
+};
+
 const Page: React.FC = () => {
-  return (
-    <div className="p-4">
-      <IntroText 
-        title="Dashboard" 
-        description="" 
-      />
-      <TopSection />
+  if (control_auth_component_roles("dashboard", "component")) {
+    return (
+      <div className="">
+        <UserInfo
+          imageUrl={user.imageUrl}
+          name={user.name}
+          username={user.username}
+        />
+        <IntroText title="Dashboard" description="" />
+        <div className="flex flex-col md:flex-row justify-between pt-16 md:pt-0 gap-8 ">
+          <div className="w-full">
+            <UserMetrics />
+            <TransactionHistory2 />
+            <OrderTracking2 />
+          </div>
+          <ExpenseTracker />
+        </div>
+
+        {/*       <TopSection />
       <div className="bg-white-50 p-4 rounded-lg">
         <div className="flex flex-col lg:flex-row lg:space-x-6">
           <div className="flex-1">
@@ -27,9 +54,10 @@ const Page: React.FC = () => {
 
       <div className="mt-6">
         <AIRecommendations />
+      </div> */}
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Page;

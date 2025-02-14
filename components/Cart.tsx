@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { format, set } from "date-fns"
-import { ShoppingCart, AlertCircle, Trash } from "lucide-react"
+import { ShoppingCart, AlertCircle, Trash, ShoppingBag } from "lucide-react"
 import { toast } from 'react-hot-toast';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -10,7 +10,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import axios from "axios"
 import { useRouter } from 'next/navigation';
+<<<<<<< HEAD
 import { ressourcesRoutes } from "@/config/routes";
+=======
+import { PRODUCTNAME_ROUTE } from "@/config/routes";
+import Link from "next/link";
+>>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
 
 interface CartItem {
   id: string
@@ -50,7 +55,11 @@ export default function Cart() {
         service_quantity: item.quantity
       }))
     };
+<<<<<<< HEAD
     sessionStorage.setItem("paymentData", JSON.stringify(paymentData.transaction_amount))
+=======
+    localStorage.setItem("paymentData",JSON.stringify(paymentData.transaction_amount))
+>>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
 
     router.push(`/marketplace/checkout`)
   }
@@ -84,19 +93,28 @@ export default function Cart() {
   }, [])
 
   useEffect(() => {
+    localStorage.setItem("cartItems", cart?.items.length.toString() || "0");
     const getProductNames = async () => {
+<<<<<<< HEAD
       if (cart) {
         const names: { [key: string]: string } = {};
         const productRequests = cart.items.map(async (item) => {
           const response = await axios.get(`${ressourcesRoutes.ressourcesProductPost}/${item.productId}`);
           names[item.productId] = response.data.name;
         });
+=======
+        if (cart) {
+            const names: { [key: string]: string } = {};
+            const productRequests = cart.items.map(async (item) => {
+                const response = await axios.get(`${PRODUCTNAME_ROUTE}${item.productId}`);
+                names[item.productId] = response.data.name;
+            });
+>>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
 
         await Promise.all(productRequests);
         setProductNames(names);
       }
     };
-
     getProductNames();
   }, [cart]);
 
@@ -115,18 +133,26 @@ export default function Cart() {
         const errorData = await response.json();
         throw new Error(errorData.error);
       }
-
       const data = await response.json();
+<<<<<<< HEAD
       toast.success(data.message || "Item deleted successfully");
     } catch (error) {
+=======
+      console.log(data);
+      
+      toast.success("Item deleted successfully");
+  } catch (error) {
+>>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
       console.error(error);
       toast.error("Failed to delete item");
     }
   };
 
+
+
   if (loading) {
     return (
-      <div className="container mx-auto p-6 space-y-4">
+      <div className="container mx-auto p-6 pt-16 sm:pt-0 space-y-4">
         <Skeleton className="h-8 w-[200px]" />
         <Skeleton className="h-[400px] w-full" />
       </div>
@@ -135,10 +161,10 @@ export default function Cart() {
 
   if (error) {
     return (
-      <div className="container mx-auto p-6">
+      <div className="container mx-auto p-6 pt-16 sm:pt-0">
         <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertCircle className="h-4 w-4 " />
+          <AlertTitle>Please check your connection</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       </div>
@@ -147,13 +173,19 @@ export default function Cart() {
 
   if (!cart || cart.items.length === 0) {
     return (
-      <div className="container mx-auto p-6">
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <ShoppingCart className="h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-xl font-medium text-muted-foreground">Your cart is empty</p>
-          </CardContent>
-        </Card>
+      <div className="container mx-auto p-6 bg-red-800 pt-16 sm:pt-0">
+        <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
+          <ShoppingBag className="h-20 w-20 text-muted-foreground" />
+          <h1 className="text-paragraph-lg font-inter font-medium">
+            Your cart is empty
+          </h1>
+          <Link
+            href="/marketplace/all-products"
+            className="bg-primary-600 hover:bg-primary-700 text-white-50 font-semibold font-inter text-paragraph-md rounded-md py-2.5 px-4 sm:text-lg transition duration-300 "
+          >
+            Continue Shopping
+          </Link>
+        </div>
       </div>
     )
   }
@@ -190,7 +222,7 @@ export default function Cart() {
                   <TableCell className="text-right">{item.unitPrice.toFixed(2)} FCFA</TableCell>
                   <TableCell className="text-right">{item.subtotal.toFixed(2)}FCFA</TableCell>
                   <TableCell className="text-right">{format(new Date(item.addedAt), "PPp")}</TableCell>
-                  <TableCell className="text-right"><button className=" hover:bg-red-500 px-2 py-2 rounded-sm bg-white-50" onClick={() => handleDelete(item.id)}><Trash className="h-4 w-4 hover:text-white-50 font-bold text-red-500 hover:h-4.5 hover:w-4.5" /></button></TableCell>
+                  <TableCell className="text-right"><button className=" hover:bg-red-500 px-2 py-2 rounded-sm bg-white-50" onClick={() => handleDelete(item.productId)}><Trash className="h-4 w-4 hover:text-white-50 font-bold text-red-500 hover:h-4.5 hover:w-4.5" /></button></TableCell>
                 </TableRow>
               ))}
             </TableBody>

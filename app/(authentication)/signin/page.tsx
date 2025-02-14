@@ -25,13 +25,11 @@ export default function Page() {
 
     try {
       const jwtToken = await login(username, password);
-      console.log("User authenticated:", jwtToken);
 
       const accessToken = getAccessToken(jwtToken);
-      console.log("Access Token:", accessToken);
 
       const decodedToken = decodeToken(accessToken);
-      console.log("Decoded Token:", decodedToken);
+      sessionStorage.setItem("decodedToken", JSON.stringify(decodedToken));
 
       // Chiffrer et sauvegarder le token
       await saveToken(accessToken);
@@ -61,7 +59,7 @@ export default function Page() {
                   htmlFor="username"
                   className="font-inter text-paragraph-lg font-medium "
                 >
-                  UserName or Name
+                  Username or Email
                 </label>
                 <input
                   type="text"

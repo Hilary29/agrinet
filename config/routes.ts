@@ -2,7 +2,7 @@
 
 export const API_BASE_URL = "http://192.168.1.186:4010";
 
-export const USER_MANAGEMENT = `http://192.168.1.167:8081/api/v1`;
+export const USER_MANAGEMENT = `http://192.168.1.146:8081/api/v1`;
 export const AuthRoutes = {
   REGISTER: `${USER_MANAGEMENT}/users`, // Endpoint pour l'inscription?
   REGISTER_: `${USER_MANAGEMENT}/auth/`,
@@ -26,18 +26,11 @@ export const RESSOURCES_SERVER = "http://localhost:4000/api/v1";
 export const ressourcesRoutes = {
   ressourcesCategorie: `${RESSOURCES_SERVER}/categorie`,
   ressourcesCategorieCreate: `${RESSOURCES_SERVER}/categorie/create`,
-
-  ressourcesProductPost: `${RESSOURCES_SERVER}/product_post`,
   ressourcesProductPostCreate: `${RESSOURCES_SERVER}/product_post/create`,
-
-  ressourcesMedia: `${RESSOURCES_SERVER}/media`,
-  ressourcesMediaAddProduct: `${RESSOURCES_SERVER}/media/add/product`,
-  ressourcesMediaDownload: `${RESSOURCES_SERVER}/media/download`
-
+  ressourcesMediaAddProduct: `${RESSOURCES_SERVER}/media/add/product`
 }
 
-export const MARKETPLACE_SERVER = "http://localhost:...";
-export const marketplaceRoutes = {}
+
 
 /*
 export const UserRoutes = {

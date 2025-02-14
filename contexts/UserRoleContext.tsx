@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useContext, useState, type ReactNode } from "react"
 
-type UserRole = "user" | "farmer" | "organization"
+type UserRole = "user" | "business"
 
 interface UserRoleContextType {
   userRole: UserRole

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import {
   Bell,
@@ -20,11 +20,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { RoleSelector } from "./RoleSelector";
+
 
 const Header2 = () => {
+  const [name,setName]=useState('')
+  useEffect(()=>{
+    const token=sessionStorage.getItem("decodedToken")
+
+    if (token) {
+      setName(JSON.parse(token).name) 
+    }
+  },[])
   return (
-    <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-6 w-full bg-white-50 border-b border-gray-300">
+    <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-2.5 w-full bg-white-50 border-b border-gray-300">
       <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto mb-4 sm:mb-0">
         <SidebarTrigger className="text-black-100" />
         <div className="relative flex-grow sm:flex-grow-0">
@@ -87,7 +95,7 @@ const Header2 = () => {
             <ShoppingCart className="text-black-400 h-7 w-7" />
             </a>
             <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
-              4
+            {localStorage?.getItem("cartItems") || 0}
             </span>
           </Button>
         </div>
@@ -96,7 +104,7 @@ const Header2 = () => {
             <Button variant="ghost" className="flex items-center gap-2">
               <User className="text-black-100 h-5 w-5" />
               <span className="text-black-100 font-medium hidden sm:inline">
-                Ahmed Musa
+                {name}
               </span>
             </Button>
           </DropdownMenuTrigger>
@@ -123,7 +131,7 @@ const Header2 = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <RoleSelector/>
+{/*       <RoleSelector/> */}
     </header>
   );
 };

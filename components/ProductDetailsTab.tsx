@@ -8,7 +8,7 @@ import { FaHeart, FaThumbsUp, FaThumbsDown, FaMoneyBill, FaTruck, FaMapPin, FaCr
 import { MessageSquare, Package, Clock, MapPin, CreditCard, DollarSign } from 'lucide-react'
 import { ProductDetailsDevelopTab } from './ProductDetailsDevelopTab'
 
-interface ProductDetailsProps {
+export interface ProductDetailsProps {
   product: {
     name: string
     images: string[]

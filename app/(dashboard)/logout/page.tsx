@@ -1,16 +1,17 @@
-import IntroText from '@/components/IntroText'
-import React from 'react'
+"use client"
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-const page = () => {
-  return (
-    <div>
-              <IntroText
-        title="Log Out"
-        description="Exit "
-      />
-      
-    </div>
-  )
-}
+const Page = () => {
+  const router = useRouter();
 
-export default page
+  useEffect(() => {
+    sessionStorage.clear();
+
+    router.push('/signin');
+  }, [router]);
+
+  return null;
+};
+
+export default Page;
