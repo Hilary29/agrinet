@@ -134,7 +134,7 @@ export default function Home() {
 
             {/* Products Grid */}
             <div className="">
-            <ProductListing/>
+            <ProductListing />
             </div>
           </div>
         </div>
