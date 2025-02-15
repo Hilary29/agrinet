@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { PlusIcon, ImageIcon, Truck, DoorOpen, MapPin, ArrowLeft } from "lucide-react"
 import IntroText from "@/components/IntroText"
 import CreateProduct from "@/components/CreateProduct"
+import { control_auth_component_roles } from "@/services/auth/auth_component_rules"
 
 interface FormData {
   name: string
@@ -99,48 +100,48 @@ const ProductCreationPage = () => {
     }
   }
 
-  if (!showForm) {
-    return (
-      <div>
-        <IntroText title="Marketplace" description="My Shop" />
+  if (control_auth_component_roles("published_products", "component")) {
+    if (!showForm) {
+      return (
+        <div>
+          <IntroText title="Marketplace" description="My Shop" />
 
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center my-8 md:my-16">
-            <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center">
-              <Image src="/images/Layer_2.png" alt="Sell and Manage" width={120} height={120} />
+          <div className="container mx-auto px-4 py-8">
+            <div className="text-center my-8 md:my-16">
+              <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                <Image src="/images/Layer_2.png" alt="Sell and Manage" width={120} height={120} />
+              </div>
+              <p className="text-gray-600 mb-6 px-4">
+                Start showcasing your products to reach more buyers and grow your business.
+              </p>
+              <Button className="bg-primary-600 hover:bg-primary-700" onClick={handleAddProduct}>
+                <PlusIcon className="mr-2 h-6 w-6" /> Add Product
+              </Button>
             </div>
-            <p className="text-gray-600 mb-6 px-4">
-              Start showcasing your products to reach more buyers and grow your business.
-            </p>
-            <Button className="bg-primary-600 hover:bg-primary-700" onClick={handleAddProduct}>
-              <PlusIcon className="mr-2 h-6 w-6" /> Add Product
-            </Button>
           </div>
         </div>
+      )
+    }
+
+    return (
+      <div>
+        <div className="flex flex-row gap-4  ">
+          <button onClick={handleGoBack} className=" hover:text-black-300 ">
+            <ArrowLeft />
+          </button>
+
+          <div className="flex flex-col items-center  sm:items-start gap-1 absolute md:static">
+            <p className="text-heading-desktop-h6 md:text-heading-desktop-h5 font-semibold font-satoshi  text-black-50">
+              Create new listing
+            </p>
+            <p className="text-paragraph-sm md:text-paragraph-md font-normal font-inter leading-6 text-primary-600 ">
+              Marketplace
+            </p>
+          </div>
+        </div>
+        <CreateProduct />
       </div>
     )
   }
-
-  return (
-    <div>
-      <div className="flex flex-row gap-4  ">
-        <button onClick={handleGoBack} className=" hover:text-black-300 ">
-          <ArrowLeft />
-        </button>
-
-        <div className="flex flex-col items-center  sm:items-start gap-1 absolute md:static">
-          <p className="text-heading-desktop-h6 md:text-heading-desktop-h5 font-semibold font-satoshi  text-black-50">
-            Create new listing
-          </p>
-          <p className="text-paragraph-sm md:text-paragraph-md font-normal font-inter leading-6 text-primary-600 ">
-            Marketplace
-          </p>
-        </div>
-      </div>
-<CreateProduct/>
-    </div>
-  )
 }
-
 export default ProductCreationPage
-

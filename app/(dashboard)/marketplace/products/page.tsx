@@ -5,9 +5,21 @@ import { ProductDetailsTab } from "@/components/ProductDetailsTab";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+interface product {
+  name: string
+  images: string[]
+  stock: 'in-stock' | 'out-of-stock'
+  category: string
+  price: number
+  quantity?: number
+  description: string
+  seller: string
+  SalePoints: string[]
+}
+
 const ProductPage = () => {
   
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<product | null>(null);
 
   useEffect(() => {
     const productData = localStorage.getItem("product");

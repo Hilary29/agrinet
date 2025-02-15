@@ -8,6 +8,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Image from 'next/image';
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { ShoppingCart } from "lucide-react";
+import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 
 const getRandomProfile = (profiles: Profile[]): Profile => {
   const randomIndex = Math.floor(Math.random() * profiles.length);
@@ -19,9 +20,9 @@ const page = () => {
 
   return (
     <div >
-      <IntroText 
-      title="Account" 
-      description="Your Account" />
+      <IntroText
+        title="Account"
+        description="Your Account" />
       <div className="flex items-top m-10 mb-2 space-x-4 cursor-pointer ">
         <div className="w-32 h-32">
           <Avatar className="w-32 h-32">
@@ -42,7 +43,7 @@ const page = () => {
           <p className="mb-2">Address : {account.address}</p>
         </div>
       </div>
-      <Separator className="my-4"/>
+      <Separator className="my-4" />
       <div>
         <p className="text-xl font-medium mb-4">Farms Informations</p>
         <ScrollArea className="w-[300px] md:w-[600px] lg:w-full max-w-7xl whitespace-nowrap rounded-md border">
@@ -74,7 +75,7 @@ const page = () => {
                 <div className="flex flex-wrap gap-2">
                   {farm.crops.map((crop, index) => (
                     <button key={index} className="flex justify-center items-center px-2 py-1 rounded-full text-base font-medium bg-green-200 text-primary-700 hover:text-primary-800">
-                    {crop}
+                      {crop}
                     </button>
                   ))}
                 </div>
@@ -124,6 +125,7 @@ const page = () => {
       </div> */}
     </div>
   );
+
 };
 
 export default page;

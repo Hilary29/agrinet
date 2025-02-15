@@ -15,6 +15,7 @@ import {
   MessageSquare,
   MoveUpIcon,
   Building,
+  LogOutIcon,
 } from "lucide-react";
 
 import { usePathname } from "next/navigation";
@@ -40,10 +41,14 @@ import {
 } from "@/components/ui/collapsible";
 import { useUserRole } from "@/contexts/UserRoleContext";
 import { useRoleBasedAccess } from "@/hooks/useRoleBasedAccess";
+import ProtectedComponent from "@/components/ProtectedComponent";
+import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 
 import logo from "../public/images/logo.png";
 import { Button } from "./ui/button";
 import UpgradeCard from "./UpgradeCard";
+import { useRouter } from "next/navigation";
+import { logout } from "@/utils/auth";
 
 const navigationfooter = [
   { name: "Settings", href: "/settings", icon: Settings },
@@ -52,7 +57,6 @@ const navigationfooter = [
     href: "/account",
     icon: UserRound,
   },
-  { name: "Logout", href: "/logout", icon: LogOut },
 ];
 
 const navigation = [
@@ -60,126 +64,113 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
-    roles: ["user"],
   },
   {
-    name: "Dashboard",
+    name: "Business Dashboard",
     href: "/business-dashboard",
     icon: LayoutDashboard,
-    roles: ["business"],
   },
   {
     name: "Organization",
     icon: Building,
-    roles: ["business"],
+
     subItems: [
       {
         name: "Agency",
         href: "/organisation/agency",
-        roles: ["business"],
       },
       {
         name: "Personnel",
         href: "/organisation/personnel",
-        roles: ["business"],
       },
       {
         name: "Product",
         href: "/organisation/product",
-        roles: ["business"],
       },
       {
         name: "Business",
         href: "/organisation/business",
-        roles: ["business"],
       },
       {
         name: "Published products",
         href: "/marketplace/published-products",
-        roles: ["business"],
       },
-/*       {
-        name: "Profile",
-        href: "/organisation/profile",
-        roles: ["business"],
-      }, */
+      /*       {
+              name: "Profile",
+              href: "/organisation/profile",
+              roles: ["business"],
+            }, */
     ],
   },
   {
     name: "Connected Devices",
     href: "/connected-devices",
     icon: SmartphoneNfc,
-    roles: ["business"],
   },
   {
     name: "Shopping",
     icon: ShoppingCart,
-    roles: ["user", "business"],
+
     subItems: [
       {
         name: "My products",
         href: "/marketplace",
-        roles: ["user", "business"],
       },
       {
         name: "Cart",
         href: "/marketplace/cart",
-        roles: ["user", "business"],
       },
       {
         name: "Wishlist",
         href: "/marketplace/wishlist",
-        roles: ["user", "business"],
       },
-/*       {
-        name: "My Marketplace profile",
-        href: "/marketplace/marketplace-profile",
-        roles: ["business"],
-      },
-      {
-        name: "My Marketplace settings",
-        href: "/marketplace/marketplace-settings",
-        roles: ["business"],
-      }, */
+      /*       {
+              name: "My Marketplace profile",
+              href: "/marketplace/marketplace-profile",
+              roles: ["business"],
+            },
+            {
+              name: "My Marketplace settings",
+              href: "/marketplace/marketplace-settings",
+              roles: ["business"],
+            }, */
       {
         name: "Invoices",
         href: "/marketplace/invoices",
-        roles: ["user", "business"],
       },
     ],
   },
   {
-    name: "AI Recommandations",
+    name: "AI Recommendations",
     href: "/ai-recommendations",
     icon: BrainCog,
-    roles: ["business"],
   },
   {
     name: "Forum",
     href: "/forum",
     icon: MessageCircleMore,
-    roles: ["business"],
   },
   {
     name: "Chat",
     href: "/chat",
     icon: MessageSquare,
-    roles: ["user", "business"],
   },
   {
     name: "Notifications",
     href: "/notifications",
     icon: Bell,
-    roles: ["user", "business"],
   },
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
-  /*   const { userRole } = useUserRole(); */
-  //A recuperer automatiquement lorsque le backend de gestion des roles sera pret
-  const userRole = "business";
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/signin"); // Redirection vers la page de connexion
+  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -188,7 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {state === "collapsed" && (
             <Link
               className="flex items-center gap-2 pt-2 pb-4 mx-auto "
-              href="/"
+              href="/marketplace"
             >
               <Image
                 src={logo || "/placeholder.svg"}
@@ -222,7 +213,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               )}
               {navigation.map(
                 (item) =>
-                  item.roles.includes(userRole) && (
+                  control_auth_component_roles(item.name, "sideBar") ==
+                    true && (
                     <SidebarMenuItem key={item.name}>
                       {item.subItems ? (
                         <Collapsible>
@@ -242,8 +234,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           {state === "expanded" && (
                             <CollapsibleContent>
                               {item.subItems
-                                .filter((subItem) =>
-                                  subItem.roles.includes(userRole)
+                                .filter(
+                                  (subItem) =>
+                                    control_auth_component_roles(
+                                      subItem.name,
+                                      "sideBar"
+                                    ) == true
                                 )
                                 .map((subItem) => (
                                   <Link
@@ -288,7 +284,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuItem>
                   )
               )}
-              {userRole === "user" && state === "expanded" && <UpgradeCard />}
+
+              {state === "expanded" && (
+                <ProtectedComponent name="dashboard" type="component">
+                  <UpgradeCard />
+                </ProtectedComponent>
+              )}
             </SidebarMenu>
           </SidebarContent>
         </div>
@@ -299,7 +300,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuButton
             asChild
             key={item.name}
-            className="w-full mx-auto text-paragraph-lg font-inter hover:bg-primary-100"
+            className="w-full mx-auto text-paragraph-lg font-inter hover:bg-gray-200"
           >
             <Link
               href={item.href}
@@ -319,6 +320,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Link>
           </SidebarMenuButton>
         ))}
+        <Button
+          onClick={handleLogout}
+          className="pl-2 justify-start text-black-50 bg-transparent hover:bg-[#00000029] "
+        >
+          {state === "collapsed" && <LogOutIcon />}
+          {state === "expanded" && (
+            <>
+              <LogOutIcon />
+              <p className="font-inter text-paragraph-lg  font-medium ">
+                Logout
+              </p>
+            </>
+          )}
+        </Button>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

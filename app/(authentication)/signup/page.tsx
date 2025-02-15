@@ -80,62 +80,8 @@ export default function Page() {
     // Vous pouvez ajouter ici la logique pour gérer chaque plateforme
   };
 
-  /*const googleSubmit() {
-    try {
-      const response = await axios.get(AuthRoutes.REGISTER_GOOGLE, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
 
-      });
-      console.log(response); //
-    } catch (error) {
-      console.error("google auth error fonrt end ", error);
-    }
-  }
-}*/
-  /*
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setErrorMessage("");
-   
-      try {
-        const response = await fetch(AuthRoutes.REGISTER, {
-          mode: 'no-cors',
-          //Access-Control-Allow-Origin: '*',
-   
-          // credentials: 'same-origin',
-   
-          method: "POST",
-          headers: {
-   
-            "Content-Type": "application/json",
-          },
-   
-          body: JSON.stringify(formData),
-        });
-   
-        if (response.ok) {
-          console.log(response.body);
-          router.push("/signin-verify-email"); // Redirection vers la page d'accueil
-        } else {
-          // Lire le corps de la réponse pour obtenir le message d'erreur
-          const errorData = await response.json();
-          setErrorMessage(
-            errorData.message || "Erreur lors de la création de l’utilisateur"
-          ); // Utiliser le message d'erreur de la réponse
-          console.error(
-            "Erreur lors de la création de l'utilisateur:",
-            errorData.message
-          );
-        }
-      } catch (error) {
-        console.error("Erreur réseau:", error);
-        setErrorMessage("Network error during registration."); // Message d'erreur par défaut
-      }
-      console.log(formData); //a enlever
-    };
-  */
+
   return (
     <div className="flex justify-center  p-4">
       <div className="flex w-full  max-w-[560px] flex-col items-center rounded-lg bg-white-50 p-6 md:p-10">
