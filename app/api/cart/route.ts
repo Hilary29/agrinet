@@ -16,7 +16,7 @@ export async function GET() {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 })
     }
 
-    const response = await fetch("http://localhost:4002/api/cart", {
+    const response = await fetch("http://localhost:4010/api/cart", {
       headers: {
         "User-Id": userId,
       },
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Product ID, quantity, and unit price are required" }, { status: 400 })
     }
 
-    const response = await fetch("http://localhost:4002/api/cart/items", {
+    const response = await fetch("http://localhost:4010/api/cart/items", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
     }
 
-    const response = await fetch(`http://localhost:4002/api/cart/items/${productId}`, {
+    const response = await fetch(`http://localhost:4010/api/cart/items/${productId}`, {
       method: "DELETE",
       headers: {
         "User-Id": userId,

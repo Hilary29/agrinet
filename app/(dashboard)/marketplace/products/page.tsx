@@ -4,10 +4,29 @@ import { Button } from "@/components/ui/button";
 import { ProductDetailsTab } from "@/components/ProductDetailsTab";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+<<<<<<< HEAD
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 const ProductPage = () => {
 
   const [product, setProduct] = useState<any>(null);
+=======
+
+interface product {
+  name: string
+  images: string[]
+  stock: 'in-stock' | 'out-of-stock'
+  category: string
+  price: number
+  quantity?: number
+  description: string
+  seller: string
+  SalePoints: string[]
+}
+
+const ProductPage = () => {
+  
+  const [product, setProduct] = useState<product | null>(null);
+>>>>>>> 0956d8c440d208d6a31bc29174e7cc90d27f8924
 
   useEffect(() => {
     const productData = localStorage.getItem("product");

@@ -15,6 +15,7 @@ import {
   MessageSquare,
   MoveUpIcon,
   Building,
+  LogOutIcon,
 } from "lucide-react";
 
 import { usePathname } from "next/navigation";
@@ -40,12 +41,15 @@ import {
 } from "@/components/ui/collapsible";
 import { useUserRole } from "@/contexts/UserRoleContext";
 import { useRoleBasedAccess } from "@/hooks/useRoleBasedAccess";
+import ProtectedComponent from "@/components/ProtectedComponent";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 
 import logo from "../public/images/logo.png";
 import { Button } from "./ui/button";
 import UpgradeCard from "./UpgradeCard";
-import { userRole } from "@/services/auth/auth_component_rules";
+import { useRouter } from "next/navigation";
+import { logout } from "@/utils/auth";
+
 const navigationfooter = [
   { name: "Settings", href: "/settings", icon: Settings },
   {
@@ -53,7 +57,6 @@ const navigationfooter = [
     href: "/account",
     icon: UserRound,
   },
-  { name: "Logout", href: "/logout", icon: LogOut },
 ];
 
 const navigation = [
@@ -64,10 +67,9 @@ const navigation = [
 
   },
   {
-    name: "Dashboard",
+    name: "Business Dashboard",
     href: "/business-dashboard",
     icon: LayoutDashboard,
-
   },
   {
     name: "Organization",
@@ -77,27 +79,22 @@ const navigation = [
       {
         name: "Agency",
         href: "/organisation/agency",
-
       },
       {
         name: "Personnel",
         href: "/organisation/personnel",
-
       },
       {
         name: "Product",
         href: "/organisation/product",
-
       },
       {
         name: "Business",
         href: "/organisation/business",
-
       },
       {
         name: "Published products",
         href: "/marketplace/published-products",
-
       },
       /*       {
               name: "Profile",
@@ -110,7 +107,6 @@ const navigation = [
     name: "Connected Devices",
     href: "/connected-devices",
     icon: SmartphoneNfc,
-
   },
   {
     name: "Shopping",
@@ -120,7 +116,6 @@ const navigation = [
       {
         name: "My products",
         href: "/marketplace",
-
       },
       {
         name: "Cart",
@@ -147,7 +142,7 @@ const navigation = [
     ],
   },
   {
-    name: "AI Recommandations",
+    name: "AI Recommendations",
     href: "/ai-recommendations",
     icon: BrainCog,
   },
@@ -171,6 +166,12 @@ const navigation = [
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state } = useSidebar();
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/signin"); // Redirection vers la page de connexion
+  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -179,7 +180,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {state === "collapsed" && (
             <Link
               className="flex items-center gap-2 pt-2 pb-4 mx-auto "
-              href="/"
+              href="/marketplace"
             >
               <Image
                 src={logo || "/placeholder.svg"}
@@ -213,8 +214,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               )}
               {navigation.map(
                 (item) =>
-
-                  control_auth_component_roles(item.name, "sideBar") == true && (
+                  control_auth_component_roles(item.name, "sideBar") ==
+                  true && (
                     <SidebarMenuItem key={item.name}>
                       {item.subItems ? (
                         <Collapsible>
@@ -234,8 +235,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           {state === "expanded" && (
                             <CollapsibleContent>
                               {item.subItems
-                                .filter((subItem) =>
-                                  control_auth_component_roles(subItem.name, "sideBar") == true
+                                .filter(
+                                  (subItem) =>
+                                    control_auth_component_roles(
+                                      subItem.name,
+                                      "sideBar"
+                                    ) == true
                                 )
                                 .map((subItem) => (
                                   <Link
@@ -278,7 +283,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     </SidebarMenuItem>
                   )
               )}
-              {userRole === "user" && state === "expanded" && <UpgradeCard />}
+
+              {state === "expanded" && (
+                <ProtectedComponent name="dashboard" type="component">
+                  <UpgradeCard />
+                </ProtectedComponent>
+              )}
             </SidebarMenu>
           </SidebarContent>
         </div>
@@ -289,7 +299,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuButton
             asChild
             key={item.name}
-            className="w-full mx-auto text-paragraph-lg font-inter hover:bg-primary-100"
+            className="w-full mx-auto text-paragraph-lg font-inter hover:bg-gray-200"
           >
             <Link
               href={item.href}
@@ -308,6 +318,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </Link>
           </SidebarMenuButton>
         ))}
+        <Button
+          onClick={handleLogout}
+          className="pl-2 justify-start text-black-50 bg-transparent hover:bg-[#00000029] "
+        >
+          {state === "collapsed" && <LogOutIcon />}
+          {state === "expanded" && (
+            <>
+              <LogOutIcon />
+              <p className="font-inter text-paragraph-lg  font-medium ">
+                Logout
+              </p>
+            </>
+          )}
+        </Button>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

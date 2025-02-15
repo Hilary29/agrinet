@@ -11,11 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
-import IntroText from "@/components/IntroText";
-import { ProductCard } from "@/components/ProductCard";
-import { products } from "@/public/data/products";
-import { useState, useEffect } from "react";
 import ProductList from "@/components/ProductList";
+import IntroText from "@/components/IntroText";
 
 export default function Home() {
   return (

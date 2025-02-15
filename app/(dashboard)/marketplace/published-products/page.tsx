@@ -145,4 +145,3 @@ const ProductCreationPage = () => {
   }
 }
 export default ProductCreationPage
-

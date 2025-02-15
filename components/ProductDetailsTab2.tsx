@@ -1,38 +1,62 @@
-import React from 'react'
+"use client"
+import type React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import ImageCaroussel from './ImageCaroussel'
-import { FaHeart, FaThumbsUp, FaThumbsDown, FaMoneyBill, FaTruck, FaMapPin, FaCreditCard } from 'react-icons/fa'
-import { MessageSquare, Package, Clock, MapPin, CreditCard, DollarSign } from 'lucide-react'
-import { ProductDetailsDevelopTab } from './ProductDetailsDevelopTab'
-import ProductRecommendations from './ProductRecommandations'
+import { FaHeart, FaThumbsUp, FaThumbsDown, FaMoneyBill, FaTruck, FaMapPin, FaCreditCard } from "react-icons/fa"
+import { MessageSquare, Package, Clock, MapPin, CreditCard, DollarSign } from "lucide-react"
+import ProductRecommendations from "./ProductRecommandations"
+import axios from "axios"
+import { useCart } from "@/contexts/cart-context"
+
 
 interface ProductDetailsProps {
   product: {
+    id: string
+    marchandId: string
+    variationId: string
+    categorieId: string
     name: string
-    images: string[]
-    stock: 'in-stock' | 'out-of-stock'
-    category: string
-    price: number
-    quantity?: number
-    description: string
-    seller: string
-    SalePoints: string[]
+    longDescription: string
+    shortDescription: string
+    lifespan: number
+    quantity: number
+    saleUnit: "KG" | "CARTON" | "PIECE" | "METER"
+    basePrice: number
+    weight: number
+    defaultCurrency: number
+    nextAvailableTime: number
+    status: "AVAILABLE" | "UNAVAILABLE"
+    expiresAt: string // ISO 8601 date-time format
+    createAt: string // ISO 8601 date-time format
+    updateAt: string // ISO 8601 date-time format
+    category: string // Added category property
+    seller: string // Added seller property
   }
 }
+
 
 export function ProductDetailsTab2({ product }: ProductDetailsProps) {
   return (
     <div className="pb-16">
       <Tabs defaultValue="product" className="w-full">
         <TabsList className="grid w-full grid-cols-5 ">
-          <TabsTrigger value="product" className='font-inter font-semibold text-paragraph-lg text-black-400'>Product</TabsTrigger>
-          <TabsTrigger value="price-details" className='font-inter font-semibold text-paragraph-lg text-black-400'>Price details</TabsTrigger>
-          <TabsTrigger value="delivery" className='font-inter font-semibold text-paragraph-lg text-black-400'>Delivery</TabsTrigger>
-          <TabsTrigger value="point-of-sale" className='font-inter font-semibold text-paragraph-lg text-black-400'>Point of Sale</TabsTrigger>
-          <TabsTrigger value="payment" className='font-inter font-semibold text-paragraph-lg text-black-400'>Payment</TabsTrigger>
+          <TabsTrigger value="product" className="font-inter font-semibold text-paragraph-lg text-black-400">
+            Product
+          </TabsTrigger>
+          <TabsTrigger value="price-details" className="font-inter font-semibold text-paragraph-lg text-black-400">
+            Price details
+          </TabsTrigger>
+          <TabsTrigger value="delivery" className="font-inter font-semibold text-paragraph-lg text-black-400">
+            Delivery
+          </TabsTrigger>
+          <TabsTrigger value="point-of-sale" className="font-inter font-semibold text-paragraph-lg text-black-400">
+            Point of Sale
+          </TabsTrigger>
+          <TabsTrigger value="payment" className="font-inter font-semibold text-paragraph-lg text-black-400">
+            Payment
+          </TabsTrigger>
         </TabsList>
         <TabContent product={product} />
       </Tabs>
@@ -54,14 +78,12 @@ function TabContent({ product }: ProductDetailsProps) {
 
 function ProductTab({ product }: ProductDetailsProps) {
   return (
-    <TabsContent value="product" className='pb-16'>
+    <TabsContent value="product" className="pb-16">
       <div className="grid md:grid-cols-2 gap-8 pt-4 ">
         <ImageSection product={product} />
         <ProductInfo product={product} />
       </div>
       <ProductRecommendations />
-
-
     </TabsContent>
   )
 }
@@ -125,12 +147,9 @@ function PaymentTab({ product }: ProductDetailsProps) {
 function ImageSection({ product }: ProductDetailsProps) {
   return (
     <div className="relative rounded-md max-w-[500px] h-[300px]">
-{/*       <ImageCaroussel images={product.images} alt={product.name} /> */}
-      <Badge
-        variant={product.stock === "in-stock" ? "default" : "secondary"}
-        className="absolute top-4 right-4"
-      >
-        {product.stock === "in-stock" ? "In Stock" : "Out of Stock"}
+      {/*       <ImageCaroussel images={product.images} alt={product.name} /> */}
+      <Badge variant={product.status === "AVAILABLE" ? "default" : "secondary"} className="absolute top-4 right-4">
+        {product.status === "AVAILABLE" ? "in-stock" : "out-of-stock"}
       </Badge>
     </div>
   )
@@ -139,9 +158,7 @@ function ImageSection({ product }: ProductDetailsProps) {
 function ProductHeader({ product }: ProductDetailsProps) {
   return (
     <div className="flex items-start justify-between">
-      <p className="text-3xl font-semibold font-satoshi text-secondary-800">
-        {product.name}
-      </p>
+      <p className="text-3xl font-semibold font-satoshi text-secondary-800">{product.name}</p>
       <div className="flex gap-2">
         <ActionButton icon={FaHeart} tooltip="Favorite" color="text-red-700" />
         <ActionButton icon={FaThumbsUp} tooltip="Like" color="text-black-200" />
@@ -152,16 +169,13 @@ function ProductHeader({ product }: ProductDetailsProps) {
   )
 }
 
-function ActionButton({ icon: Icon, tooltip, color }: { icon: React.ElementType, tooltip: string, color: string }) {
+function ActionButton({ icon: Icon, tooltip, color }: { icon: React.ElementType; tooltip: string; color: string }) {
   return (
     <div className="relative group">
       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
         {tooltip}
       </div>
-      <Button
-        className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200"
-        size="icon"
-      >
+      <Button className="bg-white-50 shadow-md hover:bg-white-100 transition duration-200" size="icon">
         <Icon className={`h-5 w-5 ${color}`} />
       </Button>
     </div>
@@ -169,37 +183,49 @@ function ActionButton({ icon: Icon, tooltip, color }: { icon: React.ElementType,
 }
 
 function ProductInfo({ product }: ProductDetailsProps) {
+  const { addItem } = useCart()
+
+  const handleAddToCart = async () => {
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.basePrice,
+      quantity: 1,
+      maxQuantity: product.quantity,
+    })
+
+    try {
+      await axios.post("/api/cart", {
+        productId: product.id,
+        quantity: 1,
+        unitPrice: product.basePrice,
+      })
+    } catch (error) {
+      console.error("Error adding to cart:", error)
+    }
+  }
+
   return (
-    <div className=''>
+    <div className="">
       <div className="flex flex-col gap-6">
         <ProductHeader product={product} />
         <div className="space-y-2">
           <Badge variant="outline">{product.category}</Badge>
         </div>
         <div className="space-y-4">
-          <p className="text-xl font-bold text-accent-700">
-            {product.price} FCFA
-          </p>
-          {product.quantity && (
-            <p className="text-black-400">{product.quantity}</p>
-          )}
+          <p className="text-xl font-bold text-accent-700">{product.basePrice} FCFA</p>
+          {product.quantity && <p className="text-black-400">{product.quantity}</p>}
         </div>
         <div className="space-y-2">
           <h2 className="font-semibold text-lg">Description</h2>
-          <p className="text-black-400 leading-relaxed">
-            {product.description}
-          </p>
+          <p className="text-black-400 leading-relaxed">{product.shortDescription}</p>
         </div>
         <div className="space-y-2">
           <h2 className="font-semibold text-lg">Seller</h2>
           <p className="text-black-400">{product.seller}</p>
         </div>
         <div className="flex flex-col gap-3 mt-4">
-          <Button
-            size="lg"
-            className="w-full"
-            disabled={product.stock !== "in-stock"}
-          >
+          <Button size="lg" className="w-full" onClick={handleAddToCart} disabled={product.status !== "AVAILABLE"}>
             <Package className="mr-2 h-5 w-5" />
             Add to Cart
           </Button>
@@ -209,7 +235,6 @@ function ProductInfo({ product }: ProductDetailsProps) {
         </div>
       </div>
     </div>
-
   )
 }
 
@@ -218,40 +243,28 @@ function PriceBreakdownCard({ product }: ProductDetailsProps) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <FaMoneyBill className='text-secondary-400' />
+          <FaMoneyBill className="text-secondary-400" />
           Price Breakdown
         </CardTitle>
-        <CardDescription>
-          Detailed breakdown of the product price and associated costs
-        </CardDescription>
+        <CardDescription>Detailed breakdown of the product price and associated costs</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-4">
           <div className="flex justify-between items-center">
             <span className="text-muted-foreground">Base Price</span>
-            <span className="font-semibold">
-              {product.price} FCFA
-            </span>
+            <span className="font-semibold">{product.basePrice} FCFA</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-muted-foreground">
-              Service Fee (2%)
-            </span>
-            <span className="font-semibold">
-              {(product.price * 0.02)} FCFA
-            </span>
+            <span className="text-muted-foreground">Service Fee (2%)</span>
+            <span className="font-semibold">{product.basePrice * 0.02} FCFA</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-muted-foreground">
-              Delivery Fee
-            </span>
+            <span className="text-muted-foreground">Delivery Fee</span>
             <span className="font-semibold">1,500 FCFA</span>
           </div>
           <div className="border-t pt-4 flex justify-between items-center">
             <span className="font-semibold">Total Price</span>
-            <span className="font-bold text-lg text-accent-700">
-              {(product.price * 1.02 + 1500)} FCFA
-            </span>
+            <span className="font-bold text-lg text-accent-700">{product.basePrice * 1.02 + 1500} FCFA</span>
           </div>
         </div>
       </CardContent>
@@ -267,33 +280,22 @@ function DeliveryInfoCard() {
           <FaTruck className="text-amber-900" />
           Delivery Information
         </CardTitle>
-        <CardDescription>
-          Estimated delivery times and shipping options
-        </CardDescription>
+        <CardDescription>Estimated delivery times and shipping options</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-6">
           <div className="flex items-start gap-4">
             <Package className="h-5 w-5 text-muted-foreground mt-1" />
             <div>
-              <h3 className="font-semibold mb-1">
-                Standard Delivery
-              </h3>
-              <p className="text-muted-foreground">
-                Delivery within 2-4 business days to your specified
-                address
-              </p>
+              <h3 className="font-semibold mb-1">Standard Delivery</h3>
+              <p className="text-muted-foreground">Delivery within 2-4 business days to your specified address</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
             <Clock className="h-5 w-5 text-muted-foreground mt-1" />
             <div>
-              <h3 className="font-semibold mb-1">
-                Delivery Schedule
-              </h3>
-              <p className="text-muted-foreground">
-                Monday to Saturday, 9:00 AM - 6:00 PM
-              </p>
+              <h3 className="font-semibold mb-1">Delivery Schedule</h3>
+              <p className="text-muted-foreground">Monday to Saturday, 9:00 AM - 6:00 PM</p>
             </div>
           </div>
           <div className="flex items-start gap-4">
@@ -301,8 +303,7 @@ function DeliveryInfoCard() {
             <div>
               <h3 className="font-semibold mb-1">Delivery Areas</h3>
               <p className="text-muted-foreground">
-                Available in major cities and surrounding areas. Enter
-                your location to check availability.
+                Available in major cities and surrounding areas. Enter your location to check availability.
               </p>
             </div>
           </div>
@@ -320,21 +321,14 @@ function PointOfSaleCard({ product }: ProductDetailsProps) {
           <FaMapPin className="text-accent-700" />
           Point of Sale Location
         </CardTitle>
-        <CardDescription>
-          Physical location where you can inspect and purchase the
-          product
-        </CardDescription>
+        <CardDescription>Physical location where you can inspect and purchase the product</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-6">
           <div className="space-y-2">
             <h3 className="font-semibold">Market Location</h3>
-            <p className="text-muted-foreground">
-              {product.seller} - Central Market
-            </p>
-            <p className="text-muted-foreground">
-              Stand B12, Agricultural Products Section
-            </p>
+            <p className="text-muted-foreground">{product.seller} - Central Market</p>
+            <p className="text-muted-foreground">Stand B12, Agricultural Products Section</p>
           </div>
           <div className="space-y-2">
             <h3 className="font-semibold">Opening Hours</h3>
@@ -349,9 +343,7 @@ function PointOfSaleCard({ product }: ProductDetailsProps) {
           </div>
           <div className="space-y-2">
             <h3 className="font-semibold">Contact Information</h3>
-            <p className="text-muted-foreground">
-              Tel: +237 6XX XXX XXX
-            </p>
+            <p className="text-muted-foreground">Tel: +237 6XX XXX XXX</p>
           </div>
         </div>
       </CardContent>
@@ -367,33 +359,25 @@ function PaymentOptionsCard() {
           <FaCreditCard className="text-yellow-600" />
           Payment Options
         </CardTitle>
-        <CardDescription>
-          Available payment methods and transaction information
-        </CardDescription>
+        <CardDescription>Available payment methods and transaction information</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-6">
           <div className="space-y-4">
-            <h3 className="font-semibold">
-              Accepted Payment Methods
-            </h3>
+            <h3 className="font-semibold">Accepted Payment Methods</h3>
             <div className="grid gap-4">
               <div className="flex items-center gap-4 p-4 border rounded-lg">
                 <CreditCard className="h-5 w-5 text-muted-foreground" />
                 <div>
                   <p className="font-medium">Mobile Money</p>
-                  <p className="text-sm text-muted-foreground">
-                    MTN, Orange, or other mobile money services
-                  </p>
+                  <p className="text-sm text-muted-foreground">MTN, Orange, or other mobile money services</p>
                 </div>
               </div>
               <div className="flex items-center gap-4 p-4 border rounded-lg">
                 <DollarSign className="h-5 w-5 text-muted-foreground" />
                 <div>
                   <p className="font-medium">Cash on Delivery</p>
-                  <p className="text-sm text-muted-foreground">
-                    Pay when you receive your products
-                  </p>
+                  <p className="text-sm text-muted-foreground">Pay when you receive your products</p>
                 </div>
               </div>
             </div>
@@ -401,8 +385,7 @@ function PaymentOptionsCard() {
           <div className="space-y-2">
             <h3 className="font-semibold">Transaction Security</h3>
             <p className="text-muted-foreground">
-              All transactions are secured and processed through our
-              trusted payment partners
+              All transactions are secured and processed through our trusted payment partners
             </p>
           </div>
         </div>
@@ -410,3 +393,4 @@ function PaymentOptionsCard() {
     </Card>
   )
 }
+

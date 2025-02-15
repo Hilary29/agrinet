@@ -12,6 +12,10 @@ import {
   ShoppingCart,
   MessageCircle,
   MessageSquare,
+  LogOutIcon,
+  Settings2,
+  Settings,
+  User2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,17 +24,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { useRouter } from "next/navigation";
+import { logout } from "@/utils/auth";
 
 const Header2 = () => {
-  const [name,setName]=useState('')
-  useEffect(()=>{
-    const token=sessionStorage.getItem("decodedToken")
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const token = sessionStorage.getItem("decodedToken");
 
     if (token) {
-      setName(JSON.parse(token).name) 
+      setName(JSON.parse(token).name);
     }
-  },[])
+  }, []);
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/signin"); // Redirection vers la page de connexion
+  };
+
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center px-4 sm:px-6 py-4 sm:py-2.5 w-full bg-white-50 border-b border-gray-300">
       <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto mb-4 sm:mb-0">
@@ -75,9 +88,9 @@ const Header2 = () => {
             notifications
           </div>
           <Button variant="ghost" size="icon" aria-label="Notifications">
-          <a href="/notifications">
-          {" "}
-            <Bell className="text-black-400 h-7 w-7" />
+            <a href="/notifications">
+              {" "}
+              <Bell className="text-black-400 h-7 w-7" />
             </a>
             <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
               4
@@ -90,12 +103,12 @@ const Header2 = () => {
             cart
           </div>
           <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-          <a href="/marketplace/cart">
-          {" "}
-            <ShoppingCart className="text-black-400 h-7 w-7" />
+            <a href="/marketplace/cart">
+              {" "}
+              <ShoppingCart className="text-black-400 h-7 w-7" />
             </a>
             <span className="absolute -top-[0.5px] -right-0.5 bg-error-600 text-white-50 text-paragraph-xs rounded-full w-5 h-5 flex items-center justify-center">
-            {localStorage?.getItem("cartItems") || 0}
+              {localStorage?.getItem("cartItems") || 0}
             </span>
           </Button>
         </div>
@@ -109,9 +122,16 @@ const Header2 = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push("/account")}>
+              <User2/>
+              Profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push("/settings")}>
+              <Settings/>
+              Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOutIcon />
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
         <DropdownMenu>
@@ -131,7 +151,7 @@ const Header2 = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-{/*       <RoleSelector/> */}
+      {/*       <RoleSelector/> */}
     </header>
   );
 };

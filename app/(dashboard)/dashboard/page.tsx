@@ -1,11 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IntroText from "@/components/IntroText";
-import TopSection from "@/components/TopSection";
-import RecentSales from "@/components/Dashboard/RecentSales";
-import AIRecommendations from "@/components/Dashboard/AiRecommendations";
-import RevenueChart from "@/components/Dashboard/RevenueChart";
 import UserMetrics from "@/components/UserMetrics";
 import ExpenseTracker from "@/components/ExpenseTracker";
 import TransactionHistory2 from "@/components/TransactionHistory2";
@@ -14,21 +10,37 @@ import UserInfo from "@/components/user-info";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 
 
-
+//Modifier pour recuperer aussi l'image depuis la bd
 const user = {
   imageUrl: "/images/avatar-dashboard.jpg",
-  name: "Ahmed Mousa",
-  username: "Ahmed65",
+  /*   name: "Ahmed Mousa",
+    username: "Ahmed65", */
 };
 
 const Page: React.FC = () => {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("decodedToken");
+
+    if (token) {
+      const decoded = JSON.parse(token);
+      setName(decoded.name);
+      setUsername(decoded.username);
+      setEmail(decoded.email);
+    }
+  }, []);
+
+
   if (control_auth_component_roles("dashboard", "component")) {
     return (
       <div className="">
         <UserInfo
           imageUrl={user.imageUrl}
-          name={user.name}
-          username={user.username}
+          name={name}
+          username={username}
         />
         <IntroText title="Dashboard" description="" />
         <div className="flex flex-col md:flex-row justify-between pt-16 md:pt-0 gap-8 ">

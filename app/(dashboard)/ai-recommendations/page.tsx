@@ -10,6 +10,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 import XaiGraph from '@/components/XaiGraph'; // Import the XAI Graph component
 import { control_auth_component_roles } from '@/services/auth/auth_component_rules';
+
 const Page: React.FC = () => {
     const [prediction, setPrediction] = useState<{ crop: string; yield: string } | null>(null);
     const [loading, setLoading] = useState(false);

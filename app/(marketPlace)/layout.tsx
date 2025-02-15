@@ -1,4 +1,6 @@
 
+import { CartSlide } from '@/components/cart-slide';
+import { CartProvider } from '@/contexts/cart-context';
 import React from 'react'
 
 export default function RootLayout({
@@ -9,7 +11,10 @@ export default function RootLayout({
     return (
       <html lang="en">
         <body>
-          {children}
+          <CartProvider>
+            {children}
+            <CartSlide />
+          </CartProvider>
         </body>
       </html>
     );

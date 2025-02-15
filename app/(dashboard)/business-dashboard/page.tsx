@@ -1,3 +1,4 @@
+"use client";
 import BusinessExpenseTracker from "@/components/BusinessExpenseTracker";
 import IntroText from "@/components/IntroText";
 import OrderTracking from "@/components/OrderTracking";
@@ -6,13 +7,37 @@ import ProductManagement from "@/components/ProductManagement";
 import PurchaseOverview from "@/components/PurchaseOverview";
 import SalesMetrics from "@/components/SalesMetrics";
 import TransactionHistory from "@/components/TransactionHistory";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
+import UserInfo from "@/components/user-info";
 
-const page = () => {
+//Modifier pour recuperer aussi l'image depuis la bd
+const user = {
+  imageUrl: "/images/avatar-dashboard.jpg",
+  /*   name: "Ahmed Mousa",
+  username: "Ahmed65", */
+};
+
+const Page = () => {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("decodedToken");
+
+    if (token) {
+      const decoded = JSON.parse(token);
+      setName(decoded.name);
+      setUsername(decoded.username);
+      setEmail(decoded.email);
+    }
+  }, []);
+
   if (control_auth_component_roles("business_dashboard", "component")) {
     return (
       <div>
+        <UserInfo imageUrl={user.imageUrl} name={name} username={username} />
         <IntroText title="Business Dashboard" description={""} />
         <div>
           <div className="flex flex-col md:flex-row justify-between gap-8  ">
@@ -34,4 +59,4 @@ const page = () => {
   }
 };
 
-export default page;
+export default Page;

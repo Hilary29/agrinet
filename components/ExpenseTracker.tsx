@@ -19,7 +19,7 @@ interface ExpenseItem {
   
   export default function ExpenseTracker() {
     return (
-      <div className=" h-screen w-[400px] bg-white p-6 shadow-lg">
+      <div className=" h-screen w-[400px] rounded-md bg-white-50 p-6 shadow-lg">
         <div className="space-y-6">
           <h2 className="text-xl font-semibold text-black-200">Where your money go?</h2>
   

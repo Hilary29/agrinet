@@ -4,7 +4,7 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
-import { LogOut, Settings, User } from "lucide-react"; // Added icons
+import { House, LogOut, Settings, User } from "lucide-react"; // Added icons
 
 import { cn } from "@/lib/utils";
 import {
@@ -34,9 +34,9 @@ import logo from "../public/images/logo.png";
 const user = {
   name: "Hilary D",
   email: "hilary@gmail.com",
-  image: ""
+  image: "",
 };
-const isAuthenticated = true; // Replace with your actual auth state
+const isAuthenticated = true; // Remplacer par la recuperation dynamique de l'etat d'authentification A
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -167,12 +167,16 @@ export function Header() {
                 <NavigationMenuContent>
                   <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
                     <ListItem href="/docs" title="Introduction">
-                      Re-usable components built using Radix UI and Tailwind CSS.
+                      Re-usable components built using Radix UI and Tailwind
+                      CSS.
                     </ListItem>
                     <ListItem href="/docs/installation" title="Installation">
                       How to install dependencies and structure your app.
                     </ListItem>
-                    <ListItem href="/docs/primitives/typography" title="Typography">
+                    <ListItem
+                      href="/docs/primitives/typography"
+                      title="Typography"
+                    >
                       Styles for headings, paragraphs, lists...etc
                     </ListItem>
                   </ul>
@@ -202,7 +206,18 @@ export function Header() {
 
         <div className="flex items-center gap-[18px] font-inter text-paragraph-sm md:text-paragraph-md">
           {isAuthenticated ? (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-8">
+              <div className="relative group">
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-600   rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Dashboard
+                </div>
+                <Link href="/dashboard"
+                  className="bg-transparent hover:shadow-md hover:bg-white-100 transition duration-200"
+                >
+                  <House className="h-5 w-5 text-black-100" />
+                </Link>
+              </div>
+
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
                   <Avatar className="h-8 w-8">
@@ -216,7 +231,9 @@ export function Header() {
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">{user.name}</p>
+                      <p className="text-sm font-medium leading-none">
+                        {user.name}
+                      </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
                       </p>
@@ -258,7 +275,10 @@ export function Header() {
           <LanguageSwitcher />
         </div>
       </div>
-      <MobileSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <MobileSidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
     </header>
   );
 }
