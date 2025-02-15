@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { headers } from "next/headers"
 import { NextRequest } from "next/server"
-import { PAYMENT_ROUTE } from "@/config/routes"
+import { paymentsRoute } from "@/config/routes"
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
 
-    const response = await fetch(`${PAYMENT_ROUTE}`, {
+    const response = await fetch(paymentsRoute.payment, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

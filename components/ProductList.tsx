@@ -18,12 +18,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import TraceabilityDialog, { TraceData } from "./TraceabilityDialog";
-<<<<<<< HEAD
-=======
 import { useRouter } from "next/navigation";
 import Image from "next/image";
->>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
-import { ressourcesRoutes } from "@/config/routes";
+import { mediaRoutes, ressourcesRoutes } from "@/config/routes";
 
 interface Media {
   id: string;
@@ -96,24 +93,24 @@ export default function ProductList() {
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
   const [showTraceability, setShowTraceability] = useState(false);
 
-  const router=useRouter()
+  const router = useRouter()
 
   const [traceData, setTraceData] = useState<TraceData[]>([]);
 
-  const handleTraceabilityClick = async(id: string) => {
+  const handleTraceabilityClick = async (id: string) => {
     console.log(id);
-    
-    await axios.get(`http://192.168.1.169:8080/api/v2/resource/states/${id}`)
-    .then((response) => {
-      console.log(response.data);
-      setTraceData(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-      
-    })
-    
-    
+
+    await axios.get(`${ressourcesRoutes.ressourceState}/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setTraceData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+
+      })
+
+
     setShowTraceability(true);
   };
 
@@ -122,10 +119,6 @@ export default function ProductList() {
       try {
         const response = await axios.get<Product[]>(
           ressourcesRoutes.ressourcesProductPost
-<<<<<<< HEAD
-=======
-         // "http://localhost:4000/api/v1/product_post"
->>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
         );
         setProducts(response.data);
         const initialQuantities = response.data.reduce((acc, product) => {
@@ -180,7 +173,7 @@ export default function ProductList() {
     }
   };
 
-  const handlePreview=(id:string)=>{
+  const handlePreview = (id: string) => {
     //localStorage.setItem("product",JSON.stringify(products.find((p) => p.id === id)))
     //router.push("/marketplace/products")
   }
@@ -217,10 +210,10 @@ export default function ProductList() {
                   {primaryImage ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                    src={`http://localhost:4000/api/v1/media/download/${primaryImage.realName}/${primaryImage.name}`}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform hover:scale-105"
-                  />
+                      src={`${mediaRoutes.mediaDowload}/${primaryImage.realName}/${primaryImage.name}`}
+                      alt={product.name}
+                      className="w-full h-full object-cover transition-transform hover:scale-105"
+                    />
                   ) : (
                     <div className="w-full h-full bg-muted flex items-center justify-center">
                       <Package2 className="w-12 h-12 text-muted-foreground" />
@@ -244,66 +237,66 @@ export default function ProductList() {
                   </button>
                 </div>
                 <div>
-                <CardContent className="p-4 cursor-pointer" onClick={()=>{handlePreview(product.id)}}>
-                      <div className="flex flex-row justify-between items-center">
-                        <p className="font-semibold text-lg mb-2 line-clamp-1">
-                          {product.name}
-                        </p>
-                        <div className="flex items-center space-x-2">
-                          <Button
-                            size="icon"
-                            variant="outline"
-                            onClick={() => updateQuantity(product.id, -1)}
-                            disabled={
-                              quantities[product.id] === 0 ||
-                              product.status !== "AVAILABLE"
-                            }
-                          >
-                            <Minus className="h-4 w-4" />
-                          </Button>
-                          <span>{quantities[product.id]}</span>
-                          <Button
-                            size="icon"
-                            variant="outline"
-                            onClick={() => updateQuantity(product.id, 1)}
-                            disabled={
-                              quantities[product.id] === product.quantity ||
-                              product.status !== "AVAILABLE"
-                            }
-                          >
-                            <Plus className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                        {product.shortDescription}
+                  <CardContent className="p-4 cursor-pointer" onClick={() => { handlePreview(product.id) }}>
+                    <div className="flex flex-row justify-between items-center">
+                      <p className="font-semibold text-lg mb-2 line-clamp-1">
+                        {product.name}
                       </p>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" />
-                          <span>Expire in {product.lifespan} days</span>
-                        </div>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() => updateQuantity(product.id, -1)}
+                          disabled={
+                            quantities[product.id] === 0 ||
+                            product.status !== "AVAILABLE"
+                          }
+                        >
+                          <Minus className="h-4 w-4" />
+                        </Button>
+                        <span>{quantities[product.id]}</span>
+                        <Button
+                          size="icon"
+                          variant="outline"
+                          onClick={() => updateQuantity(product.id, 1)}
+                          disabled={
+                            quantities[product.id] === product.quantity ||
+                            product.status !== "AVAILABLE"
+                          }
+                        >
+                          <Plus className="h-4 w-4" />
+                        </Button>
                       </div>
-                    </CardContent>
-                    <CardFooter className="p-4 pt-0 flex items-center justify-between w-full">
-                      <div className="flex items-center gap-2 text-accent-700">
-                        <p>FCFA</p>
-                        <span className="font-semibold">
-                          {product.basePrice.toFixed(2)}
-                        </span>
+                    </div>
+
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                      {product.shortDescription}
+                    </p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        <span>Expire in {product.lifespan} days</span>
                       </div>
-                      <Button
-                        className="bg-accent-600 hover:bg-accent-700"
-                        onClick={() => addToCart(product)}
-                        disabled={
-                          quantities[product.id] === 0 ||
-                          product.status !== "AVAILABLE"
-                        }
-                      >
-                        <ShoppingCartIcon />
-                      </Button>
-                    </CardFooter>
+                    </div>
+                  </CardContent>
+                  <CardFooter className="p-4 pt-0 flex items-center justify-between w-full">
+                    <div className="flex items-center gap-2 text-accent-700">
+                      <p>FCFA</p>
+                      <span className="font-semibold">
+                        {product.basePrice.toFixed(2)}
+                      </span>
+                    </div>
+                    <Button
+                      className="bg-accent-600 hover:bg-accent-700"
+                      onClick={() => addToCart(product)}
+                      disabled={
+                        quantities[product.id] === 0 ||
+                        product.status !== "AVAILABLE"
+                      }
+                    >
+                      <ShoppingCartIcon />
+                    </Button>
+                  </CardFooter>
                   {/* Composant de traçabilité */}
                   <TraceabilityDialog
                     showTraceability={showTraceability}

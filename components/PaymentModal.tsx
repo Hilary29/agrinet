@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { PAYMENT_ROUTE } from "@/config/routes";
+import { paymentsRoute } from "@/config/routes";
 
 interface PaymentCart {
   transaction_amount: number;
@@ -41,17 +41,17 @@ const PaymentModal = () => {
   const handleCheckout = async () => {
     try {
       const data = JSON.stringify(credent);
-      
+
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${PAYMENT_ROUTE}`,
-        headers: { 
+        url: `${paymentsRoute.payment}`,
+        headers: {
           'Content-Type': 'application/json'
         },
         data: data
       };
-      
+
       const response = await axios.request(config);
       console.log(JSON.stringify(response.data));
     } catch (error) {
@@ -84,9 +84,8 @@ const PaymentModal = () => {
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
-                isActive == 0 ? "bg-primary-700 text-white-50" : ""
-              } `}
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${isActive == 0 ? "bg-primary-700 text-white-50" : ""
+                } `}
               onClick={() => {
                 setIsActive(0);
               }}
@@ -109,9 +108,8 @@ const PaymentModal = () => {
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
-                isActive == 1 ? "bg-primary-700 text-white-50" : ""
-              } `}
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${isActive == 1 ? "bg-primary-700 text-white-50" : ""
+                } `}
               onClick={() => {
                 setIsActive(1);
               }}
@@ -134,9 +132,8 @@ const PaymentModal = () => {
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
-                isActive == 2 ? "bg-primary-700 text-white-50" : ""
-              } `}
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${isActive == 2 ? "bg-primary-700 text-white-50" : ""
+                } `}
               onClick={() => {
                 setIsActive(2);
               }}
@@ -159,9 +156,8 @@ const PaymentModal = () => {
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
-                isActive == 3 ? "bg-primary-700 text-white-50" : ""
-              } `}
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${isActive == 3 ? "bg-primary-700 text-white-50" : ""
+                } `}
               onClick={() => {
                 setIsActive(3);
               }}
@@ -184,9 +180,8 @@ const PaymentModal = () => {
         <li>
           <div className="flex items-center gap-2">
             <button
-              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${
-                isActive == 4 ? "bg-primary-700 text-white-50" : ""
-              } `}
+              className={`flex items-center gap-2 h-14  rounded-lg hover:bg-primary-700 hover:text-white-50 border-2 border-gray-500 p-4 ${isActive == 4 ? "bg-primary-700 text-white-50" : ""
+                } `}
               onClick={() => {
                 setIsActive(4);
               }}

@@ -1,8 +1,9 @@
+import { ressourcesRoutes } from "@/config/routes"
 import type { Product } from "../../../types/products-post"
 
 export async function getProducts(): Promise<Product[]> {
   try {
-    const response = await fetch("http://localhost:4010/api/product_post-client", {
+    const response = await fetch(ressourcesRoutes.ressourcesProductPostClient, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -11,6 +11,7 @@ import IntroText from "@/components/IntroText";
 import { Product, getProducts } from "@/public/data/organization-products";
 import CreateProduct from "@/components/CreateProduct";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
+import { ressourcesRoutes } from "@/config/routes";
 
 interface FormData {
   name: string
@@ -84,7 +85,7 @@ const Page = () => {
     console.log(formData)
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/create-product", {
+      const response = await fetch(ressourcesRoutes.ressourceCreateProduct, {
         method: "POST",
         body: formDataToSend,
       })

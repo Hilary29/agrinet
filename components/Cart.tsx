@@ -10,12 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import axios from "axios"
 import { useRouter } from 'next/navigation';
-<<<<<<< HEAD
 import { ressourcesRoutes } from "@/config/routes";
-=======
-import { PRODUCTNAME_ROUTE } from "@/config/routes";
-import Link from "next/link";
->>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
 
 interface CartItem {
   id: string
@@ -55,11 +50,7 @@ export default function Cart() {
         service_quantity: item.quantity
       }))
     };
-<<<<<<< HEAD
-    sessionStorage.setItem("paymentData", JSON.stringify(paymentData.transaction_amount))
-=======
-    localStorage.setItem("paymentData",JSON.stringify(paymentData.transaction_amount))
->>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
+    localStorage.setItem("paymentData", JSON.stringify(paymentData.transaction_amount))
 
     router.push(`/marketplace/checkout`)
   }
@@ -95,21 +86,12 @@ export default function Cart() {
   useEffect(() => {
     localStorage.setItem("cartItems", cart?.items.length.toString() || "0");
     const getProductNames = async () => {
-<<<<<<< HEAD
       if (cart) {
         const names: { [key: string]: string } = {};
         const productRequests = cart.items.map(async (item) => {
           const response = await axios.get(`${ressourcesRoutes.ressourcesProductPost}/${item.productId}`);
           names[item.productId] = response.data.name;
         });
-=======
-        if (cart) {
-            const names: { [key: string]: string } = {};
-            const productRequests = cart.items.map(async (item) => {
-                const response = await axios.get(`${PRODUCTNAME_ROUTE}${item.productId}`);
-                names[item.productId] = response.data.name;
-            });
->>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
 
         await Promise.all(productRequests);
         setProductNames(names);
@@ -134,15 +116,10 @@ export default function Cart() {
         throw new Error(errorData.error);
       }
       const data = await response.json();
-<<<<<<< HEAD
-      toast.success(data.message || "Item deleted successfully");
-    } catch (error) {
-=======
       console.log(data);
-      
+
       toast.success("Item deleted successfully");
-  } catch (error) {
->>>>>>> 09ca55d04a6ff07ab35bc7b057c9923e897b96f1
+    } catch (error) {
       console.error(error);
       toast.error("Failed to delete item");
     }

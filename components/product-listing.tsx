@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { ProductCard2 } from "@/components/ProductCard2"
 import type { ProductPostResponse } from "@/types/products-post"
+import { ressourcesRoutes } from "@/config/routes"
 
 export default function ProductListing() {
   const [products, setProducts] = useState<ProductPostResponse[]>([])
@@ -12,7 +13,7 @@ export default function ProductListing() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:4010/api/product_post-client")
+        const response = await fetch(ressourcesRoutes.ressourcesProductPostClient)
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
         }
@@ -50,18 +51,18 @@ export default function ProductListing() {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 p-4">
       {products.map((product) => (
         <ProductCard2
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              description={product.shortDescription}
-              price={product.basePrice}
-              quantity={product.quantity}
-              category={product.categorieId}
-              stock={product.status === "AVAILABLE" ? "in-stock" : "out-of-stock"}
-              images={[`/placeholder.svg?height=209&width=358`]}
-              onAddToCart={handleAddToCart} 
-              seller={""} 
-              SalePoints={[]}        />
+          key={product.id}
+          id={product.id}
+          name={product.name}
+          description={product.shortDescription}
+          price={product.basePrice}
+          quantity={product.quantity}
+          category={product.categorieId}
+          stock={product.status === "AVAILABLE" ? "in-stock" : "out-of-stock"}
+          images={[`/placeholder.svg?height=209&width=358`]}
+          onAddToCart={handleAddToCart}
+          seller={""}
+          SalePoints={[]} />
       ))}
     </div>
   )

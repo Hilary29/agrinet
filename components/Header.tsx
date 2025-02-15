@@ -29,14 +29,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import logo from "../public/images/logo.png";
+import { isAuthenticated, user } from "@/services/auth/auth_params";
 
 // Mock user state - replace with your actual auth logic
-const user = {
-  name: "Hilary D",
-  email: "hilary@gmail.com",
-  image: "",
-};
-const isAuthenticated = true; // Remplacer par la recuperation dynamique de l'etat d'authentification A
+//const user = ;
+//const isAuthenticated = false; // Remplacer par la recuperation dynamique de l'etat d'authentification A
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,

@@ -9,12 +9,12 @@ import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { ProductPostResponse } from "@/types/products-post";
 import { ProductDetailsTab2 } from "@/components/ProductDetailsTab2";
+import { ressourcesRoutes } from "@/config/routes";
 
 
 export async function generateStaticParams() {
   const response = await axios.get(
-    "http://localhost:4010/api/product_post-client"
-  );
+    ressourcesRoutes.ressourcesProductPostClient);
   const products = response.data;
 
   return products.map((product: { id: string }) => ({
@@ -28,7 +28,8 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   const response = await axios.get(
-    "http://localhost:4010/api/product_post-client"
+    ressourcesRoutes.ressourcesProductPostClient
+
   );
   const products = response.data;
   const product = products.find((p: ProductPostResponse) => p.id === params.id);
@@ -38,24 +39,24 @@ export default async function ProductPage({
   }
 
   return (
-      <main className="bg-white-50">
-        <Header />
-        <div className="max-w-6xl mx-auto px-4 py-8 pt-24 ">
-          <Link
-            href="/marketplace"
-            className="inline-block mb-8 font-inter font-medium"
-          >
-            <Button variant="ghost" className="gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              Back to MarketPlace
-            </Button>
-          </Link>
-          <div className="container mx-auto px-4 pb-16">
-            <ProductDetailsTab2 product={product} />
-          </div>
+    <main className="bg-white-50">
+      <Header />
+      <div className="max-w-6xl mx-auto px-4 py-8 pt-24 ">
+        <Link
+          href="/marketplace"
+          className="inline-block mb-8 font-inter font-medium"
+        >
+          <Button variant="ghost" className="gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back to MarketPlace
+          </Button>
+        </Link>
+        <div className="container mx-auto px-4 pb-16">
+          <ProductDetailsTab2 product={product} />
         </div>
-        <Footer />
-      </main>
+      </div>
+      <Footer />
+    </main>
 
   );
 }

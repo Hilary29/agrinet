@@ -1,10 +1,15 @@
-/*affichage des pages si le rôle user correspond. 
 
-*/
+/*affichage des pages si le rôle user correspond. */
 
+import { useRouter } from "next/navigation";
+import { isAuthenticated } from "./auth_params";
 
 export let userRole = "business"; //curent user role
 
+export function set_userRole(value: string) {
+    userRole = value;
+
+}
 
 const auth_component_roles =
 {
@@ -19,9 +24,9 @@ const auth_component_roles =
     "published_products": "business",
 }
 
-
 const auth_sideBar_roles = {
-    "Dashboard": "business",
+    "Dashboard": "user",
+    "Business Dashboard": "business",
     "Organization": "business",
     "Agency": "business",
     "Personnel": "business",
@@ -40,11 +45,15 @@ const auth_sideBar_roles = {
     "Notifications": "user, business",
 };
 
-
 export function control_auth_component_roles(name_component: string, type: string) {
-    // Vérifiez que les rôles autorisés pour le composant donné sont bien un tableau
 
+    //on verifie si la personne est belle et bien authentifiée.
+
+
+    // Vérifiez que les rôles autorisés pour le composant donné sont bien un tableau
     try {
+        const router = useRouter();
+        if (isAuthenticated == false) { return (router.push("/")) };
         let allowedRoles = null;
         switch (type) {
             case "component":

@@ -1,3 +1,4 @@
+"use client";
 import IntroText from "@/components/IntroText";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -6,6 +7,7 @@ import ResourcePlanning from "@/components/resource-planning"
 import StockManagement from "@/components/stock-management"
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 
+//
 const page = () => {
   if (control_auth_component_roles("business", "component")) {
     return (
