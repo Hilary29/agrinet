@@ -98,7 +98,6 @@ export default function ProductForm() {
 
   const handleNewCategorySubmit = async () => {
     try {
-      ressourcesRoutes
       const response = await axios.post<Category>(ressourcesRoutes.ressourcesCategorieCreate, newCategory, {
         headers: {
           "Content-Type": "application/json",

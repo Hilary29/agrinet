@@ -33,7 +33,7 @@ export default function Page() {
 
       // Chiffrer et sauvegarder le token
       await saveToken(accessToken);
-      router.push("/marketplace/all-products");
+      router.push("/marketplace");
     } catch (error) {
       console.log(error);
       // Vérification du type d'erreur

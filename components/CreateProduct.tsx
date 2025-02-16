@@ -105,7 +105,6 @@ export default function CreateProduct() {
 
   const handleNewCategorySubmit = async () => {
     try {
-      ressourcesRoutes;
       const response = await axios.post<Category>(
         ressourcesRoutes.ressourcesCategorieCreate,
         newCategory,

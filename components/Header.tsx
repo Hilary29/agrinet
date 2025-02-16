@@ -4,7 +4,11 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
-import { House, LogOut, Settings, User } from "lucide-react"; // Added icons
+import { Home, House, LogOut, Settings, User } from "lucide-react"; // Added icons
+import { userRole } from "@/services/auth/auth_component_rules";
+
+// Ensure userRole is a string
+const role: string = userRole;
 
 import { cn } from "@/lib/utils";
 import {
@@ -29,6 +33,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import logo from "../public/images/logo.png";
+
+const dashboardLink = role === "user" ? "/dashboard" : "/business-dashboard";
 
 // Mock user state - replace with your actual auth logic
 const user = {
@@ -63,44 +69,6 @@ const ListItem = React.forwardRef<
   );
 });
 ListItem.displayName = "ListItem";
-
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-];
 
 export function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -147,16 +115,25 @@ export function Header() {
                   Solutions
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]  ">
-                    {components.map((component) => (
-                      <ListItem
-                        key={component.title}
-                        title={component.title}
-                        href={component.href}
-                      >
-                        {component.description}
-                      </ListItem>
-                    ))}
+                  <ul className="grid w-[100px] gap-0.5 p-2 md:w-[150px] ">
+                    <ListItem
+                      href="/marketplace-and-direct-sales"
+                      title="Marketplace & Direct Sales"
+                    />
+                    <ListItem
+                      href="/equipment-management"
+                      title="Equipment Management"
+                    />
+                    <ListItem
+                      href="/irrigation-management"
+                      title="Irrigation Management"
+                    />
+                    <ListItem
+                      href="/agricultural-weather"
+                      title="Agricultural Weather"
+                    />
+                    <ListItem href="/soil-analysis" title="Soil Analysis" />
+                    <ListItem href="/crop-management" title="Crop Management" />
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -165,20 +142,10 @@ export function Header() {
                   Education
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[100px] gap-3 p-4 md:w-[300px]">
-                    <ListItem href="/docs" title="Introduction">
-                      Re-usable components built using Radix UI and Tailwind
-                      CSS.
-                    </ListItem>
-                    <ListItem href="/docs/installation" title="Installation">
-                      How to install dependencies and structure your app.
-                    </ListItem>
-                    <ListItem
-                      href="/docs/primitives/typography"
-                      title="Typography"
-                    >
-                      Styles for headings, paragraphs, lists...etc
-                    </ListItem>
+                  <ul className="grid w-[100px] gap-0.5 p-2 md:w-[150px] ">
+                    <ListItem href="/blog" title="Blog" />
+                    <ListItem href="/podcast" title="Podcast" />
+                    <ListItem href="/chatbot" title="Chatbot" />
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -197,7 +164,7 @@ export function Header() {
             Pricing
           </Link>
           <Link
-            href="#faq"
+            href="/faq"
             className="hidden xl:flex text-black-100  hover:text-accent-500 transition-colors duration-300"
           >
             FAQs
@@ -208,18 +175,18 @@ export function Header() {
           {isAuthenticated ? (
             <div className="flex items-center gap-8">
               <div className="relative group">
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-600   rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Dashboard
+                <div className=" absolute top-8 w-28 transform -translate-x-1/2 bg-[#00000038]  rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  My Account
                 </div>
-                <Link href="/dashboard"
+                <Link
+                  href={dashboardLink}
                   className="bg-transparent hover:shadow-md hover:bg-white-100 transition duration-200"
                 >
-                  <House className="h-5 w-5 text-black-100" />
+                  <User className="h-5 w-5 text-black-100" />
                 </Link>
               </div>
-
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
+                <DropdownMenuTrigger className="hidden sm:flex items-center gap-2 outline-none">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.image} alt={user.name} />
                     <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
@@ -228,7 +195,10 @@ export function Header() {
                     {user.name}
                   </span>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent
+                  align="center"
+                  className="w-full px-4 py-2 hidden sm:flex"
+                >
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
@@ -241,16 +211,16 @@ export function Header() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <User className="mr-2 h-4 w-4" />
-                    <a href="/dashboard">Profile</a>
+                    <User className=" h-4 w-4" />
+                    <a href="/dashboard">Account</a>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Settings className="mr-2 h-4 w-4" />
+                    <Settings className=" h-4 w-4" />
                     <a href="/settings">Settings</a>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut className="mr-2 h-4 w-4" />
+                    <LogOut className=" h-4 w-4" />
                     <span>Log out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

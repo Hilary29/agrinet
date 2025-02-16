@@ -1,146 +1,423 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import IntroText from "@/components/IntroText"
-import PersonalInfo from "./PersonalInfo"
-import AdditionalInfo from "./AdditionalInfo"
-import PaymentAndDescription from "./PaymentAndDescription"
+import type React from "react";
 
-const FarmerForm = () => {
-  const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState({
-    userId: "",
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import IntroText from "@/components/IntroText";
+
+type FormData = {
+  userId: string;
+  phoneNumber: string;
+  email: string;
+  avatarPicture: string;
+  profilePicture: string;
+  businessActorName: string;
+  isIndividual: boolean;
+  baType: "isIndividual" | "full";
+  isAvailable: boolean;
+  dateOfBirth: string;
+  age: number;
+  gender: string;
+  nationality: string;
+  profession: string;
+  businessDomainIds: string[];
+  qualificationIds: string[];
+  paymentMethods: string[];
+  isVerified: boolean;
+  isLocked: boolean;
+  description: string;
+  reviews: string;
+  password: string;
+  businessActorId: string;
+};
+
+const paymentMethodOptions = [
+  "Credit Card",
+  "PayPal",
+  "Bank Transfer",
+  "Cash",
+  "Mobile Money",
+];
+
+export default function UpgradeAccount() {
+  const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    userId: "6a33fad4-2ef4-45c4-9a0b-5d38ab51b215",
     phoneNumber: "",
     email: "",
     avatarPicture: "",
     profilePicture: "",
     businessActorName: "",
     isIndividual: true,
-    baType: "Farmer",
+    baType: "isIndividual",
     isAvailable: true,
     dateOfBirth: "",
     age: 0,
     gender: "",
     nationality: "",
     profession: "",
+    businessDomainIds: [],
+    qualificationIds: [],
     paymentMethods: [],
-    isVerified: true,
-    isLocked: true,
+    isVerified: false,
+    isLocked: false,
     description: "",
     reviews: "",
-  })
+    password: "",
+    businessActorId: "",
+  });
+  const [error, setError] = useState<string | null>(null);
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const [datas, setData] = useState<string | null>()
-
-  useEffect(() => {
-    const data = sessionStorage.getItem("decodedToken")
-    if (data) {
-      setData(JSON.parse(data))
-    }
-  }, [])
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-
-    setFormData((prevData) => ({
-      ...prevData,
-      userId: datas?.sub,
-      email: datas?.email,
+  const handleChange = (name: string, value: string | boolean | string[]) => {
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const date = e.target.value
-    setFormData((prevData) => ({
-      ...prevData,
-      dateOfBirth: date,
-      age: calculateAge(date),
-    }))
-  }
-
-  const handlePaymentMethodToggle = (method: string) => {
-    setFormData((prevData) => {
-      const newMethods = prevData.paymentMethods.includes(method)
-        ? prevData.paymentMethods.filter((m) => m !== method)
-        : [...prevData.paymentMethods, method]
-      return { ...prevData, paymentMethods: newMethods }
-    })
-  }
-
-  const calculateAge = (dateOfBirth: string) => {
-    const birthDate = new Date(dateOfBirth)
-    const ageDifMs = Date.now() - birthDate.getTime()
-    const ageDate = new Date(ageDifMs)
-    return Math.abs(ageDate.getUTCFullYear() - 1970)
-  }
+  const handlePaymentMethodChange = (method: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      paymentMethods: prev.paymentMethods.includes(method)
+        ? prev.paymentMethods.filter((m) => m !== method)
+        : [...prev.paymentMethods, method],
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    router.push("/pricing")
-  }
+    e.preventDefault();
+    setError(null);
+    setIsLoading(true);
 
-  const nextStep = () => setStep(step + 1)
-  const prevStep = () => setStep(step - 1)
+    try {
+      // Calculate age based on date of birth
+      const birthDate = new Date(formData.dateOfBirth);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      // Format date to include time (midnight)
+      const formattedDate = `${formData.dateOfBirth}T00:00:00`;
+
+      const dataToSubmit = {
+        ...formData,
+        dateOfBirth: formattedDate,
+        age,
+        isIndividual: formData.baType === "isIndividual",
+        businessDomainIds: formData.businessDomainIds.length
+          ? formData.businessDomainIds
+          : [],
+        qualificationIds: formData.qualificationIds.length
+          ? formData.qualificationIds
+          : [],
+        reviews: formData.reviews || "",
+        businessActorId: formData.businessActorId || undefined,
+        gender: formData.gender || "",
+        avatarPicture: formData.avatarPicture || "",
+        profilePicture: formData.profilePicture || "",
+      };
+
+      const response = await axios.post(
+        "http://localhost:4001/api/v1/business_actor/create",
+        dataToSubmit,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Business account created:", response.data);
+      router.push("/dashboard");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.code === "ERR_NETWORK") {
+          setError(
+            "Unable to connect to the server. Please check your connection."
+          );
+        } else if (error.response) {
+          setError(
+            error.response.data.message ||
+              "An unexpected error occurred. Please try again."
+          );
+        } else {
+          setError("Network error occurred. Please check your connection.");
+        }
+        console.error("API Error:", error.message);
+      } else {
+        setError("An unexpected error occurred");
+        console.error("Unknown error:", error);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <IntroText 
-        title="Upgrade to Business Account" 
-        description="Complete the form in 3 easy steps"
+    <div className="  ">
+      <IntroText
+        title="Get Business account"
+        description="Fill out this three steps form to upgrade your account"
       />
-      <Card className="max-w-4xl mx-auto border-none">
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span className="font-satoshi">Step {step} of 3</span>
-            <div className="flex space-x-2">
-              {step > 1 && (
-                <Button onClick={prevStep} variant="outline">
-                  Previous
-                </Button>
-              )}
-              {step < 3 ? (
-                <Button onClick={nextStep}>Next</Button>
-              ) : (
-                <Button onClick={handleSubmit} className="bg-primary-600 hover:bg-primary-700">
-                  Create Business Account
-                </Button>
-              )}
-            </div>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-8">
-            {step === 1 && (
-              <PersonalInfo
-                formData={formData}
-                handleChange={handleChange}
-              />
-            )}
-            {step === 2 && (
-              <AdditionalInfo
-                formData={formData}
-                handleChange={handleChange}
-                handleDateChange={handleDateChange}
-              />
-            )}
-            {step === 3 && (
-              <PaymentAndDescription
-                formData={formData}
-                handleChange={handleChange}
-                handlePaymentMethodToggle={handlePaymentMethodToggle}
-              />
-            )}
-          </form>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
+      {/* Progress Bar */}
+      <div className="py-12 px-4 sm:px-6 lg:px-0 mb-8 max-w-4xl w-full">
+        <div className="relative mb-4">
+          <div className="absolute left-0 top-1/2 h-1 w-full -translate-y-1/2 transform bg-green-100" />
+          <div
+            className="absolute left-0 top-1/2 h-1 -translate-y-1/2 transform bg-green-600 transition-all duration-500"
+            style={{ width: `${((step - 1) / 2) * 100}%` }}
+          />
+          <div className="relative flex justify-between">
+            {[1, 2, 3].map((number) => (
+              <div
+                key={number}
+                className={`h-8 w-8 rounded-full ${
+                  step >= number ? "bg-green-600" : "bg-green-100"
+                } flex items-center justify-center text-sm font-medium text-white-50`}
+              >
+                {number}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-export default FarmerForm
+      {/* Form */}
+      <div className=" max-w-4xl w-full">
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-6">
+            {step === 1 && (
+              <div className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="businessActorName">Full Name</Label>
+                    <Input
+                      id="businessActorName"
+                      value={formData.businessActorName}
+                      onChange={(e) =>
+                        handleChange("businessActorName", e.target.value)
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleChange("email", e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="phoneNumber">Phone Number</Label>
+                    <Input
+                      id="phoneNumber"
+                      type="tel"
+                      value={formData.phoneNumber}
+                      onChange={(e) =>
+                        handleChange("phoneNumber", e.target.value)
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="gender">Gender</Label>
+                    <Select
+                      value={formData.gender}
+                      onValueChange={(value) => handleChange("gender", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select gender" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="male">Male</SelectItem>
+                        <SelectItem value="female">Female</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {step === 2 && (
+              <div className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="baType">Business Type</Label>
+                    <Select
+                      value={formData.baType}
+                      onValueChange={(value) => handleChange("baType", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select business type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="isIndividual">Individual</SelectItem>
+                        <SelectItem value="full">Full Business</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                    <Input
+                      id="dateOfBirth"
+                      type="date"
+                      value={formData.dateOfBirth}
+                      onChange={(e) =>
+                        handleChange("dateOfBirth", e.target.value)
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="nationality">Nationality</Label>
+                    <Input
+                      id="nationality"
+                      value={formData.nationality}
+                      onChange={(e) =>
+                        handleChange("nationality", e.target.value)
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Payment Methods</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {paymentMethodOptions.map((method) => (
+                        <div
+                          key={method}
+                          className="flex items-center space-x-2"
+                        >
+                          <Checkbox
+                            id={method}
+                            checked={formData.paymentMethods.includes(method)}
+                            onCheckedChange={() =>
+                              handlePaymentMethodChange(method)
+                            }
+                          />
+                          <Label htmlFor={method}>{method}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="profession">Profession</Label>
+                  <Input
+                    id="profession"
+                    value={formData.profession}
+                    onChange={(e) => handleChange("profession", e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="description">Business Description</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) =>
+                      handleChange("description", e.target.value)
+                    }
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) => handleChange("password", e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-between pt-8">
+            {step > 1 && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={prevStep}
+                className="text-primary-500 hover:text-primary-600 border-primary-500 border-2 "
+                disabled={isLoading}
+              >
+                Previous
+              </Button>
+            )}
+            {step < 3 ? (
+              <Button
+                type="button"
+                onClick={nextStep}
+                className="text-white-50 bg-primary-500 hover:bg-primary-600   "
+                disabled={isLoading}
+              >
+                Next
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="text-white-50 bg-primary-500 hover:bg-primary-600   "
+                disabled={isLoading}
+              >
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                Submit
+              </Button>
+            )}
+          </div>
+
+          {error && (
+            <Alert variant="destructive" className="mt-4">
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+        </form>
+      </div>
+    </div>
+  );
+}
