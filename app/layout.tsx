@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/sonner"
 
 // Définition des métadonnées pour la page
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
       <head />
       <body>
         {children}
-        <Toaster position="top-right" />
+        <Toaster />
       </body>
     </html>
   );

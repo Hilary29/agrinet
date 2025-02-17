@@ -1,11 +1,10 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
+import type React from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import { Loader2 } from "lucide-react"
+import { Loader2, Building2, MapPin, FileText, AlertCircle } from "lucide-react"
 
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -13,6 +12,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { toast } from "sonner"
 
 type FormData = {
   organisationId: string
@@ -25,14 +25,13 @@ type FormData = {
 export default function CreateAgency() {
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState<FormData>({
-    organisationId: "6a33fad4-2ef4-45c4-9a0b-5d38ab51b215", // This would typically come from your auth context or props
+    organisationId: "6a33fad4-2ef4-45c4-9a0b-5d38ab51b215",
     shortName: "",
     location: "",
     longName: "",
     description: "",
   })
   const [error, setError] = useState<string | null>(null)
-
   const router = useRouter()
 
   const handleChange = (name: string, value: string) => {
@@ -55,7 +54,7 @@ export default function CreateAgency() {
       })
 
       console.log("Agency created:", response.data)
-      router.push("/dashboard") // Redirect to dashboard or agencies list
+      router.push("/organisation/business")
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(error.response?.data?.message || "An error occurred while creating the agency")
@@ -70,71 +69,104 @@ export default function CreateAgency() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="max-w-md w-full">
-        <CardHeader>
-          <CardTitle>Create New Agency</CardTitle>
-          <CardDescription>Fill in the details to create a new agency</CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="shortName">Short Name</Label>
-              <Input
-                id="shortName"
-                value={formData.shortName}
-                onChange={(e) => handleChange("shortName", e.target.value)}
-                required
-              />
-            </div>
+    <div className="min-h-screen bg-gray-50 pt-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto bg-white-50 p-4 rounded-md">
+        <div className="  p-2 ">
+          <div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="shortName" className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4" />
+                    Short Name
+                  </Label>
+                  <Input 
+                    id="shortName"
+                    placeholder="e.g. NYC Office"
+                    value={formData.shortName}
+                    onChange={(e) => handleChange("shortName", e.target.value)}
+                    className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="longName">Full Agency Name</Label>
-              <Input
-                id="longName"
-                value={formData.longName}
-                onChange={(e) => handleChange("longName", e.target.value)}
-                required
-              />
-            </div>
+                <div className="space-y-2">
+                  <Label htmlFor="longName" className="flex items-center gap-2">
+                    Full Agency Name
+                  </Label>
+                  <Input
+                    id="longName"
+                    placeholder="e.g. New York City Regional Office"
+                    value={formData.longName}
+                    onChange={(e) => handleChange("longName", e.target.value)}
+                    className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                    required
+                  />
+                </div>
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="location">Location</Label>
-              <Input
-                id="location"
-                value={formData.location}
-                onChange={(e) => handleChange("location", e.target.value)}
-                required
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="location" className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  Location
+                </Label>
+                <Input
+                  id="location"
+                  placeholder="e.g. 123 Business Ave, New York, NY 10001"
+                  value={formData.location}
+                  onChange={(e) => handleChange("location", e.target.value)}
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary"
+                  required
+                />
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => handleChange("description", e.target.value)}
-                required
-              />
-            </div>
-          </CardContent>
+              <div className="space-y-2">
+                <Label htmlFor="description" className="flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Description
+                </Label>
+                <Textarea
+                  id="description"
+                  placeholder="Enter a detailed description of the agency..."
+                  value={formData.description}
+                  onChange={(e) => handleChange("description", e.target.value)}
+                  className="min-h-32 transition-all duration-200 focus:ring-2 focus:ring-primary resize-none"
+                  required
+                />
+              </div>
 
-          <CardFooter>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Create Agency
-            </Button>
-          </CardFooter>
+              {error && (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Error</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              )}
 
-          {error && (
-            <Alert variant="destructive" className="mt-4 mx-6 mb-6">
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-        </form>
-      </Card>
+              <Button
+                type="submit"
+                className="w-full bg-primary-500 hover:bg-primary-600 text-white-50 transition duration-300"
+                disabled={isLoading}
+                onClick={() =>
+                  toast("Agency has been created", {
+                    description: "A new agency has been added to your organisation",
+                  })
+                }
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  "Create Agency"
+                )}
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
