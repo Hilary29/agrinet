@@ -11,6 +11,7 @@ import {
   login,
 } from "../../../services/auth/authService";
 import Image from "next/image";
+import { set_isAuthenticated } from "@/services/auth/auth_params";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,16 +25,22 @@ export default function Page() {
     setError(""); // Réinitialiser l'erreur avant de tenter de se connecter
 
     try {
+
       const jwtToken = await login(username, password);
 
-      const accessToken = getAccessToken(jwtToken);
+      if (jwtToken) {
+        const accessToken = getAccessToken(jwtToken);
 
-      const decodedToken = decodeToken(accessToken);
-      sessionStorage.setItem("decodedToken", JSON.stringify(decodedToken));
+        const decodedToken = decodeToken(accessToken);
+        sessionStorage.setItem("decodedToken", JSON.stringify(decodedToken));
 
-      // Chiffrer et sauvegarder le token
-      await saveToken(accessToken);
-      router.push("/marketplace");
+        // Chiffrer et sauvegarder le token
+        await saveToken(accessToken);
+        await set_isAuthenticated(true);
+        router.push("/marketplace/all-products");
+      }
+
+
     } catch (error) {
       console.log(error);
       // Vérification du type d'erreur

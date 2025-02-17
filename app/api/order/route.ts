@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { headers } from "next/headers"
 import { NextRequest } from "next/server"
+import { cartRoutes, orderRoutes } from "@/config/routes"
 
 const userId = "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
 
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 })
     }
 
-    const response = await fetch("http://localhost:4002/api/orders/checkout", {
+    const response = await fetch(orderRoutes.cartOrdersCheckout, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

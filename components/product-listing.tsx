@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { ProductCard2 } from "@/components/ProductCard2"
 import type { ProductPostResponse } from "@/types/products-post"
+import { ressourcesRoutes } from "@/config/routes"
 
 export default function ProductListing() {
   const [products, setProducts] = useState<ProductPostResponse[]>([])
@@ -12,7 +13,7 @@ export default function ProductListing() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("http://localhost:4010/api/product_post-client")
+        const response = await fetch(ressourcesRoutes.ressourcesProductPostClient)
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
         }

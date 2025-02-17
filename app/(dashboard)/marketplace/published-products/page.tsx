@@ -11,6 +11,7 @@ import { PlusIcon, ImageIcon, Truck, DoorOpen, MapPin, ArrowLeft } from "lucide-
 import IntroText from "@/components/IntroText"
 import CreateProduct from "@/components/CreateProduct"
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules"
+import { ressourcesRoutes } from "@/config/routes"
 
 interface FormData {
   name: string
@@ -82,10 +83,10 @@ const ProductCreationPage = () => {
     console.log(formData)
 
     try {
-      const response = await fetch("http://localhost:8000/api/v1/create-product", {
+      const response = await fetch(ressourcesRoutes.ressourceCreateProduct, {
         method: "POST",
         body: formDataToSend,
-      })
+      });
 
       if (response.ok) {
         // Handle successful submission

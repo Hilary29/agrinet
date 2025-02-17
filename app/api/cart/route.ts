@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { headers } from "next/headers"
 import { NextRequest } from "next/server"
+import { cartRoutes } from "@/config/routes"
 
 const userId = "9511e06c-c94b-48de-bbb0-d7ed39d3ca21"
 
@@ -16,12 +17,12 @@ export async function GET() {
       return NextResponse.json({ error: "User ID is required" }, { status: 400 })
     }
 
-    const response = await fetch("http://localhost:4010/api/cart", {
+    const response = await fetch(cartRoutes.cart, {
       headers: {
         "User-Id": userId,
       },
     })
-    
+
 
     if (!response.ok) {
 
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Product ID, quantity, and unit price are required" }, { status: 400 })
     }
 
-    const response = await fetch("http://localhost:4010/api/cart/items", {
+    const response = await fetch(cartRoutes.cartItems, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,7 +89,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
     }
 
-    const response = await fetch(`http://localhost:4010/api/cart/items/${productId}`, {
+    const response = await fetch(`${cartRoutes.cartItems}/${productId}`, {
       method: "DELETE",
       headers: {
         "User-Id": userId,
@@ -104,4 +105,3 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
-

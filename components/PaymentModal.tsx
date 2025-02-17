@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { PAYMENT_ROUTE } from "@/config/routes";
+import { paymentsRoute } from "@/config/routes";
 
 interface PaymentCart {
   transaction_amount: number;
@@ -19,7 +19,7 @@ interface Payment {
 }
 
 const PaymentModal = () => {
-  const [datas, setData] = useState<any>();
+  const [datas, setData] = useState<{ email: string; name: string } | null>(null);
   useEffect(() => {
     const data = sessionStorage.getItem("decodedToken");
     if (data) {
@@ -45,7 +45,7 @@ const PaymentModal = () => {
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `${PAYMENT_ROUTE}`,
+        url: `${paymentsRoute.payment}`,
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -56,7 +56,7 @@ const PaymentModal = () => {
       console.log(JSON.stringify(response.data));
     } catch (error) {
       // Vérifiez si l'erreur a un message, sinon affichez un message générique
-      const errorMessage = error.response ? error.response.data : error.message;
+      const errorMessage = axios.isAxiosError(error) && error.response ? error.response.data : error instanceof Error ? error.message : "An unknown error occurred";
       console.error(errorMessage);
       toast.error("Failed to create order: " + errorMessage);
     }
@@ -70,13 +70,13 @@ const PaymentModal = () => {
   useEffect(() => {
     setCredent((prevData) => ({
       ...prevData,
-      payer_email: datas?.email,
-      payer_name: datas?.name,
+      payer_email: datas?.email || "",
+      payer_name: datas?.name || "",
       payer_phone_number: phone,
       payer_lang: "fr",
       transaction_amount: Number(paymentData),
     }));
-  }, [phone]);
+  }, [datas?.email, datas?.name, paymentData, phone]);
 
   return (
     <div className="bg-white-50 rounded-2xl max-w-7xl p-3 sm:p-0 lg:p-6 mb-5">

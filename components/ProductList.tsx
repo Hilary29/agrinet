@@ -20,7 +20,8 @@ import Link from "next/link";
 import TraceabilityDialog, { TraceData } from "./TraceabilityDialog";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ressourcesRoutes } from "@/config/routes";
+import { mediaRoutes, ressourcesRoutes } from "@/config/routes";
+
 
 interface Media {
   id: string;
@@ -100,7 +101,7 @@ export default function ProductList() {
   const handleTraceabilityClick = async(id: string) => {
     console.log(id);
     
-    await axios.get(`http://192.168.1.169:8080/api/v2/resource/states/${id}`)
+    await axios.get(`${ressourcesRoutes.ressourceState}/${id}`)
     .then((response) => {
       console.log(response.data);
       setTraceData(response.data);

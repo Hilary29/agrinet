@@ -31,19 +31,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-
+import { isAuthenticated, user } from "@/services/auth/auth_params";
 import logo from "../public/images/logo.png";
 
 const dashboardLink = role === "user" ? "/dashboard" : "/business-dashboard";
 
-// Mock user state - replace with your actual auth logic
+/* 
 const user = {
   name: "Hilary D",
   email: "hilary@gmail.com",
   image: "",
 };
 const isAuthenticated = true; // Remplacer par la recuperation dynamique de l'etat d'authentification A
-
+ */
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
