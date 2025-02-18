@@ -5,6 +5,7 @@ import ProductAllocation from "@/components/product-allocation"
 import ResourcePlanning from "@/components/resource-planning"
 import StockManagement from "@/components/stock-management"
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
+import Sales from "@/components/Sales";
 
 const page = () => {
   if (control_auth_component_roles("business", "component")) {
@@ -20,6 +21,7 @@ const page = () => {
               <TabsTrigger value="products">Product Allocation</TabsTrigger>
               <TabsTrigger value="resources">Planning Resources</TabsTrigger>
               <TabsTrigger value="stock">Inventory Management</TabsTrigger>
+              <TabsTrigger value="sale">Sale </TabsTrigger>
             </TabsList>
             <TabsContent value="products" className="space-y-4">
               <ProductAllocation />
@@ -29,6 +31,9 @@ const page = () => {
             </TabsContent>
             <TabsContent value="stock" className="space-y-4">
               <StockManagement />
+            </TabsContent>
+            <TabsContent value="sale" className="space-y-4">
+              <Sales />
             </TabsContent>
           </Tabs>
         </div>

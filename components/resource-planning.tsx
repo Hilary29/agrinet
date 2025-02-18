@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pencil, Trash2, Plus, Search } from "lucide-react";
+import { Pencil, Trash2, Plus, Search, Copy, Eye, Share, Archive } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dialog";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { ActionMenu } from "./ActionMenu";
 
 interface Planning {
   id: number;
@@ -239,41 +240,36 @@ export default function ResourcePlanning() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => handleEdit(planning)}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button variant="outline" size="icon">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Confirmer la suppression</DialogTitle>
-                          </DialogHeader>
-                          <div className="py-4">
-                            <p>
-                              Êtes-vous sûr de vouloir supprimer ce planning ?
-                            </p>
-                            <div className="mt-4 flex justify-end gap-3">
-                              <Button variant="outline" onClick={() => {}}>
-                                Cancel
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                onClick={() => handleDelete(planning.id)}
-                              >
-                                Delete
-                              </Button>
-                            </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                    <ActionMenu
+                        onEdit={() => handleEdit(planning)}
+                        onToggleActive={() =>
+                          console.log("Toggle active clicked")
+                        }
+                       /* onDelete={() => console.log("Delete clicked")} */
+                        isActive={true}
+                        customActions={[
+                          {
+                            label: "Duplicate",
+                            onClick: () => console.log("Product copy created"),
+                            icon: <Copy className="h-4 w-4" />,
+                          },
+                          {
+                            label: "View Details",
+                            onClick: () => console.log("Viewing details"),
+                            icon: <Eye className="h-4 w-4" />,
+                          },
+                          {
+                            label: "Share",
+                            onClick: () => console.log("Shared"),
+                            icon: <Share className="h-4 w-4" />,
+                          },
+                          {
+                            label: "Archive",
+                            onClick: () => console.log("Archived"),
+                            icon: <Archive className="h-4 w-4" />,
+                          },
+                        ]}
+                      />
                     </div>
                   </TableCell>
                 </TableRow>

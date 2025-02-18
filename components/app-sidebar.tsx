@@ -9,6 +9,7 @@ import {
   Settings,
   ShoppingCart,
   LayoutDashboard,
+  Coins,
   Bell,
   UserRound,
   MessageCircleMore,
@@ -71,6 +72,11 @@ const navigation = [
     icon: LayoutDashboard,
   },
   {
+    name: "Marketplace",
+    href: "/marketplace",
+    icon: Coins,
+  },
+  {
     name: "Organization",
     icon: Building,
 
@@ -114,7 +120,7 @@ const navigation = [
     subItems: [
       {
         name: "My products",
-        href: "/marketplace",
+        href: "/marketplace/all-products",
       },
       {
         name: "Cart",

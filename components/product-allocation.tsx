@@ -21,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Pencil, Trash2 } from "lucide-react";
+import { Archive, Copy, Eye, Pencil, Share, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -29,6 +29,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ActionMenu } from "./ActionMenu";
 
 interface ProductAllocation {
   id: number;
@@ -128,7 +129,11 @@ export default function ProductAllocation() {
     <div className="space-y-6">
       <Card className="border-none shadow-2dp">
         <CardHeader>
-          <CardTitle><p className="text-paragraph-lg font-satoshi font-semibold">Allocation</p></CardTitle>
+          <CardTitle>
+            <p className="text-paragraph-lg font-satoshi font-semibold">
+              Allocation
+            </p>
+          </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -190,7 +195,11 @@ export default function ProductAllocation() {
 
       <Card>
         <CardHeader>
-          <CardTitle><p className="text-paragraph-lg font-satoshi font-semibold">Product per Agency</p></CardTitle>
+          <CardTitle>
+            <p className="text-paragraph-lg font-satoshi font-semibold">
+              Product per Agency
+            </p>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
@@ -210,42 +219,36 @@ export default function ProductAllocation() {
                   <TableCell>{allocation.quantity}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => handleEdit(allocation)}
-                      >
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button variant="outline" size="icon">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Confirm deletion </DialogTitle>
-                          </DialogHeader>
-                          <div className="py-4">
-                            <p>
-                            Are you sure you want to delete this allocation ?
-                            </p>
-                            <div className="mt-4 flex justify-end gap-3">
-                              <Button variant="outline" onClick={() => {}}>
-                              Cancel
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                className="bg-red-600 text-white-50"
-                                onClick={() => handleDelete(allocation.id)}
-                              >
-                                Delete
-                              </Button>
-                            </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                      <ActionMenu
+                        onEdit={() => handleEdit(allocation)}
+                        onToggleActive={() =>
+                          console.log("Toggle active clicked")
+                        }
+                       /* onDelete={() => console.log("Delete clicked")} */
+                        isActive={true}
+                        customActions={[
+                          {
+                            label: "Duplicate",
+                            onClick: () => console.log("Product copy created"),
+                            icon: <Copy className="h-4 w-4" />,
+                          },
+                          {
+                            label: "View Details",
+                            onClick: () => console.log("Viewing details"),
+                            icon: <Eye className="h-4 w-4" />,
+                          },
+                          {
+                            label: "Share",
+                            onClick: () => console.log("Shared"),
+                            icon: <Share className="h-4 w-4" />,
+                          },
+                          {
+                            label: "Archive",
+                            onClick: () => console.log("Archived"),
+                            icon: <Archive className="h-4 w-4" />,
+                          },
+                        ]}
+                      />
                     </div>
                   </TableCell>
                 </TableRow>

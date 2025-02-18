@@ -5,11 +5,12 @@ import { DataTable } from "@/components/organizationDataTable";
 import { DataGrid } from "@/components/OrganizationDataGrid";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeft, Edit, Grid, List, Search, Trash } from "lucide-react";
+import { Archive, ArrowLeft, Copy, Edit, Eye, Grid, List, Search, Share, Trash } from "lucide-react";
 import IntroText from "@/components/IntroText";
 import { Agency, getAgencies } from "@/public/data/organization-agency";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 import CreateAgency from "@/components/CreateAgency";
+import { ActionMenu } from "@/components/ActionMenu";
 
 interface FormData {
   organisationId: string;
@@ -53,28 +54,34 @@ const Page = () => {
       id: "actions",
       cell: ({ row }: { row: { original: { id: number } } }) => (
         <div className="flex flex-col sm:flex-row gap-2 justify-end">
-          <Link href={`/organization/agency/${row.original.id}/edit`}>
-            <div className="relative group">
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                Edit
-              </div>
-              <Button variant="outline" size="sm" className="w-full sm:w-auto">
-                <Edit className="h-4 w-4" />
-              </Button>
-            </div>
-          </Link>
-          <div className="relative group">
-            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-500 text-white-50 text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              Delete
-            </div>
-            <Button
-              variant="destructive"
-              size="sm"
-              className="w-full sm:w-auto text-white-50"
-            >
-              <Trash className="h-4 w-4" />
-            </Button>
-          </div>
+      <ActionMenu
+            onEdit={() => console.log("Edit clicked")}
+            onToggleActive={() => console.log("Toggle active clicked")}
+            /*   onDelete={() => console.log("Delete clicked")} */
+            isActive={true}
+            customActions={[
+              {
+                label: "Duplicate",
+                onClick: () => console.log("Product copy created"),
+                icon: <Copy className="h-4 w-4" />,
+              },
+              {
+                label: "View Details",
+                onClick: () => console.log("Viewing details"),
+                icon: <Eye className="h-4 w-4" />,
+              },
+              {
+                label: "Share",
+                onClick: () => console.log("Shared"),
+                icon: <Share className="h-4 w-4" />,
+              },
+              {
+                label: "Archive",
+                onClick: () => console.log("Archived"),
+                icon: <Archive className="h-4 w-4" />,
+              },
+            ]}
+          />
         </div>
       ),
     },
@@ -86,18 +93,35 @@ const Page = () => {
       <p className="text-sm text-gray-900">{agency.address}</p>
       <p className="text-sm text-gray-900">{agency.phone}</p>
       <p className="text-sm text-gray-900">{agency.location}</p>
-      <div className="flex flex-col sm:flex-row gap-2 mt-4">
-        <Link
-          href={`/organisation/agency/${agency.id}/edit`}
-          className="w-full sm:w-auto"
-        >
-          <Button variant="outline" size="sm" className="w-full">
-            Edit
-          </Button>
-        </Link>
-        <Button variant="destructive" size="sm" className="w-full sm:w-auto">
-          Modify
-        </Button>
+      <div className="flex flex-col sm:flex-row gap-2 mt-4 justify-end">
+      <ActionMenu
+            onEdit={() => console.log("Edit clicked")}
+            onToggleActive={() => console.log("Toggle active clicked")}
+            /*   onDelete={() => console.log("Delete clicked")} */
+            isActive={true}
+            customActions={[
+              {
+                label: "Duplicate",
+                onClick: () => console.log("Product copy created"),
+                icon: <Copy className="h-4 w-4" />,
+              },
+              {
+                label: "View Details",
+                onClick: () => console.log("Viewing details"),
+                icon: <Eye className="h-4 w-4" />,
+              },
+              {
+                label: "Share",
+                onClick: () => console.log("Shared"),
+                icon: <Share className="h-4 w-4" />,
+              },
+              {
+                label: "Archive",
+                onClick: () => console.log("Archived"),
+                icon: <Archive className="h-4 w-4" />,
+              },
+            ]}
+          />
       </div>
     </div>
   );

@@ -8,8 +8,8 @@ interface UserInfoProps {
 
 export default function UserInfo({ imageUrl, name, username }: UserInfoProps) {
   return (
-    <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-16 pb-8 bg-white-50">
-      <div className="relative w-16 h-16 sm:w-16 sm:h-16">
+    <div className="flex flex-col max-w-2xl sm:flex-row items-center sm:items-start space-y-3 sm:space-y-0 sm:space-x-16 pb-2 ">
+      <div className="relative w-12 h-12 sm:w-16 sm:h-16">
         <Image
           src={imageUrl || "/placeholder.svg"}
           alt={`Profile picture of ${name}`}

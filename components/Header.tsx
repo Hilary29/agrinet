@@ -199,6 +199,7 @@ export function Header() {
                   align="center"
                   className="w-full px-4 py-2 hidden sm:flex"
                 >
+                  <ul>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
@@ -212,7 +213,7 @@ export function Header() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
                     <User className=" h-4 w-4" />
-                    <a href="/dashboard">Account</a>
+                    <a href={dashboardLink}>Account</a>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Settings className=" h-4 w-4" />
@@ -223,6 +224,8 @@ export function Header() {
                     <LogOut className=" h-4 w-4" />
                     <span>Log out</span>
                   </DropdownMenuItem>
+                  </ul>
+
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

@@ -8,6 +8,7 @@ import TransactionHistory2 from "@/components/TransactionHistory2";
 import OrderTracking2 from "@/components/OrderTracking2";
 import UserInfo from "@/components/user-info";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
+import RateApplication from "@/components/RateApplication";
 
 
 //Modifier pour recuperer aussi l'image depuis la bd
@@ -37,11 +38,14 @@ const Page: React.FC = () => {
   if (control_auth_component_roles("dashboard", "component")) {
     return (
       <div className="">
+        <div className="flex  justify-between ">
         <UserInfo
           imageUrl={user.imageUrl}
           name={name}
           username={username}
         />
+        <RateApplication/>
+        </div>
         <IntroText title="Dashboard" description="" />
         <div className="flex flex-col md:flex-row justify-between pt-16 md:pt-0 gap-8 ">
           <div className="w-full">

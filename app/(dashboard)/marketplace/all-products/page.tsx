@@ -18,8 +18,8 @@ export default function Home() {
   return (
     <main className="container">
       <IntroText
-        title="Marketplace"
-        description="Buy farming supplies, sell your produce, and connect directly with buyers"
+        title="My products"
+        description="connect directly with products you liked or bought previously "
       />
       <div className="flex flex-col w-full py-24 sm:py-0 gap-6">
         <div className="flex flex-col gap-4 sm:flex-row justify-between items-center  md:mt-[44px] ">
