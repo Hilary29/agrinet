@@ -3,7 +3,7 @@
 */
 
 
-export const userRole = "user"; //replace by business or rule
+export const userRole = "business"; //replace by business or rule
 
 
 const auth_component_roles: { [key: string]: string } =

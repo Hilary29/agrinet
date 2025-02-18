@@ -10,6 +10,7 @@ import TransactionHistory from "@/components/TransactionHistory";
 import React, { useEffect, useState } from "react";
 import { control_auth_component_roles } from "@/services/auth/auth_component_rules";
 import UserInfo from "@/components/user-info";
+import RateApplication from "@/components/RateApplication";
 
 //Modifier pour recuperer aussi l'image depuis la bd
 const user = {
@@ -37,7 +38,14 @@ const Page = () => {
   if (control_auth_component_roles("business_dashboard", "component")) {
     return (
       <div>
-        <UserInfo imageUrl={user.imageUrl} name={name} username={username} />
+        <div className="flex  justify-between ">
+        <UserInfo
+          imageUrl={user.imageUrl}
+          name={name}
+          username={username}
+        />
+        <RateApplication/>
+        </div>
         <IntroText title="Business Dashboard" description={""} />
         <div>
           <div className="flex flex-col md:flex-row justify-between gap-8  ">
